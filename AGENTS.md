@@ -1,69 +1,139 @@
-# AGENTS.md — Vocabulary Parsing Pipeline Router
+# AGENTS.md — Vocabulary Parsing Pipeline Router & Behavioral Guardrails
 
-## 1. Project Purpose
+## 1. ABSOLUTE RULE — EXECUTE ONLY THE EXPLICITLY REQUESTED STAGES
 
-This repository houses the **Vocabulary Document-Parsing Pipeline**. Its goal is to ingest heterogeneous Vocabulary source documents (word lists, definitions, usage examples, lexical exercises, and accompanying keys/explanations), extract source-faithful RAW records, normalize and validate structured lexical data, and assemble verified datasets for downstream applications.
-
-Historical architectural lessons from the prior TSA/BMAT and Mathematics parsing project are preserved in [`PARSING_KNOWLEDGE_TRANSFER.md`](file:///c:/Users/user/Desktop/vocabulary_parser/PARSING_KNOWLEDGE_TRANSFER.md) and [`DOCUMENTATION_ARCHITECTURE_HANDOVER.md`](file:///c:/Users/user/Desktop/vocabulary_parser/DOCUMENTATION_ARCHITECTURE_HANDOVER.md). Both are immutable historical reference materials; do not rewrite or delete them.
+> [!IMPORTANT]
+> **THIS IS THE SUPREME, HIGHEST-PRIORITY RULE FOR ALL WORK IN THIS REPOSITORY.**
+> 
+> You must **NEVER** execute a pipeline stage unless the user **EXPLICITLY AUTHORIZES THAT SPECIFIC STAGE**.
+> 
+> - If the user requests **Acquisition**, execute Acquisition **ONLY**.
+> - If the user requests **Inspection**, execute Inspection **ONLY**.
+> - If the user requests **RAW Extraction**, execute RAW Extraction **ONLY**.
+> - If the user requests **RAW + Cleaning**, execute **ONLY** RAW and Cleaning.
+> - If the user requests **Validation**, execute Validation **ONLY**.
+> 
+> **DO NOT automatically proceed to the next stage after completing the requested one.**
+> Even if the next stage appears obvious, necessary, easy, or already planned, **YOU ARE FORBIDDEN FROM EXECUTING IT WITHOUT USER AUTHORIZATION**.
+> 
+> This prohibition strictly includes:
+> - Vocabulary enrichment.
+> - Russian translation generation.
+> - English explanation generation.
+> - Difficulty classification.
+> - Final dataset generation.
+> - Downstream artifact regeneration.
+> - Any other processing stage not explicitly authorized.
+> 
+> **Stage completion behavior:**
+> After completing the authorized stage:
+> 1. Save its actual outputs.
+> 2. Validate that stage's results.
+> 3. Document stage-specific issues.
+> 4. Document how to backtest the stage.
+> 5. Update the current-work documentation ([`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md)).
+> 6. **STOP.**
+> 
+> **ONE REQUESTED STAGE MEANS ONE STAGE. NO EXCEPTIONS UNLESS THE USER EXPLICITLY SPECIFIES OTHERWISE.**
 
 ---
 
-## 2. Current Implementation Status
+## 2. Project Purpose & Multi-Source Architecture
 
-> **IMPORTANT:** This repository is at the **Configured Foundation & Tooling** stage. Core PDF-extraction and verification tools (`pdfplumber`, `pdfminer.six`, `pypdfium2`, `pillow`, `pytest`, `ruff`, `rg`) and all 7 project skills in `.agents/skills/` are **installed and verified**. **No extraction, parsing, cleaning, matching, categorization, or rendering code has been executed yet** because source documents have not been ingested.
+This repository houses the **Vocabulary Document-Parsing Pipeline** (`justprepy`). Its goal is to ingest heterogeneous Vocabulary source documents from **multiple independent sources** (e.g., `uclouvain`, future exams, academic word lists, and reference vocabularies), extract source-faithful RAW records, normalize and enrich structured lexical data, and assemble verified datasets and local HTML backtesting views for downstream educational applications.
 
-| Stage / Area | Status | Location | Notes |
+Historical architectural lessons from the prior TSA/BMAT and Mathematics parsing project are preserved in `PARSING_KNOWLEDGE_TRANSFER.md` and `DOCUMENTATION_ARCHITECTURE_HANDOVER.md`. Both are immutable historical reference materials; do not rewrite or delete them.
+
+### Source Independence Principles
+
+The entire project must **NEVER** be hardcoded around one particular PDF layout, website, filename convention, or vocabulary organization:
+
+1. **A. Shared Processing Architecture (`processors/`, `docs/general/`):**
+   Reusable, source-independent logic: deterministic JSON serialization, cryptographic hashing (`processors/provenance.py`), standardized stage artifact generation (`processors/stage_artifacts.py`), generic schema contracts, and common testing infrastructure.
+2. **B. Source-Specific Organization:**
+   Dedicated source directories holding materials, inspection findings, parsers, artifacts, and issues for each source independently:
+   - Documentation: `docs/sources/<source_id>/`
+   - Acquisition: `acquisition/sources/<source_id>/`
+   - Inspection: `inspections/sources/<source_id>/`
+   - RAW Artifacts: `data/raw/sources/<source_id>/`
+   - Cleaning Artifacts: `data/clean/sources/<source_id>/`
+   - Stage QA Reports: `qa/sources/<source_id>/`
+3. **C. Adding Future Sources Without Restructuring:**
+   A new source (e.g. `oxford_3000`) is introduced simply by creating its source directory hierarchy (`acquisition/sources/<source>/`, `inspections/sources/<source>/`, `parsers/<source>/`, `docs/sources/<source>/`), without modifying shared processors or contaminating existing sources like `uclouvain`.
+
+---
+
+## 3. Current Source — `uclouvain`
+
+The source currently in the workspace is **`uclouvain`** (academic selection of `413` vocabulary words: `233 verbs` and `180 adjectives` from Université catholique de Louvain).
+
+- **Documentation:** [`docs/sources/uclouvain/SOURCE_INSPECTION.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/sources/uclouvain/SOURCE_INSPECTION.md), [`docs/sources/uclouvain/PROCESSING_NOTES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/sources/uclouvain/PROCESSING_NOTES.md), [`docs/sources/uclouvain/STAGE_ISSUES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/sources/uclouvain/STAGE_ISSUES.md)
+- **Acquisition Source File:** [`acquisition/sources/uclouvain/uclouvain_vocabulary_list.txt`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/sources/uclouvain/uclouvain_vocabulary_list.txt) (SHA-256: `e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e`) and [`acquisition/sources/uclouvain/manifest.json`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/sources/uclouvain/manifest.json)
+- **Inspection Findings:** [`inspections/sources/uclouvain/profile.json`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/sources/uclouvain/profile.json)
+- **RAW Artifacts:** [`data/raw/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw/sources/uclouvain)
+- **Cleaning Artifacts:** [`data/clean/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/clean/sources/uclouvain)
+- **Stage QA Reports:** [`qa/sources/uclouvain/STAGE_ISSUES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/qa/sources/uclouvain/STAGE_ISSUES.md)
+
+---
+
+## 4. Current Stage Status (Audit Findings)
+
+Agents must clearly distinguish between four different operational states:
+1. **Architecture Prepared:** Structural contract, interfaces, and guards exist; stage is NOT executed.
+2. **Stage Implemented:** Production parser/processor code written.
+3. **Stage Executed:** Stage module run on actual source inputs, emitting outputs.
+4. **Output Validated:** Output verified against invariant checks, schema, and negative controls.
+
+| Stage | Operational State | Location / Artifacts | Notes |
 |---|---|---|---|
-| **Documentation Architecture** | **Initialized** | [`docs/general/`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general) | 7 core docs: Context, Architecture, Schema, Processing, Development, Skills, Current Work. |
-| **Agent Skills Root** | **Installed (7 Skills)** | [`.agents/skills/`](file:///c:/Users/user/Desktop/vocabulary_parser/.agents/skills) | `project-architecture-guardrails`, `processing-raw-preservation`, `testing-validation-expectations`, `data-schema-consistency`, `safe-development-workflow`, `token-efficient-context-routing`, `token-saver-codex`. |
-| **Python & PDF Tooling** | **Installed & Verified** | [`.venv/`](file:///c:/Users/user/Desktop/vocabulary_parser/.venv), [`requirements.txt`](file:///c:/Users/user/Desktop/vocabulary_parser/requirements.txt) | `pdfplumber==0.11.10`, `pdfminer.six==20260107`, `pypdfium2==5.14.0`, `pillow==12.3.0`, `pytest==9.1.1`, `ruff==0.16.10`. |
-| **Acquisition (Source Intake)** | **Structure Ready** | [`acquisition/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition) | Ready to receive source files in `acquisition/local/` and log provenance. No documents ingested yet. |
-| **Source Inspection** | **Structure Ready** | [`inspections/`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections) | Ready for pre-parser document profiling (`SOURCE_PROFILES.md`). |
-| **RAW Extraction Storage** | **Placeholder Only** | [`data/raw/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw) | Directory established with data contract rules; **no RAW parser exists yet**. |
-| **QA & Issue Tracking** | **Structure Ready** | [`qa/`](file:///c:/Users/user/Desktop/vocabulary_parser/qa) | Ready for stage `<STAGE>_BACKTESTING.md` / `<STAGE>_ISSUES.md` pairs and defect tracking. |
-| **Verification Suite** | **Placeholder Only** | [`tests/`](file:///c:/Users/user/Desktop/vocabulary_parser/tests) | Testing standards defined (`pytest` installed); **no executable tests exist yet**. |
-| **Source-Profile Parsers** | **Not Implemented** | *(Deferred: `parsers/`)* | Create per-profile parser modules only after source inspection is documented. |
-| **Cleaning & Normalization** | **Not Implemented** | *(Deferred: `processors/normalization/`, `data/clean/`)* | Wait until RAW extraction and schema are verified. |
-| **Matching / Key Association** | **Not Implemented** | *(Deferred: `processors/matching/`, `data/merged/`)* | Only needed if Vocabulary sources separate prompts/entries from keys/explanations. |
-| **Categorization / Lexical Tagging** | **Not Implemented** | *(Deferred: `categorization/`, `data/categorized/`)* | Wait until Vocabulary taxonomy requirements are defined. |
-| **PRE-FINAL & Rendering** | **Not Implemented** | *(Deferred: `processors/pre_final/`, `data/pre_final/`)* | Wait until upstream contracts are stable. |
+| **1. Acquisition (`uclouvain`)** | **Executed & Validated** | [`acquisition/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/sources/uclouvain), [`data/acquisition/validation.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/acquisition/validation.json) | Source SHA-256 locked (`e1b15633...`). |
+| **2. Inspection (`uclouvain`)** | **Executed & Validated** | [`inspections/sources/uclouvain/profile.json`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/sources/uclouvain/profile.json), [`docs/sources/uclouvain/SOURCE_INSPECTION.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/sources/uclouvain/SOURCE_INSPECTION.md) | Profiled 233 verbs + 180 adjectives = 413 items; edge cases documented. |
+| **3. RAW Extraction (`uclouvain`)** | **Executed & Validated** | [`data/raw/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw/sources/uclouvain), [`data/raw/justprepy_wordlist/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw/justprepy_wordlist) | 413 records with exact character and line slice spans. |
+| **4. Cleaning (`uclouvain`)** | **Executed & Validated** | [`data/clean/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/clean/sources/uclouvain), [`data/clean/justprepy_wordlist/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/clean/justprepy_wordlist) | 100% token-ledger match, `#2 account (for)` separated, `"difficulty": null` set. |
+| **5. Vocabulary Enrichment** | **Previously Executed (Flagged for Re-Enrichment upon authorization)** | [`data/enriched/justprepy_wordlist/entries.enriched.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/enriched/justprepy_wordlist/entries.enriched.json) | Generated in a prior session under the former 2-word constraint. Needs re-enrichment under the corrected rule (maximum 2 translation alternatives) when authorized. |
+| **Future: Difficulty Stage** | **Architecture Prepared Only (NOT IMPLEMENTED)** | [`processors/difficulty/contract.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/difficulty/contract.py) | Contract prepared for `Easy`/`Medium`/`Hard`; `"difficulty": null` enforced across all records. |
+| **6. Validation & PRE-FINAL** | **Previously Executed** | [`data/pre_final/vocabulary.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/pre_final/vocabulary.json) | 408 validated, 5 review_pending, 0 errors under existing checks. |
+| **7. Local HTML Review UI** | **Implemented & Verified** | [`inspections/review/vocabulary_review.html`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/review/vocabulary_review.html) | Local table with stage switcher and filters. |
+| **Test Suite** | **Implemented & Passing** | [`tests/test_vocabulary_pipeline.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tests/test_vocabulary_pipeline.py) | 9 tests covering positive invariants and negative controls. |
 
 ---
 
-## 3. Documentation System (`docs/general/`)
+## 5. Correct Russian Translation Rule
 
-The documentation architecture follows [`DOCUMENTATION_ARCHITECTURE_HANDOVER.md`](file:///c:/Users/user/Desktop/vocabulary_parser/DOCUMENTATION_ARCHITECTURE_HANDOVER.md):
-
-| Document | Purpose | Authority Link |
-|---|---|---|
-| **PROJECT_CONTEXT.md** | Why the project exists, scope, terminology, and durable priorities. | [`docs/general/PROJECT_CONTEXT.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/PROJECT_CONTEXT.md) |
-| **ARCHITECTURE.md** | Component responsibilities, stage boundaries, and data flow. | [`docs/general/ARCHITECTURE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/ARCHITECTURE.md) |
-| **DATA_SCHEMA.md** | Shared contracts, identity rules, and null/issue semantics. | [`docs/general/DATA_SCHEMA.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DATA_SCHEMA.md) |
-| **PROCESSING_RULES.md** | Permitted transformations, preservation rules, and prohibited shortcuts. | [`docs/general/PROCESSING_RULES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/PROCESSING_RULES.md) |
-| **DEVELOPMENT_RULES.md** | Rules for code modifications, validation, and stage artifact generation. | [`docs/general/DEVELOPMENT_RULES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DEVELOPMENT_RULES.md) |
-| **CODEX_SKILLS_USAGE.md** | Installed skills, PDF tools/libraries, and task-to-skill routing. | [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md) |
-| **CURRENT_WORK.md** | Operational handoff state (milestone, completed, in progress, next task). | [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md) |
+> [!CAUTION]
+> The rule is **NOT** "Russian translation must contain no more than two words." That former constraint was incorrect and has been repealed.
+>
+> **CORRECT RULE:**
+> - **Each English vocabulary entry may contain a maximum of TWO Russian translation alternatives.**
+> - **An individual translation alternative may consist of multiple Russian words.**
+> - Example: English word **Take off** -> Valid Russian translations:
+>   1. **взлетать**
+>   2. **снимать одежду**
+>   *(The second alternative contains two Russian words, and that is completely acceptable.)*
+> - Multiword phrases (e.g. `в отличие от` for `unlike`) are completely valid translation alternatives.
+> - Maximum 2 translation alternatives per entry (1 is fine, 2 is maximum, >2 is invalid).
+> - Do not truncate multiword translations; do not split one meaningful translation phrase into separate alternatives; do not invent a second translation merely to fill a slot.
 
 ---
 
-## 4. Operational Routing for Future Agents
+## 6. Documentation System & Ban on Redundant README Files
+
+- **Do NOT create new `README.md` files.**
+- **Do NOT create README files merely to explain a folder.**
+- **Use purpose-specific Markdown files:**
+  - Global docs: [`docs/general/PROJECT_CONTEXT.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/PROJECT_CONTEXT.md), [`docs/general/ARCHITECTURE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/ARCHITECTURE.md), [`docs/general/DATA_SCHEMA.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DATA_SCHEMA.md), [`docs/general/PROCESSING_RULES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/PROCESSING_RULES.md), [`docs/general/DEVELOPMENT_RULES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DEVELOPMENT_RULES.md), [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md), [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md).
+  - Source docs: [`docs/sources/<source_id>/`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/sources) (`SOURCE_INSPECTION.md`, `PROCESSING_NOTES.md`, `STAGE_ISSUES.md`).
+
+---
+
+## 7. Operational Routing for Future Agents
 
 1. **Before Starting Any Task:**
-   - Check [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md) when task continuation matters.
-   - Consult [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md) and load **one** matching skill from [`.agents/skills/`](file:///c:/Users/user/Desktop/vocabulary_parser/.agents/skills).
-2. **Where to place incoming source documents:**
-   Place unmodified original files inside [`acquisition/local/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/local) and record SHA-256 hashes following [`acquisition/README.md`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/README.md).
-3. **Before writing any parser:**
-   Inspect actual source files using `.venv\Scripts\python.exe` (`pdfplumber` / `pdfminer.six` / `pypdfium2`) and document their layout, typography, encoding, and entry boundaries in [`inspections/SOURCE_PROFILES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/SOURCE_PROFILES.md).
-4. **How to preserve source provenance:**
-   Follow [`docs/general/DATA_SCHEMA.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DATA_SCHEMA.md) and [`docs/PROVENANCE_AND_CONTRACTS.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/PROVENANCE_AND_CONTRACTS.md). Every extracted record must retain source file SHA-256, page/line/byte coordinates, and exact original source spans.
-5. **Where to document findings and issues:**
-   - Pre-extraction source characteristics go in [`inspections/SOURCE_PROFILES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/SOURCE_PROFILES.md).
-   - Stage validation summaries and defects go in [`qa/`](file:///c:/Users/user/Desktop/vocabulary_parser/qa) (`<STAGE>_BACKTESTING.md`, `<STAGE>_ISSUES.md`, and [`qa/ISSUE_LOG.md`](file:///c:/Users/user/Desktop/vocabulary_parser/qa/ISSUE_LOG.md)).
-6. **Core Invariants:**
+   - Read [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md) for the active milestone and exact authorization boundaries.
+   - Load only the **single** matching skill from [`.agents/skills/`](file:///c:/Users/user/Desktop/vocabulary_parser/.agents/skills) following [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md).
+2. **Execute ONLY the Explicitly Authorized Stage:**
+   - Run the authorized stage, validate results, write stage issues and backtesting instructions, update `CURRENT_WORK.md`, and **STOP**.
+3. **Core Invariants:**
    - **Fix the earliest responsible stage:** Never patch RAW segmentation errors in CLEAN or hide data defects in downstream views.
    - **One parser per source profile:** Write separate profile parsers emitting a compatible intermediate RAW contract.
-   - **Readable ≠ Faithful:** Verify ownership and adjacent entries.
-   - **Explicit state separation:** Keep policy exclusions, unavailable fields, parser errors, and pending reviews distinct.
-   - **Auditable manual overrides:** Manual corrections live in dedicated provenance-tracked overlay files.
    - **Canonical JSON is authoritative:** Stored JSON in `data/` is the single source of truth.

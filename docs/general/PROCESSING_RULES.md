@@ -1,24 +1,39 @@
 # Processing Rules & Invariants (`PROCESSING_RULES.md`)
 
-## 1. Common Processing Principles
+## 1. Absolute Stage-Execution Rule
 
-This document defines the rules for interpreting, extracting, and normalizing Vocabulary data while preserving source fidelity.
+> [!IMPORTANT]
+> **Agents must NEVER execute a processing stage without explicit user authorization.**
+> 
+> - A request for Stage $X$ authorizes Stage $X$ **ONLY**.
+> - Do not automatically proceed to Stage $X+1$.
+> - After completing the authorized stage: 1) Save outputs, 2) Validate stage results, 3) Document issues, 4) Document backtesting, 5) Update `CURRENT_WORK.md`, 6) **STOP**.
 
-All data transformations must adhere to four cardinal principles from [`PARSING_KNOWLEDGE_TRANSFER.md`](file:///c:/Users/user/Desktop/vocabulary_parser/PARSING_KNOWLEDGE_TRANSFER.md):
+---
+
+## 2. Common Processing Principles
+
+All data transformations must adhere to four cardinal principles from `PARSING_KNOWLEDGE_TRANSFER.md`:
+
 1. **Fix the Earliest Responsible Stage:** Never compensate for broken RAW segmentation in CLEAN, and never mask data defects in downstream views or previews.
 2. **Readable ≠ Faithful:** Fluent or grammatically correct text can still cross entry boundaries or omit source tokens. Verify spatial ownership and adjacent records.
-3. **Preserve Exact Evidence:** Always retain raw text slices and original coordinate frames before deriving normalized projections.
+3. **Preserve Exact Evidence (5 Codex RAW Principles):**
+   - **Exact Source Text & Spans:** Store the full unmodified source text alongside exact slice offsets (`start`, `end`) for every extracted entry, line, and component. It must be possible to reconstruct every extracted entry's raw text directly from unchanged source slices (`validate_raw` invariant).
+   - **Readable Text Interpretation:** Store readable projections *alongside* exact original strings—never overwrite the original text.
+   - **Semantic Component Ownership:** Explicitly record which entry and sub-component owns each text span or visual object.
+   - **Focused Genuine Assets vs. Diagnostic Previews:** Separate genuine content assets (tables, illustrations) from debugging previews.
+   - **Honest Extraction Issues:** Emit structured RAW findings whenever segmentation, encoding, visual ownership, or raster/OCR fidelity is uncertain. Never mask uncertainty via destructive cleanup.
 4. **Token-Ledger Verification:** Normalization must never lose non-whitespace semantic tokens.
 
 ---
 
-## 2. Permitted Operations by Stage
+## 3. Permitted & Prohibited Operations by Stage
 
-### Acquisition Stage (`acquisition/`)
-- **Permitted:** Computing SHA-256 hashes; recording file origin and ingestion date; organizing unmodified sources by source family folder.
+### Acquisition Stage (`acquisition/sources/<source_id>/`)
+- **Permitted:** Computing SHA-256 hashes; recording file origin, line counts, format, and ingestion date; organizing sources by dedicated source directory.
 - **Prohibited:** Renaming source contents, recompressing PDFs, executing automated OCR overwrites, or changing byte contents.
 
-### RAW Extraction Stage (`data/raw/`, `parsers/`)
+### RAW Extraction Stage (`data/raw/sources/<source_id>/`, `parsers/<source_id>/`)
 - **Permitted:**
   - Segmenting source streams into entries based on verified layout, margin, or numbering anchors.
   - Slicing exact character/byte spans into stored page strings.
@@ -28,44 +43,38 @@ All data transformations must adhere to four cardinal principles from [`PARSING_
 - **Prohibited:**
   - Removing newlines destructively.
   - Discarding unrecognized tokens or glyphs.
-  - Joining fragmented assets using generic proximity radii without structural ownership proof.
+  - Deduplicating cross-section homographs (e.g., `present` in verb vs. adjective sections must remain separate records).
 
-### CLEAN / Normalization Stage (`data/clean/`, `processors/normalization/`)
+### CLEAN / Normalization Stage (`data/clean/sources/<source_id>/`, `processors/normalization/`)
 - **Permitted:**
   - Reflowing wrapped lines where typography and sentence grammar establish continuous prose.
-  - Joining capitalized line continuations **only** when verified layout geometry, line pitch, and lack of list markers confirm a wrapped proper noun or title.
-  - Separating distinct lexical components (e.g., separating a headword from an IPA transcription or definition) into ordered block structures.
+  - Separating distinct lexical components (e.g., separating base lemma `account` from parenthetical particle `for`) into ordered block structures while keeping `word` intact.
   - Normalizing whitespace and standardizing quotes/dashes while verifying token ledgers.
+  - Initializing `"difficulty": null`.
 - **Prohibited:**
-  - Overwriting or mutating `data/raw/` records.
-  - Applying naive reflow rules (e.g., `if next starts lowercase: join; if uppercase: paragraph`).
-  - Stripping legitimate multi-sense numbering (`1.`, `2.`, `a.`, `b.`) from definitions.
-  - Inventing missing definitions, parts of speech, or example sentences.
+  - Overwriting or mutating RAW records.
+  - Applying naive reflow rules.
+  - Stripping parenthetical particles or hyphens from `word`.
+  - Silently altering British or American spelling conventions.
+  - Populating non-null `difficulty` values.
+
+### Vocabulary Enrichment Stage (`processors/enrichment/`)
+- **Permitted:**
+  - Assigning accurate grammatical Part of Speech.
+  - Populating Russian translation: **Maximum of TWO translation alternatives per entry**. Each alternative may consist of multiple Russian words.
+  - Populating clear, non-circular English explanations (`>= 15` chars, headword lemma excluded).
+  - Flagging polysemous or morphologically sensitive records as `review_pending`.
+- **Prohibited:**
+  - Restricting translations to an arbitrary word limit (e.g., the obsolete "two-word" cap).
+  - Exceeding two translation alternatives per entry.
+  - Truncating multiword translations (e.g., `в отличие от` or `снимать одежду`).
+  - Using circular explanations that repeat the headword lemma.
+  - Silently guessing senses on ambiguous entries.
 
 ---
 
-## 3. Preservation Requirements & Neighboring Controls
+## 4. Source Independence Invariants
 
-1. **Non-Whitespace Token Ledger:**
-   - Any cleaning pass that normalizes whitespace or reflows lines must verify that the ordered sequence of non-whitespace tokens matches the RAW source tokens (with approved single-character punctuation/casing exceptions tracked in a validation audit).
-2. **Adjacent Entry Verification ($N \pm 1$ Rule):**
-   - Whenever an entry boundary repair is made to Entry $N$, the transformation must verify that content was not stolen from Entry $N-1$ or leaked into Entry $N+1$ (Codex Section 10.1).
-3. **Asset Pixel Integrity:**
-   - When deriving clean crops (e.g., removing an option label or border), only the proven label rectangle may be modified. All surrounding genuine content pixels must remain identical to the RAW asset (Codex Section 10.4).
-
----
-
-## 4. Uncertainty Handling & Review States
-
-- **Ambiguous Boundaries:** If a headword, definition sense, or exercise stem cannot be definitively segmented using layout anchors, the parser must emit a structured issue (e.g., `ambiguous_entry_boundary`) and flag the record as `review_pending`.
-- **Raster / Unverified OCR:** If a document lacks native text, extracted text from raster OCR must not be accepted as authoritative without verified source fidelity checks. Unverified raster records must be tagged `raster_unverified` and blocked from downstream promotion.
-- **Strict Abstention:** When an automated categorizer or classifier lacks sufficient evidence, it must abstain rather than guessing.
-
----
-
-## 5. Prohibited Shortcuts (Lessons from Previous Failures)
-
-- ❌ **Do not** hardcode record IDs in production parser or cleaner logic (e.g., `if entry_id == 'vocab_42': ...`). Hardcoded IDs belong exclusively in regression test fixtures or auditable manual overrides.
-- ❌ **Do not** use global string replacements across files.
-- ❌ **Do not** assume standard English regexes work across phonetic (IPA) or non-Latin script characters.
-- ❌ **Do not** treat fluent generated text or LLM summaries as extracted source data.
+- Shared processors (`processors/provenance.py`, `processors/stage_artifacts.py`) must remain completely source-agnostic.
+- Source-specific logic (e.g., comma-delimited lists, section headers `233 verbs`) must live exclusively within that source's parser and documentation (`parsers/<source>/`, `docs/sources/<source>/`).
+- A bug fix or layout adjustment for one source must never alter or regress processing for another source.

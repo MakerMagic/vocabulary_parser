@@ -1,0 +1,137 @@
+{
+  "description": "RAW extraction of 413 vocabulary items with exact character/line slice spans for uclouvain.",
+  "input_artifact": "acquisition/sources/uclouvain/uclouvain_vocabulary_list.txt",
+  "input_sha256": "e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e",
+  "invariant_checks": [
+    {
+      "details": "All 413 records reconstructed byte-for-byte from source_text[file_char_start:file_char_end].",
+      "name": "exact_source_span_reconstruction",
+      "status": "PASS"
+    },
+    {
+      "details": "All 413 records reconstructed from source_lines[line_number-1][line_char_start:line_char_end].",
+      "name": "exact_line_span_reconstruction",
+      "status": "PASS"
+    },
+    {
+      "details": "Adjacent entries (N-1, N, N+1) verified non-overlapping and strictly increasing in file offsets.",
+      "name": "adjacent_entry_boundary_non_contamination",
+      "status": "PASS"
+    },
+    {
+      "details": "233 verbs + 180 adjectives = 413 unique deterministic IDs.",
+      "name": "deterministic_id_and_count_completeness",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_category": {
+    "Cross-section homograph distinction": 4,
+    "Parenthetical or phrasal modifier syntax": 1
+  },
+  "issues": [
+    {
+      "actual_output": "raw_text='account (for)'",
+      "category": "Parenthetical or phrasal modifier syntax",
+      "corrective_action": "Retain exact raw_text='account (for)' in RAW; separate lemma 'account' and particle '(for)' non-destructively in CLEAN.",
+      "expected_output": "Exact raw token preserved in RAW; structured separation in CLEAN",
+      "field": "raw_text",
+      "issue_code": "raw_parenthetical_phrasal_token",
+      "message": "Preserved parenthetical particle in raw_text='account (for)' at span [18:31].",
+      "number": 2,
+      "record_id": "uclouvain_vocab_002",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m parsers.justprepy_wordlist.parser",
+      "resolution_status": "preserved_in_raw",
+      "responsible_stage": "RAW",
+      "root_cause": "Source specifies optional/required preposition in parentheses for 'account (for)'.",
+      "severity": "review_notice",
+      "word": "account (for)"
+    },
+    {
+      "actual_output": "#167 'present' in 233 verbs",
+      "category": "Cross-section homograph distinction",
+      "corrective_action": "Keep distinct section-scoped record ID uclouvain_vocab_167 (verb); do not deduplicate across sections.",
+      "expected_output": "Separate records for #167 and #347",
+      "field": "raw_text",
+      "issue_code": "raw_cross_section_homograph",
+      "message": "Homograph 'present' extracted in section '233 verbs' (#167); also occurs at #347.",
+      "number": 167,
+      "record_id": "uclouvain_vocab_167",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m parsers.justprepy_wordlist.parser",
+      "resolution_status": "section_scoped",
+      "responsible_stage": "RAW",
+      "root_cause": "Word 'present' legitimately belongs to both '233 verbs' and '180 adjectives'.",
+      "severity": "review_notice",
+      "word": "present"
+    },
+    {
+      "actual_output": "#205 'separate' in 233 verbs",
+      "category": "Cross-section homograph distinction",
+      "corrective_action": "Keep distinct section-scoped record ID uclouvain_vocab_205 (verb); do not deduplicate across sections.",
+      "expected_output": "Separate records for #205 and #373",
+      "field": "raw_text",
+      "issue_code": "raw_cross_section_homograph",
+      "message": "Homograph 'separate' extracted in section '233 verbs' (#205); also occurs at #373.",
+      "number": 205,
+      "record_id": "uclouvain_vocab_205",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m parsers.justprepy_wordlist.parser",
+      "resolution_status": "section_scoped",
+      "responsible_stage": "RAW",
+      "root_cause": "Word 'separate' legitimately belongs to both '233 verbs' and '180 adjectives'.",
+      "severity": "review_notice",
+      "word": "separate"
+    },
+    {
+      "actual_output": "#347 'present' in 180 adjectives",
+      "category": "Cross-section homograph distinction",
+      "corrective_action": "Keep distinct section-scoped record ID uclouvain_vocab_347 (adjective); do not deduplicate across sections.",
+      "expected_output": "Separate records for #347 and #167",
+      "field": "raw_text",
+      "issue_code": "raw_cross_section_homograph",
+      "message": "Homograph 'present' extracted in section '180 adjectives' (#347); also occurs at #167.",
+      "number": 347,
+      "record_id": "uclouvain_vocab_347",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m parsers.justprepy_wordlist.parser",
+      "resolution_status": "section_scoped",
+      "responsible_stage": "RAW",
+      "root_cause": "Word 'present' legitimately belongs to both '233 verbs' and '180 adjectives'.",
+      "severity": "review_notice",
+      "word": "present"
+    },
+    {
+      "actual_output": "#373 'separate' in 180 adjectives",
+      "category": "Cross-section homograph distinction",
+      "corrective_action": "Keep distinct section-scoped record ID uclouvain_vocab_373 (adjective); do not deduplicate across sections.",
+      "expected_output": "Separate records for #373 and #205",
+      "field": "raw_text",
+      "issue_code": "raw_cross_section_homograph",
+      "message": "Homograph 'separate' extracted in section '180 adjectives' (#373); also occurs at #205.",
+      "number": 373,
+      "record_id": "uclouvain_vocab_373",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m parsers.justprepy_wordlist.parser",
+      "resolution_status": "section_scoped",
+      "responsible_stage": "RAW",
+      "root_cause": "Word 'separate' legitimately belongs to both '233 verbs' and '180 adjectives'.",
+      "severity": "review_notice",
+      "word": "separate"
+    }
+  ],
+  "output_artifact": "data/raw/sources/uclouvain/entries.raw.json",
+  "output_sha256": "a6c041bcd5b7118f0cb99f209982b36b28a13037d0395866dc174347cf53f325",
+  "primary_reason_partition": {
+    "clean_single_word_extraction": 408,
+    "cross_section_homograph": 4,
+    "parenthetical_phrasal_token": 1
+  },
+  "source_id": "uclouvain",
+  "stage": "RAW",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 5,
+    "entered_count": 413,
+    "error_count": 0,
+    "excluded_count": 0,
+    "review_pending_count": 5,
+    "succeeded_count": 413
+  },
+  "validation_artifact": "data/raw/sources/uclouvain/validation.json"
+}

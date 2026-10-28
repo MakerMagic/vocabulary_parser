@@ -1,0 +1,144 @@
+{
+  "description": "End-to-end validation and PRE-FINAL assembly of 413 vocabulary records (379 validated, 5 review_pending, 29 excluded A1/A2, 0 errors).",
+  "input_artifact": "data/enriched/sources/uclouvain/entries.enriched.json",
+  "input_sha256": "e582975bc6c8488e20c33e0820c4df4dc1f4b081114c958305a00ed8041dc3e0",
+  "invariant_checks": [
+    {
+      "details": "All 413 records traced through Enriched -> CLEAN -> RAW -> Source SHA-256 and JSON pointers.",
+      "name": "end_to_end_provenance_and_hash_chain",
+      "status": "PASS"
+    },
+    {
+      "details": "All 413 records satisfy Russian translation <= 2 alternatives and Cyrillic script checks.",
+      "name": "russian_translation_max_two_alternatives_and_script",
+      "status": "PASS"
+    },
+    {
+      "details": "All 413 records have clear, non-circular English explanations (>= 15 chars, headword lemma excluded).",
+      "name": "non_circular_english_explanations",
+      "status": "PASS"
+    },
+    {
+      "details": "All 413 records have 'difficulty: null' (Difficulty Classification stage not executed).",
+      "name": "difficulty_architecture_unset_invariant",
+      "status": "PASS"
+    },
+    {
+      "details": "Elementary A1/A2 records (29) cleanly preserved with validation_status='excluded'.",
+      "name": "elementary_a1_a2_exclusion_partition",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {
+    "validation_review_pending_sense_or_morphology": {
+      "count": 5,
+      "severity": "review_pending"
+    }
+  },
+  "issues": [
+    {
+      "actual_output": "verb (phrasal) | объяснять; являться причиной",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface (`inspections/review/vocabulary_review.html`); approve primary sense or supply a manual override if an alternate sense is preferred.",
+      "expected_output": "Approved primary curriculum sense",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Dual primary academic senses: causal/explanatory ('объяснять; являться причиной') and proportional ('составлять часть'); requires parenthetical preposition '(for)'.",
+      "number": 2,
+      "record_id": "uclouvain_vocab_002",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"account (for)\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Dual primary academic senses: causal/explanatory ('объяснять; являться причиной') and proportional ('составлять часть'); requires parenthetical preposition '(for)'.",
+      "severity": "review_pending",
+      "word": "account (for)"
+    },
+    {
+      "actual_output": "verb (modal) | следует",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface (`inspections/review/vocabulary_review.html`); approve primary sense or supply a manual override if an alternate sense is preferred.",
+      "expected_output": "Approved primary curriculum sense",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Defective English modal auxiliary verb; lacks a grammatical infinitive in Russian and is rendered via the modal predicative 'следует' (or 'должен').",
+      "number": 206,
+      "record_id": "uclouvain_vocab_206",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"should\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Defective English modal auxiliary verb; lacks a grammatical infinitive in Russian and is rendered via the modal predicative 'следует' (or 'должен').",
+      "severity": "review_pending",
+      "word": "should"
+    },
+    {
+      "actual_output": "adjective | определённый; уверенный",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface (`inspections/review/vocabulary_review.html`); approve primary sense or supply a manual override if an alternate sense is preferred.",
+      "expected_output": "Approved primary curriculum sense",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Dual core adjectival senses with distinct Russian translations: (1) attributive 'определённый' (specific/particular) and (2) predicative 'уверенный' (confident/sure).",
+      "number": 252,
+      "record_id": "uclouvain_vocab_252",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"certain\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Dual core adjectival senses with distinct Russian translations: (1) attributive 'определённый' (specific/particular) and (2) predicative 'уверенный' (confident/sure).",
+      "severity": "review_pending",
+      "word": "certain"
+    },
+    {
+      "actual_output": "adjective | настоящий; присутствующий",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface (`inspections/review/vocabulary_review.html`); approve primary sense or supply a manual override if an alternate sense is preferred.",
+      "expected_output": "Approved primary curriculum sense",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Cross-section homograph (also #167 verb); dual adjectival senses: temporal ('настоящий') and locational ('присутствующий').",
+      "number": 347,
+      "record_id": "uclouvain_vocab_347",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"present\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Cross-section homograph (also #167 verb); dual adjectival senses: temporal ('настоящий') and locational ('присутствующий').",
+      "severity": "review_pending",
+      "word": "present"
+    },
+    {
+      "actual_output": "adjective | непохожий",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface (`inspections/review/vocabulary_review.html`); approve primary sense or supply a manual override if an alternate sense is preferred.",
+      "expected_output": "Approved primary curriculum sense",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Scoped as predicative adjective ('непохожий') per '180 adjectives' header; distinct from the prepositional role ('в отличие от').",
+      "number": 402,
+      "record_id": "uclouvain_vocab_402",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"unlike\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Scoped as predicative adjective ('непохожий') per '180 adjectives' header; distinct from the prepositional role ('в отличие от').",
+      "severity": "review_pending",
+      "word": "unlike"
+    }
+  ],
+  "output_artifact": "data/pre_final/vocabulary.json",
+  "output_sha256": "02baee4d7f8e511f0e18817fd6b41087345459cc6be1a1aa76b3553c324a97c7",
+  "primary_reason_partition": {
+    "error": 0,
+    "excluded_elementary_a1_a2": 29,
+    "review_pending": 5,
+    "validated": 379
+  },
+  "stage": "VALIDATION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 5,
+    "entered_count": 413,
+    "error_count": 0,
+    "excluded_count": 29,
+    "review_pending_count": 5,
+    "succeeded_count": 379
+  },
+  "validation_artifact": "data/pre_final/validation.json"
+}

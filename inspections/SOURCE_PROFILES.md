@@ -1,43 +1,24 @@
 # Vocabulary Source Profiles Registry (`SOURCE_PROFILES.md`)
 
-> **Status:** No Vocabulary source documents have been ingested or profiled yet.
-> **Rule:** Before writing or modifying any parser for a new Vocabulary document family in [`acquisition/local/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/local), complete a source profile entry below. Do not assume a single universal parser can handle distinct document layouts (Codex Lesson #3).
+> **Status:** Active — 1 source profile documented (`justprepy_vocabulary_list_v1`).
+> **Rule:** Before writing or modifying any parser for a Vocabulary document family in [`acquisition/local/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/local), complete a source profile entry below.
 
 ---
 
-## Pre-Parsing Inspection Checklist
+## Profile 1: `justprepy_wordlist` (`justprepy_vocabulary_list_v1`)
 
-When examining a new Vocabulary source family, verify and record the following:
-
-1. **Identity & Provenance:**
-   - Source family name, file format(s) (PDF, DOCX, HTML, TXT, CSV), file count, and SHA-256 hashes in `acquisition/local/`.
-   - Document role: Is it a self-contained glossary/word list, a reading passage with target vocabulary, a lexical exercise paper, a standalone answer key, or an explanation document?
-2. **Text Layer & Encoding Health:**
-   - Does the document contain a valid native text layer, or is it raster/scanned (requiring OCR gating per Codex Section 9.5)?
-   - Are there missing font maps, `(cid:...)` tokens, broken ligatures, or custom fonts for **IPA/phonetic transcriptions**, diacritics, or part-of-speech markers?
-3. **Stream Order vs. Visual Geometry:**
-   - Does PDF/document stream order match visual reading order? (Watch for displaced margin numbers, multi-column dictionary layouts, sidebars, or floating callouts—Codex Lesson #1 & Section 10.1).
-4. **Entry / Item Boundary Signals:**
-   - What structurally defines the start and end of a vocabulary entry or question? (e.g., bold headword at left margin, numbered item + punctuation, tabular row, indentation change).
-   - Where could a regex-only boundary detector fail? (e.g., numbered definition senses `1. ... 2. ...` inside a single headword vs. item numbers `1. ... 2. ...`; capitalized proper nouns wrapping across lines—Codex Lessons #5 & #6).
-5. **Internal Component Structure:**
-   - Which components appear within an entry (headword, pronunciation/IPA, part of speech, multiple definitions, example sentences, synonyms/antonyms, question stem, options A–D/E, visuals/tables)?
-   - How are they ordered, and which fields are legitimately optional (`null` when absent in source)?
-6. **Non-Content Exclusions:**
-   - Running headers, footers, page numbers, watermarks, cover pages, or non-vocabulary sections that must be excluded without clipping entry content.
-
----
-
-## Recorded Source Profiles
-
-*(Add one section per distinct source profile below as documents arrive in `acquisition/local/`.)*
-
-### Template: `[Source Profile Name / ID]`
-
-- **Files in `acquisition/local/`:** *(None yet)*
-- **Document Role:** *(e.g., Glossary / Exercise Paper / Key)*
-- **Text & Encoding Observations:** *(Native text vs. raster, IPA/font encoding status)*
-- **Layout & Geometry Signals:** *(Single/multi-column, stream-order quirks, header/footer bounds)*
-- **Entry Boundary Rules:** *(Structural anchors separating entries)*
-- **Component Inventory:** *(Headword, POS, definitions, examples, options, visuals)*
-- **Known Edge Cases / Positive & Negative Control Candidates:** *(Specific pages/entries to use as test fixtures)*
+- **Files in `acquisition/local/`:** [`acquisition/local/justprepy_vocabulary_list.txt`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/local/justprepy_vocabulary_list.txt)
+- **SHA-256:** `e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e`
+- **Document Role:** Sectioned English academic vocabulary word list (`233 verbs` + `180 adjectives` = `413` total entries).
+- **Text & Encoding Observations:**
+  - Native UTF-8 plain text (4 lines total, ASCII character set).
+  - Mixed British and American/Oxford spelling conventions present in source (`analyse`, `characterise`, `favour`, `summarise`, `favourable` alongside `emphasize`). Exact supplied spellings must be preserved in `word`.
+- **Layout & Entry Boundary Signals:**
+  - **Section Header Pattern:** `^(\d+)\s+(verbs|adjectives)$` on odd lines (Line 1: `233 verbs`; Line 3: `180 adjectives`).
+  - **Entry Delimiter:** Comma-separated tokens (`, `) on the line immediately following each section header (Line 2 and Line 4).
+  - **Declared vs. Actual Counts:** `233 verbs` = `233` items; `180 adjectives` = `180` items; total = `413` items (`411` unique strings).
+- **Detected Edge Cases & Control Fixtures:**
+  1. **Parenthetical Phrasal Token (`#2 account (for)`):** Contains internal space and parentheses `(for)`. Parser must split only on commas `,`, never on whitespace or parentheses.
+  2. **Cross-Section Homographs (`present` at `#167` & `#346`; `separate` at `#203` & `#372`):** Both words appear once under `233 verbs` and once under `180 adjectives`. Record IDs and enrichment must be scoped by section (`verb` vs. `adjective`) so neither is dropped or merged.
+  3. **Modal Auxiliary Verbs (`#36 can`, `#149 may`, `#204 should`):** Included under `233 verbs`. Enrichment must note their modal status (and that `should` lacks a Russian infinitive).
+  4. **Hyphenated Compound (`#380 so-called`):** Contains internal hyphen `-`; must be preserved intact.

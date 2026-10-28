@@ -1,0 +1,39 @@
+{
+  "description": "Acquisition and SHA-256 provenance registration of supplied justprepy vocabulary list.",
+  "input_artifact": "acquisition/local/justprepy_vocabulary_list.txt",
+  "input_sha256": "e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e",
+  "invariant_checks": [
+    {
+      "details": "Source file present at acquisition/local/justprepy_vocabulary_list.txt (3823 bytes).",
+      "name": "source_file_exists_and_nonempty",
+      "status": "PASS"
+    },
+    {
+      "details": "UTF-8 decoding verified without replacement characters (4 non-empty lines).",
+      "name": "utf8_encoding_integrity",
+      "status": "PASS"
+    },
+    {
+      "details": "SHA-256 lock recorded in acquisition/manifest.json: e1b15633f274f58f...",
+      "name": "sha256_provenance_recorded",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {},
+  "issues": [],
+  "output_artifact": "acquisition/manifest.json",
+  "output_sha256": "0cfb02fa0dacd998611ee47dcfa7f6ee76daf20b619db3c3d246325c71ee612a",
+  "primary_reason_partition": {
+    "registered_clean": 1
+  },
+  "stage": "ACQUISITION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 1,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 1
+  },
+  "validation_artifact": "data/acquisition/validation.json"
+}

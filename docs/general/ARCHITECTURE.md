@@ -1,10 +1,17 @@
 # Vocabulary Pipeline Architecture & Boundaries (`ARCHITECTURE.md`)
 
-## 1. System Purpose
+## 1. System Purpose & Core Architectural Principles
 
 This document defines the structural components, data flow, ownership boundaries, and dependency directions of the **Vocabulary Document-Parsing Pipeline**.
 
-It operationalizes the architectural principles from [`PARSING_KNOWLEDGE_TRANSFER.md`](file:///c:/Users/user/Desktop/vocabulary_parser/PARSING_KNOWLEDGE_TRANSFER.md) for Vocabulary processing while strictly guarding against boundary violations and premature stage coupling.
+### Three Architectural Pillars
+
+1. **Shared Processing Architecture:**
+   Generic, source-independent utilities applicable across all sources: cryptographic provenance hashing, deterministic canonical JSON serialization (`processors/provenance.py`), standardized QA stage artifact pair generation (`processors/stage_artifacts.py`), universal schema contracts, and common testing framework.
+2. **Source-Specific Organization:**
+   Dedicated, isolated directories holding raw documents, profiles, parsers, stage artifacts, and issue reports for each source independently (e.g. `uclouvain`).
+3. **Strict Separation Between Shared & Source-Specific Behavior:**
+   A source-specific problem or format change must not require rewriting the shared pipeline. Likewise, adding a new source must never require duplicating or restructuring the shared engine.
 
 ---
 
@@ -13,108 +20,147 @@ It operationalizes the architectural principles from [`PARSING_KNOWLEDGE_TRANSFE
 Data flows strictly in a forward direction through isolated stages. Downstream stages consume upstream artifacts as read-only inputs and write to their own isolated directories.
 
 ```text
-[Acquisition] ──► acquisition/local/
-       │           (Source files + SHA-256 provenance manifest)
+[1. Acquisition]       ──► acquisition/sources/<source_id>/ + manifest.json + data/acquisition/validation.json
+       │                   (Unmodified source files + SHA-256 provenance manifest)
        ▼
-[Inspection]  ──► inspections/SOURCE_PROFILES.md
-       │           (Pre-parser layout, typography, encoding & boundary analysis)
+[2. Inspection]        ──► inspections/sources/<source_id>/profile.json + docs/sources/<source_id>/SOURCE_INSPECTION.md
+       │                   (Pre-parser layout, section counts, homographs & anomaly profiling)
        ▼
-[RAW Parsers] ──► data/raw/<source_profile>/
-       │           (Exact source spans, readable projections, raw assets & findings)
+[3. RAW Parsers]       ──► data/raw/sources/<source_id>/entries.raw.json
+       │                   (Exact character/line spans, raw tokens & extraction notices)
        ▼
-[CLEAN / Norm]──► data/clean/<source_profile>/
-       │           (Reflowed prose, semantic field separation, token-ledger audits)
+[4. CLEAN / Norm]      ──► data/clean/sources/<source_id>/entries.clean.json
+       │                   (Normalized headwords, parenthetical modifiers, token-ledger audits, difficulty=null)
+       ▼
+[5. Enrichment]        ──► data/enriched/<source_id>/entries.enriched.json
+       │                   (Part of speech, <=2 Russian translation alternatives, non-circular English explanation)
        │
-       ├───► [Matching (Optional)]       ──► data/merged/ (Associated keys & explanations)
-       │
-       └───► [Categorization (Optional)] ──► data/categorized/ (CEFR / lexical tagging)
-       │
+       ├───► [Future: Difficulty Stage] ──► data/difficulty/<source_id>/ (ARCHITECTURALLY PREPARED ONLY — NOT IMPLEMENTED)
+       │                                    (Reserved for Easy / Medium / Hard classification; currently difficulty=null)
        ▼
-[PRE-FINAL]   ──► data/pre_final/
-                   (Admission gate: 0 unresolved issues, verified upstream hash locks)
+[6. Validation / QA]   ──► data/pre_final/vocabulary.json + data/pre_final/validation.json + qa/<STAGE>_*.md
+       │                   (End-to-end provenance & quality gates: <=2 Russian alternatives, non-circular English, difficulty=null)
+       ▼
+[7. HTML Review UI]    ──► inspections/review/vocabulary_review.html
+                           (Self-contained local browser backtesting & QA inspection interface)
 ```
 
 ---
 
-## 3. Component Responsibilities & Ownership Matrix
+## 3. Current Source: `uclouvain` Isolation
 
-| Component | Status | Owns | Must NOT Silently Do |
-|---|---|---|---|
-| **Acquisition** (`acquisition/`) | **Ready** | Ingestion of unmodified source documents into `acquisition/local/`, SHA-256 hashing, origin tracking, source-family identification. | Parse entries, alter source content/files, or infer identity from directory order alone. |
-| **Inspection** (`inspections/`) | **Ready** | Pre-parsing analysis of document structure, fonts, phonetic symbols (IPA), multi-column flow, and entry boundary markers in `SOURCE_PROFILES.md`; targeted diagnostic previews. | Store canonical pipeline data, act as manual override files, or maintain static mass preview catalogs. |
-| **RAW Parsers & Storage** (`data/raw/`, future `parsers/`) | **Directory Ready (Code Deferred)** | Extraction of raw text with exact page/line/byte span coordinates, readable projections (when verified), raw visual/table crops, and structured extraction issues. | Perform destructive normalization, discard raw spans, merge lines across uncertain boundaries, or hide OCR/raster uncertainty. |
-| **CLEAN / Normalization** (future `processors/normalization/`, `data/clean/`) | **Deferred** | Controlled line-wrap reflow, semantic field separation (headword, POS, definition, example), punctuation normalization with token-ledger verification, preserving a snapshot of RAW. | Overwrite `data/raw/`, invent missing fields/definitions, or strip legitimate multi-sense numbering or list formatting. |
-| **Matching** (future `processors/matching/`, `data/merged/`) | **Deferred** | Deterministic association of prompts/entries with independently published keys or explanations using scoped composite keys. | Shift answers across ordinal gaps, reparse documents, or invent answers to fill gaps. |
-| **Categorization** (future `categorization/`, `data/categorized/`) | **Deferred** | Assignment of lexical categories, CEFR levels, or task tags bound to semantic content hashes, with strict abstention when ambiguous. | Use keyword guessing on unverified text, or retain stale tags after content changes. |
-| **PRE-FINAL Assembly** (future `processors/pre_final/`, `data/pre_final/`) | **Deferred** | Admission filtering (rejecting any record with active upstream issues or broken hash bindings) to produce the canonical consumer dataset. | Repair upstream text, bypass hash validation, or conflate policy skips with parser failures. |
+The source currently in the workspace is **`uclouvain`** (`413` words: `233 verbs` and `180 adjectives`). Its materials are strictly isolated in dedicated directories:
+
+| Component | `uclouvain` Location | Responsibility |
+|---|---|---|
+| **Source Acquisition** | [`acquisition/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/sources/uclouvain) | Holds `uclouvain_vocabulary_list.txt` (SHA-256: `e1b15633...`) and `manifest.json`. |
+| **Source Inspection** | [`inspections/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/sources/uclouvain) | Holds `profile.json` (section counts, homographs, modals, parenthetical entry). |
+| **Source Documentation** | [`docs/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/sources/uclouvain) | Holds `SOURCE_INSPECTION.md`, `PROCESSING_NOTES.md`, and `STAGE_ISSUES.md`. |
+| **RAW Artifacts** | [`data/raw/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw/sources/uclouvain) | Holds `entries.raw.json` and `validation.json` (exact character spans). |
+| **Cleaning Artifacts** | [`data/clean/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/clean/sources/uclouvain) | Holds `entries.clean.json` and `validation.json` (token ledgers, `difficulty: null`). |
+| **Stage QA Reports** | [`qa/sources/uclouvain/`](file:///c:/Users/user/Desktop/vocabulary_parser/qa/sources/uclouvain) | Holds source-specific stage issue tracking (`STAGE_ISSUES.md`). |
 
 ---
 
-## 4. Repository Directory Layout
+## 4. How Additional Sources Are Introduced
+
+To add a new independent source (e.g. `oxford_3000` or `cambridge_pet`):
+
+1. Create `acquisition/sources/<new_source>/` and store the untouched source document + `manifest.json`.
+2. Inspect the source document and document its characteristics in `docs/sources/<new_source>/SOURCE_INSPECTION.md` and `inspections/sources/<new_source>/profile.json`.
+3. Implement a dedicated parser in `parsers/<new_source>/parser.py` conforming to the shared RAW data contract.
+4. Output RAW artifacts to `data/raw/sources/<new_source>/` and cleaning artifacts to `data/clean/sources/<new_source>/`.
+5. Document source-specific issues in `docs/sources/<new_source>/STAGE_ISSUES.md` and `qa/sources/<new_source>/`.
+
+**No changes to shared processor logic or to existing sources like `uclouvain` are required.**
+
+---
+
+## 5. Component Responsibilities & Operational Status Matrix
+
+Agents must clearly distinguish between four different operational states:
+1. **Architecture Prepared:** Structural contract, interfaces, and guards exist; stage is NOT executed.
+2. **Stage Implemented:** Production parser/processor code written.
+3. **Stage Executed:** Stage module run on actual source inputs, emitting outputs.
+4. **Output Validated:** Output verified against invariant checks, schema, and negative controls.
+
+| Component | Operational State | Owns | Must NOT Silently Do |
+|---|---|---|---|
+| **1. Acquisition** | **Executed & Validated** | Ingestion of unmodified source files in `acquisition/sources/<source_id>/`, SHA-256 hashing. | Parse entries, alter source files, or infer identity from directory order alone. |
+| **2. Inspection** | **Executed & Validated** | Structural analysis of section counts, cross-section homographs, parenthetical tokens in `inspections/sources/<source_id>/` and `docs/sources/<source_id>/`. | Store canonical records or mutate source files. |
+| **3. RAW Extraction** | **Executed & Validated** | Extraction of raw text with exact file/line character slice coordinates (`source_spans`) and structured extraction notices. | Perform destructive normalization, strip parentheses/hyphens, or deduplicate cross-section homographs. |
+| **4. CLEAN / Normalization** | **Executed & Validated** | Whitespace normalization, non-destructive separation of `headword_lemma` and `parenthetical_modifier`, non-whitespace token-ledger verification, and embedding `raw_record`. | Overwrite RAW records, alter supplied British/American spellings in `word`, or populate `difficulty`. |
+| **5. Vocabulary Enrichment** | **Previously Executed (Flagged for Re-Enrichment upon authorization)** | Deterministic enrichment of `part_of_speech`, `russian_translation` (**maximum 2 translation alternatives**; multiword supported), and non-circular `english_explanation`. | Exceed 2 translation alternatives, use circular definitions, or truncate multiword translations. |
+| **Future: Difficulty Stage** | **Architecture Prepared Only (NOT IMPLEMENTED)** | Architectural slot and schema contract (`"difficulty": null` reserved for `"Easy" \| "Medium" \| "Hard"`). | Classify words, invent heuristics, or populate non-null `difficulty` values until explicitly authorized. |
+| **6. Validation & PRE-FINAL** | **Previously Executed** | End-to-end provenance verification, quality enforcement (max 2 translation alternatives, non-circular explanations, `difficulty is None`), and stage report generation. | Repair upstream text, bypass hash checks, or hide `review_pending` / `error` states. |
+| **7. Local HTML Review UI** | **Implemented & Verified** | Self-contained local HTML table (`inspections/review/vocabulary_review.html`) displaying `# \| Word \| Part of Speech \| Russian Translation \| English Explanation` with stage/status filters. | Act as a canonical data store or diverge from canonical JSON. |
+
+---
+
+## 6. Directory Structure
 
 ```text
 vocabulary_parser/
-├── AGENTS.md                                # Instruction router and active stage navigator
-├── PARSING_KNOWLEDGE_TRANSFER.md          # Immutable handover from TSA/BMAT/Math project
-├── DOCUMENTATION_ARCHITECTURE_HANDOVER.md # Immutable handover for Markdown documentation system
+├── AGENTS.md                                # Supreme router & behavioral guardrails
+├── pyproject.toml                         # Pytest and Ruff configuration
 ├── requirements.txt                       # Pinned PDF extraction & QA dependencies
-├── skills-lock.json                       # Lockfile for installed external agent skills
-├── .gitignore                             # Ignores venvs, caches, and disposable artifacts
+├── skills-lock.json                       # Lockfile for external agent skills
 ├── .venv/                                 # Configured Python 3.13 virtual environment
-├── .agents/
-│   └── skills/                            # Installed project-local AI agent skills (7 skills)
-├── acquisition/                           # Unmodified source documents and provenance manifest
-│   ├── README.md
-│   └── local/                             # Drop zone for original source files
-├── inspections/                           # Pre-parsing profiles and targeted diagnostic views
-│   ├── README.md
-│   └── SOURCE_PROFILES.md                 # Layout, typography, and boundary profiling registry
-├── data/                                  # Canonical pipeline outputs strictly segregated by stage
-│   ├── README.md
-│   └── raw/                               # Immutable RAW extraction artifacts
-│       └── README.md
-├── qa/                                    # Stage backtesting, issue tracking, and defect logs
-│   ├── README.md
-│   └── ISSUE_LOG.md                       # Structured root-cause defect ledger
-├── docs/                                  # Pipeline specifications and guidelines
-│   ├── PROVENANCE_AND_CONTRACTS.md        # Hash locking, span preservation, and manual overrides
-│   └── general/                           # The seven core documentation files
-│       ├── PROJECT_CONTEXT.md             # Project definition, scope, and durable priorities
-│       ├── ARCHITECTURE.md                # System components, boundaries, and data flow (this file)
-│       ├── DATA_SCHEMA.md                 # Shared contracts and representation rules
-│       ├── PROCESSING_RULES.md            # Permitted transformations and stage invariants
-│       ├── DEVELOPMENT_RULES.md           # Engineering rules for validation and artifact governance
-│       ├── CODEX_SKILLS_USAGE.md          # Task-to-skill routing and installed tooling guide
-│       └── CURRENT_WORK.md                # Operational handoff state
-└── tests/                                 # Automated regression and source-fidelity test suite
-    └── README.md
+├── .agents/skills/                        # 7 installed project-local AI agent skills
+├── acquisition/
+│   ├── manifest.json                      # Global provenance manifest
+│   ├── local/                             # Historical local drop zone
+│   └── sources/
+│       └── uclouvain/                     # Source-isolated acquisition for uclouvain
+├── inspections/
+│   ├── SOURCE_PROFILES.md                 # Profile registry
+│   ├── review/vocabulary_review.html      # Local HTML backtesting interface
+│   └── sources/
+│       └── uclouvain/                     # Source-isolated inspection profile for uclouvain
+├── parsers/
+│   └── justprepy_wordlist/parser.py       # RAW parser for uclouvain wordlist profile
+├── processors/
+│   ├── provenance.py                      # Shared deterministic hashing & JSON pointers
+│   ├── stage_artifacts.py                 # Shared <STAGE>_BACKTESTING / <STAGE>_ISSUES generator
+│   ├── acquisition.py                     # Acquisition runner
+│   ├── inspection.py                      # Inspection runner
+│   ├── normalization/cleaner.py           # Normalization runner
+│   ├── enrichment/                        # Lexicon data & enrichment runner
+│   ├── difficulty/contract.py             # Architecturally prepared contract (unimplemented)
+│   ├── validation/validator.py            # Quality validator & PRE-FINAL assembler
+│   ├── review_ui/html_generator.py        # Local HTML review generator
+│   └── pipeline.py                        # Full pipeline runner (used only when authorized)
+├── data/                                  # Canonical JSON outputs strictly segregated
+│   ├── acquisition/validation.json
+│   ├── inspection/profile.json & validation.json
+│   ├── raw/
+│   │   ├── justprepy_wordlist/            # Historical raw artifacts
+│   │   └── sources/uclouvain/             # Source-isolated raw artifacts for uclouvain
+│   ├── clean/
+│   │   ├── justprepy_wordlist/            # Historical clean artifacts
+│   │   └── sources/uclouvain/             # Source-isolated clean artifacts for uclouvain
+│   ├── enriched/justprepy_wordlist/
+│   └── pre_final/vocabulary.json & validation.json
+├── qa/
+│   ├── ISSUE_LOG.md                       # Consolidated defect ledger
+│   ├── <STAGE>_BACKTESTING.md / <STAGE>_ISSUES.md (for executed stages)
+│   └── sources/
+│       └── uclouvain/                     # Source-isolated QA reports for uclouvain
+├── docs/
+│   ├── PROVENANCE_AND_CONTRACTS.md        # Hash locking, span preservation, overlays
+│   ├── general/                           # The 7 core global documentation files
+│   │   ├── PROJECT_CONTEXT.md
+│   │   ├── ARCHITECTURE.md                # This file
+│   │   ├── DATA_SCHEMA.md
+│   │   ├── PROCESSING_RULES.md
+│   │   ├── DEVELOPMENT_RULES.md
+│   │   ├── CODEX_SKILLS_USAGE.md
+│   │   └── CURRENT_WORK.md
+│   └── sources/
+│       └── uclouvain/                     # Source-specific documentation
+│           ├── SOURCE_INSPECTION.md
+│           ├── PROCESSING_NOTES.md
+│           └── STAGE_ISSUES.md
+└── tests/
+    └── test_vocabulary_pipeline.py        # Verification suite with negative controls
 ```
-
----
-
-## 5. Allowed & Forbidden Interactions
-
-### Allowed Interactions
-- `parsers/` reads strictly from `acquisition/local/` (read-only) and writes to `data/raw/`.
-- `processors/normalization/` reads strictly from `data/raw/` (read-only) and writes to `data/clean/`.
-- `tests/` reads canonical data from `data/` or sources from `acquisition/local/` and asserts invariants without mutating pipeline data.
-- `qa/` generators read stage validation summaries from `data/` and write `<STAGE>_BACKTESTING.md` / `<STAGE>_ISSUES.md` pairs to `qa/`.
-
-### Forbidden Interactions
-- **Downstream Overwriting Upstream:** A processor in `CLEAN` or `PRE-FINAL` must never modify or overwrite files in `data/raw/` or `acquisition/local/`.
-- **Downstream Defect Patching:** Never compensate for broken RAW segmentation or dropped characters inside CLEAN, Matching, or downstream views. Fix the earliest responsible stage.
-- **Manual Edits to Canonical JSON:** Never manually edit generated JSON in `data/`. All manual interventions must follow [`docs/PROVENANCE_AND_CONTRACTS.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/PROVENANCE_AND_CONTRACTS.md).
-
----
-
-## 6. Extension Safeguards & Trade-offs
-
-1. **One Parser Per Source Profile vs. Universal Parser:**
-   - *Trade-off:* Increases the number of parser modules.
-   - *Benefit:* Localizes layout quirks (e.g., multi-column dictionaries vs. single-column exercise sheets), preventing a fix for one document from regressing another.
-2. **Dual Preservation (Raw Spans + Readable Projections) vs. Compact Storage:**
-   - *Trade-off:* Increases raw JSON file size and memory footprint.
-   - *Benefit:* Allows auditable verification of boundary coordinates, font decoding, and downstream text integrity.
-3. **Strict Abstention vs. Apparent Coverage:**
-   - *Trade-off:* Lowers immediate automated coverage numbers.
-   - *Benefit:* Eliminates silently corrupted, truncated, or hallucinated lexical records in canonical outputs.

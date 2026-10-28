@@ -1,0 +1,63 @@
+{
+  "anomalies_and_characteristics": {
+    "american_ize_spellings": [
+      "emphasize"
+    ],
+    "british_spellings": [
+      "analyse",
+      "characterise",
+      "favour",
+      "summarise",
+      "favourable"
+    ],
+    "cross_section_homographs": {
+      "present": [
+        167,
+        347
+      ],
+      "separate": [
+        205,
+        373
+      ]
+    },
+    "hyphenated_tokens": [
+      "so-called"
+    ],
+    "modal_auxiliaries": [
+      "can",
+      "may",
+      "should"
+    ],
+    "parenthetical_tokens": [
+      "account (for)"
+    ]
+  },
+  "document_id": "justprepy_vocabulary_list_v1",
+  "sections": [
+    {
+      "actual_count": 233,
+      "count_matches_header": true,
+      "declared_count": 233,
+      "declared_pos": "verb",
+      "header_line_number": 1,
+      "header_text": "233 verbs",
+      "items_line_number": 2,
+      "within_section_duplicates": []
+    },
+    {
+      "actual_count": 180,
+      "count_matches_header": true,
+      "declared_count": 180,
+      "declared_pos": "adjective",
+      "header_line_number": 3,
+      "header_text": "180 adjectives",
+      "items_line_number": 4,
+      "within_section_duplicates": []
+    }
+  ],
+  "source_file": "acquisition/local/justprepy_vocabulary_list.txt",
+  "source_sha256": "e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e",
+  "total_declared_items": 413,
+  "total_extracted_items": 413,
+  "unique_word_strings": 411
+}

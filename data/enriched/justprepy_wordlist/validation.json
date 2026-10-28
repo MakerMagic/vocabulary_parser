@@ -1,0 +1,143 @@
+{
+  "description": "Vocabulary enrichment of 413 records (POS, Russian translation with <=2 alternatives [406 1-alt, 7 2-alt], multiword support, and contextual English explanations; 29 A1/A2 records tracked as excluded).",
+  "input_artifact": "data/clean/sources/uclouvain/entries.clean.json",
+  "input_sha256": "73de5d5ebeeb14fc7a93a338ec448b5b4c0fd62132a1800cc1a4f87b632365d6",
+  "invariant_checks": [
+    {
+      "details": "All 413 records have Cyrillic Russian translations with 1-2 alternatives (406 1-alt, 7 2-alt; 0 >2-alt).",
+      "name": "russian_translation_max_two_alternatives_and_cyrillic",
+      "status": "PASS"
+    },
+    {
+      "details": "All 413 records have non-empty, contextual English explanations.",
+      "name": "english_explanation_completeness_and_clarity",
+      "status": "PASS"
+    },
+    {
+      "details": "All 233 verbs and 180 adjectives enriched according to their section-scoped grammatical category.",
+      "name": "section_scoped_pos_consistency",
+      "status": "PASS"
+    },
+    {
+      "details": "Reserved field 'difficulty' remains explicitly null across all 413 enriched records.",
+      "name": "difficulty_field_unset_guard",
+      "status": "PASS"
+    },
+    {
+      "details": "Elementary A1/A2 excluded records (29) cleanly preserved with enrichment_status='excluded'.",
+      "name": "elementary_a1_a2_exclusion_preservation",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {
+    "enrichment_sense_or_morphology_review": {
+      "count": 5,
+      "severity": "review_pending"
+    }
+  },
+  "issues": [
+    {
+      "actual_output": "verb (phrasal) | объяснять; являться причиной",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection in HTML backtesting interface; confirm whether secondary sense or grammatical note requires a separate curriculum entry.",
+      "expected_output": "Confirmed primary curriculum sense selection",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Dual primary academic senses: causal/explanatory ('объяснять; являться причиной') and proportional ('составлять часть'); requires parenthetical preposition '(for)'.",
+      "number": 2,
+      "record_id": "uclouvain_vocab_002",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"account (for)\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Dual primary academic senses: causal/explanatory ('объяснять; являться причиной') and proportional ('составлять часть'); requires parenthetical preposition '(for)'.",
+      "severity": "review_pending",
+      "word": "account (for)"
+    },
+    {
+      "actual_output": "verb (modal) | следует",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection in HTML backtesting interface; confirm whether secondary sense or grammatical note requires a separate curriculum entry.",
+      "expected_output": "Confirmed primary curriculum sense selection",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Defective English modal auxiliary verb; lacks a grammatical infinitive in Russian and is rendered via the modal predicative 'следует' (or 'должен').",
+      "number": 206,
+      "record_id": "uclouvain_vocab_206",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"should\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Defective English modal auxiliary verb; lacks a grammatical infinitive in Russian and is rendered via the modal predicative 'следует' (or 'должен').",
+      "severity": "review_pending",
+      "word": "should"
+    },
+    {
+      "actual_output": "adjective | определённый; уверенный",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection in HTML backtesting interface; confirm whether secondary sense or grammatical note requires a separate curriculum entry.",
+      "expected_output": "Confirmed primary curriculum sense selection",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Dual core adjectival senses with distinct Russian translations: (1) attributive 'определённый' (specific/particular) and (2) predicative 'уверенный' (confident/sure).",
+      "number": 252,
+      "record_id": "uclouvain_vocab_252",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"certain\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Dual core adjectival senses with distinct Russian translations: (1) attributive 'определённый' (specific/particular) and (2) predicative 'уверенный' (confident/sure).",
+      "severity": "review_pending",
+      "word": "certain"
+    },
+    {
+      "actual_output": "adjective | настоящий; присутствующий",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection in HTML backtesting interface; confirm whether secondary sense or grammatical note requires a separate curriculum entry.",
+      "expected_output": "Confirmed primary curriculum sense selection",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Cross-section homograph (also #167 verb); dual adjectival senses: temporal ('настоящий') and locational ('присутствующий').",
+      "number": 347,
+      "record_id": "uclouvain_vocab_347",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"present\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Cross-section homograph (also #167 verb); dual adjectival senses: temporal ('настоящий') and locational ('присутствующий').",
+      "severity": "review_pending",
+      "word": "present"
+    },
+    {
+      "actual_output": "adjective | непохожий",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection in HTML backtesting interface; confirm whether secondary sense or grammatical note requires a separate curriculum entry.",
+      "expected_output": "Confirmed primary curriculum sense selection",
+      "field": "russian_translation / part_of_speech",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Scoped as predicative adjective ('непохожий') per '180 adjectives' header; distinct from the prepositional role ('в отличие от').",
+      "number": 402,
+      "record_id": "uclouvain_vocab_402",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source uclouvain --word \"unlike\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Scoped as predicative adjective ('непохожий') per '180 adjectives' header; distinct from the prepositional role ('в отличие от').",
+      "severity": "review_pending",
+      "word": "unlike"
+    }
+  ],
+  "output_artifact": "data/enriched/sources/uclouvain/entries.enriched.json",
+  "output_sha256": "e582975bc6c8488e20c33e0820c4df4dc1f4b081114c958305a00ed8041dc3e0",
+  "primary_reason_partition": {
+    "eligible_clean_enriched": 379,
+    "enrichment_sense_or_morphology_review": 5,
+    "excluded_elementary_a1_a2": 29
+  },
+  "stage": "ENRICHMENT",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 5,
+    "entered_count": 413,
+    "error_count": 0,
+    "excluded_count": 29,
+    "review_pending_count": 5,
+    "succeeded_count": 379
+  },
+  "validation_artifact": "data/enriched/sources/uclouvain/validation.json"
+}

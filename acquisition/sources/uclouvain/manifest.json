@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "uclouvain",
+  "sources": [
+    {
+      "document_id": "uclouvain_vocabulary_list_v1",
+      "document_role": "wordlist",
+      "encoding": "utf-8",
+      "file_path": "acquisition/sources/uclouvain/uclouvain_vocabulary_list.txt",
+      "format": "txt_sectioned_comma_list",
+      "line_count": 4,
+      "origin": "Université catholique de Louvain (CECL / Louvain EAP academic vocabulary selection)",
+      "sha256": "e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e",
+      "size_bytes": 3525,
+      "source_family": "uclouvain"
+    }
+  ]
+}

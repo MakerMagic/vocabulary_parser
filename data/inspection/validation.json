@@ -1,0 +1,183 @@
+{
+  "description": "Pre-parser structural and lexical inspection of the 413-item justprepy vocabulary list.",
+  "input_artifact": "acquisition/local/justprepy_vocabulary_list.txt",
+  "input_sha256": "e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e",
+  "invariant_checks": [
+    {
+      "details": "Section 1 header declares 233 verbs and line 2 contains exactly 233 comma-separated items.",
+      "name": "section_1_verbs_count_matches",
+      "status": "PASS"
+    },
+    {
+      "details": "Section 2 header declares 180 adjectives and line 4 contains exactly 180 comma-separated items.",
+      "name": "section_2_adjectives_count_matches",
+      "status": "PASS"
+    },
+    {
+      "details": "0 duplicate entries within '233 verbs' and 0 duplicate entries within '180 adjectives'.",
+      "name": "zero_within_section_duplicates",
+      "status": "PASS"
+    },
+    {
+      "details": "Detected 2 cross-section homograph pairs (present, separate) requiring section-scoped identity.",
+      "name": "cross_section_homographs_identified",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {
+    "cross_section_homograph": {
+      "count": 4,
+      "severity": "review_notice"
+    },
+    "hyphenated_compound_token": {
+      "count": 1,
+      "severity": "info_notice"
+    },
+    "modal_auxiliary_in_verbs": {
+      "count": 3,
+      "severity": "info_notice"
+    },
+    "parenthetical_phrasal_token": {
+      "count": 1,
+      "severity": "review_notice"
+    }
+  },
+  "issues": [
+    {
+      "corrective_action": "Preserve exact string 'account (for)' in RAW and CLEAN 'word' field; record base headword 'account' and particle '(for)' in normalization metadata; enrich as phrasal/prepositional verb.",
+      "field": "word",
+      "issue_code": "parenthetical_phrasal_token",
+      "message": "Token 'account (for)' contains parenthetical preposition '(for)', unlike single-word lemmas.",
+      "number": 2,
+      "record_id": "justprepy_vocab_002",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "RAW / CLEAN / ENRICHMENT",
+      "root_cause": "Source list includes required preposition in parentheses to specify the phrasal verb sense.",
+      "severity": "review_notice",
+      "word": "account (for)"
+    },
+    {
+      "corrective_action": "Scope record identity and enrichment strictly by section header (verb); do not collapse with record #347.",
+      "field": "word",
+      "issue_code": "cross_section_homograph",
+      "message": "Word 'present' appears in multiple sections: #167 (verb) and #347 (adjective).",
+      "number": 167,
+      "record_id": "justprepy_vocab_167",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "RAW / ENRICHMENT",
+      "root_cause": "English homograph 'present' is a core academic verb as well as another part of speech.",
+      "severity": "review_notice",
+      "word": "present"
+    },
+    {
+      "corrective_action": "Scope record identity and enrichment strictly by section header (adjective); do not collapse with record #167.",
+      "field": "word",
+      "issue_code": "cross_section_homograph",
+      "message": "Word 'present' appears in multiple sections: #167 (verb) and #347 (adjective).",
+      "number": 347,
+      "record_id": "justprepy_vocab_347",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "RAW / ENRICHMENT",
+      "root_cause": "English homograph 'present' is a core academic adjective as well as another part of speech.",
+      "severity": "review_notice",
+      "word": "present"
+    },
+    {
+      "corrective_action": "Scope record identity and enrichment strictly by section header (verb); do not collapse with record #373.",
+      "field": "word",
+      "issue_code": "cross_section_homograph",
+      "message": "Word 'separate' appears in multiple sections: #205 (verb) and #373 (adjective).",
+      "number": 205,
+      "record_id": "justprepy_vocab_205",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "RAW / ENRICHMENT",
+      "root_cause": "English homograph 'separate' is a core academic verb as well as another part of speech.",
+      "severity": "review_notice",
+      "word": "separate"
+    },
+    {
+      "corrective_action": "Scope record identity and enrichment strictly by section header (adjective); do not collapse with record #205.",
+      "field": "word",
+      "issue_code": "cross_section_homograph",
+      "message": "Word 'separate' appears in multiple sections: #205 (verb) and #373 (adjective).",
+      "number": 373,
+      "record_id": "justprepy_vocab_373",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "RAW / ENRICHMENT",
+      "root_cause": "English homograph 'separate' is a core academic adjective as well as another part of speech.",
+      "severity": "review_notice",
+      "word": "separate"
+    },
+    {
+      "corrective_action": "Preserve under 'verb' section scope; record grammatical subcategory 'verb (modal)' and note defective morphology (especially 'should', which has no Russian infinitive).",
+      "field": "part_of_speech",
+      "issue_code": "modal_auxiliary_in_verbs",
+      "message": "Token 'can' is a modal auxiliary verb included in the '233 verbs' section.",
+      "number": 36,
+      "record_id": "justprepy_vocab_036",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Source groups modal auxiliaries together with lexical verbs under '233 verbs'.",
+      "severity": "info_notice",
+      "word": "can"
+    },
+    {
+      "corrective_action": "Preserve under 'verb' section scope; record grammatical subcategory 'verb (modal)' and note defective morphology (especially 'should', which has no Russian infinitive).",
+      "field": "part_of_speech",
+      "issue_code": "modal_auxiliary_in_verbs",
+      "message": "Token 'may' is a modal auxiliary verb included in the '233 verbs' section.",
+      "number": 150,
+      "record_id": "justprepy_vocab_150",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Source groups modal auxiliaries together with lexical verbs under '233 verbs'.",
+      "severity": "info_notice",
+      "word": "may"
+    },
+    {
+      "corrective_action": "Preserve under 'verb' section scope; record grammatical subcategory 'verb (modal)' and note defective morphology (especially 'should', which has no Russian infinitive).",
+      "field": "part_of_speech",
+      "issue_code": "modal_auxiliary_in_verbs",
+      "message": "Token 'should' is a modal auxiliary verb included in the '233 verbs' section.",
+      "number": 206,
+      "record_id": "justprepy_vocab_206",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Source groups modal auxiliaries together with lexical verbs under '233 verbs'.",
+      "severity": "info_notice",
+      "word": "should"
+    },
+    {
+      "corrective_action": "Preserve internal hyphen in RAW and CLEAN; do not split on hyphen.",
+      "field": "word",
+      "issue_code": "hyphenated_compound_token",
+      "message": "Token 'so-called' is a hyphenated compound adjective.",
+      "number": 380,
+      "record_id": "justprepy_vocab_380",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe -m processors.inspection",
+      "responsible_stage": "RAW / CLEAN",
+      "root_cause": "Compound adjective 'so-called' requires a hyphen in standard English orthography.",
+      "severity": "info_notice",
+      "word": "so-called"
+    }
+  ],
+  "output_artifact": "data/inspection/profile.json",
+  "output_sha256": "4bdab7cf386c3640b7e2f54dcd32c28b9733333a46124025feb772a51ae30f17",
+  "primary_reason_partition": {
+    "cross_section_homograph": 4,
+    "hyphenated_compound_token": 1,
+    "modal_auxiliary_in_verbs": 3,
+    "parenthetical_phrasal_token": 1,
+    "standard_single_word_item": 404
+  },
+  "stage": "INSPECTION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 9,
+    "entered_count": 413,
+    "error_count": 0,
+    "review_pending_count": 5,
+    "succeeded_count": 413
+  },
+  "validation_artifact": "data/inspection/validation.json"
+}
