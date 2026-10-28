@@ -1,0 +1,18 @@
+# Python environments & caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Disposable temporary outputs
+tmp/
+*.tmp
