@@ -7,7 +7,10 @@ import re
 from pathlib import Path
 from typing import Any
 
-from processors.difficulty.contract import assert_difficulty_unset
+from processors.difficulty.contract import (
+    ALLOWED_DIFFICULTY_LABELS,
+    assert_difficulty_valid,
+)
 from processors.provenance import (
     REPO_ROOT,
     compute_content_hash,
@@ -30,6 +33,11 @@ PRIMARY_ENRICHED_REL_PATH = "data/enriched/sources/uclouvain/entries.enriched.js
 FALLBACK_ENRICHED_REL_PATH = "data/enriched/justprepy_wordlist/entries.enriched.json"
 PRIMARY_ENRICHED_VAL_REL_PATH = "data/enriched/sources/uclouvain/validation.json"
 FALLBACK_ENRICHED_VAL_REL_PATH = "data/enriched/justprepy_wordlist/validation.json"
+
+PRIMARY_DIFFICULTY_REL_PATH = "data/difficulty/sources/uclouvain/entries.difficulty.json"
+FALLBACK_DIFFICULTY_REL_PATH = "data/difficulty/justprepy_wordlist/entries.difficulty.json"
+PRIMARY_DIFFICULTY_VAL_REL_PATH = "data/difficulty/sources/uclouvain/validation.json"
+FALLBACK_DIFFICULTY_VAL_REL_PATH = "data/difficulty/justprepy_wordlist/validation.json"
 
 PRE_FINAL_OUTPUT_REL_PATH = "data/pre_final/vocabulary.json"
 PRE_FINAL_SOURCE_OUTPUT_REL_PATH = "data/pre_final/sources/uclouvain/vocabulary.json"
@@ -138,10 +146,10 @@ def validate_record_quality(rec: dict[str, Any]) -> list[dict[str, str]]:
             })
 
     try:
-        assert_difficulty_unset(rec)
+        assert_difficulty_valid(rec)
     except (KeyError, ValueError) as exc:
         errors.append({
-            "code": "difficulty_prematurely_populated_or_missing",
+            "code": "invalid_difficulty_classification",
             "field": "difficulty",
             "message": str(exc),
         })
@@ -182,10 +190,26 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     if enriched_sha != enriched_val_doc["output_sha256"]:
         raise ValueError("Enriched file SHA-256 drift detected against ENRICHMENT validation.json.")
 
+    diff_path = repo_root / PRIMARY_DIFFICULTY_REL_PATH
+    diff_val_path = repo_root / PRIMARY_DIFFICULTY_VAL_REL_PATH
+    if not diff_path.exists():
+        diff_path = repo_root / FALLBACK_DIFFICULTY_REL_PATH
+        diff_val_path = repo_root / FALLBACK_DIFFICULTY_VAL_REL_PATH
+
+    if not diff_path.exists():
+        from processors.difficulty.classifier import run_difficulty_classification
+        run_difficulty_classification(repo_root=repo_root, source_id="uclouvain")
+
+    diff_sha = sha256_file(diff_path)
+    diff_val_doc = json.loads(diff_val_path.read_text(encoding="utf-8"))
+    if diff_sha != diff_val_doc["output_sha256"]:
+        raise ValueError("Difficulty file SHA-256 drift detected against DIFFICULTY validation.json.")
+
     source_text = source_path.read_text(encoding="utf-8")
     raw_doc = json.loads(raw_path.read_text(encoding="utf-8"))
     clean_doc = json.loads(clean_path.read_text(encoding="utf-8"))
     enriched_doc = json.loads(enriched_path.read_text(encoding="utf-8"))
+    diff_doc = json.loads(diff_path.read_text(encoding="utf-8"))
 
     if raw_doc["source_sha256"] != source_sha:
         raise ValueError("RAW source_sha256 does not match acquisition source file.")
@@ -193,6 +217,8 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         raise ValueError("CLEAN upstream_file_sha256 does not match RAW file.")
     if enriched_doc["upstream_clean_file_sha256"] != clean_sha:
         raise ValueError("ENRICHED upstream_clean_file_sha256 does not match CLEAN file.")
+    if diff_doc["input_sha256"] != enriched_sha:
+        raise ValueError("DIFFICULTY input_sha256 does not match ENRICHED file.")
 
     # Identify cross-section homographs for cross-reference metadata
     word_occurrences: dict[str, list[int]] = {}
@@ -205,6 +231,7 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     for idx in range(len(enriched_doc["records"])):
         pointer = f"/records/{idx}"
         enr_rec = resolve_json_pointer(enriched_doc, pointer)
+        diff_rec = resolve_json_pointer(diff_doc, pointer)
         clean_rec = resolve_json_pointer(clean_doc, enr_rec["upstream_clean_json_pointer"])
         raw_rec = resolve_json_pointer(raw_doc, clean_rec["upstream_json_pointer"])
 
@@ -215,7 +242,7 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             raise ValueError(f"Provenance chain span slice broken on {enr_rec['id']}: {sliced!r} != {raw_rec['raw_text']!r}")
 
         is_excluded = enr_rec.get("status") == "excluded"
-        quality_errors = validate_record_quality(enr_rec)
+        quality_errors = validate_record_quality(diff_rec)
         review_note = enr_rec["enrichment_provenance"].get("review_note")
         homograph_peers = [n for n in word_occurrences[enr_rec["word"]] if n != enr_rec["number"]]
 
@@ -267,13 +294,14 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             val_status = "validated"
 
         pf_rec = {
-            "cefr_level": enr_rec.get("cefr_level"),
+            "cefr_level": diff_rec.get("cefr_level"),
             "cleaning_status": enr_rec.get("cleaning_status", "clean"),
             "cross_section_homograph_numbers": homograph_peers,
             "declared_section_pos": enr_rec["declared_section_pos"],
-            "difficulty": None,
+            "difficulty": diff_rec.get("difficulty"),
             "english_explanation": enr_rec["english_explanation"],
             "exclusion_reason": enr_rec.get("exclusion_reason"),
+            "final_output_eligible": (val_status == "validated"),
             "headword_lemma": enr_rec["headword_lemma"],
             "id": enr_rec["id"],
             "is_cross_section_homograph": len(homograph_peers) > 0,
@@ -284,10 +312,14 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "number": enr_rec["number"],
             "parenthetical_modifier": enr_rec["parenthetical_modifier"],
             "part_of_speech": enr_rec["part_of_speech"],
+            "preset": diff_rec.get("preset", "Basics"),
             "provenance": {
                 "clean_file": str(clean_path.relative_to(repo_root)).replace("\\", "/"),
                 "clean_file_sha256": clean_sha,
                 "clean_json_pointer": enr_rec["upstream_clean_json_pointer"],
+                "difficulty_file": str(diff_path.relative_to(repo_root)).replace("\\", "/"),
+                "difficulty_file_sha256": diff_sha,
+                "difficulty_json_pointer": pointer,
                 "enriched_file": str(enriched_path.relative_to(repo_root)).replace("\\", "/"),
                 "enriched_file_sha256": enriched_sha,
                 "enriched_json_pointer": pointer,
@@ -308,6 +340,7 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "section_index": enr_rec["section_index"],
             "spelling_convention": enr_rec["spelling_convention"],
             "status": enr_rec.get("status", "clean"),
+            "type": enr_rec.get("type"),
             "validation_errors": quality_errors,
             "validation_status": val_status,
             "word": enr_rec["word"],
@@ -321,7 +354,7 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     error_count = sum(1 for r in pre_final_records if r["validation_status"] == "error")
 
     pre_final_doc = {
-        "difficulty_stage_status": "architecturally_prepared_not_implemented",
+        "difficulty_stage_status": "implemented_and_executed",
         "document_id": enriched_doc["document_id"],
         "record_count": len(pre_final_records),
         "records": pre_final_records,
@@ -331,10 +364,14 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "source_sha256": source_sha,
         "summary": {
             "adjectives_count": sum(1 for r in pre_final_records if r["declared_section_pos"] == "adjective"),
+            "blocked_from_final_output_count": excluded_count + review_count + error_count,
             "cross_section_homograph_records": sum(1 for r in pre_final_records if r["is_cross_section_homograph"]),
+            "difficulty_counts": diff_doc["summary"]["difficulty_counts"],
+            "eligible_for_final_output_count": validated_count,
             "eligible_records": validated_count + review_count,
             "error_count": error_count,
             "excluded_count": excluded_count,
+            "preset_assigned_count": sum(1 for r in pre_final_records if r.get("preset") is not None),
             "review_pending_count": review_count,
             "total_records": len(pre_final_records),
             "validated_count": validated_count,
@@ -384,9 +421,19 @@ def run_validation(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "status": "PASS" if error_count == 0 else "FAIL",
             },
             {
-                "details": f"All {len(pre_final_records)} records have 'difficulty: null' (Difficulty Classification stage not executed).",
-                "name": "difficulty_architecture_unset_invariant",
-                "status": "PASS" if all(r["difficulty"] is None for r in pre_final_records) else "FAIL",
+                "details": f"All {len(pre_final_records)} records have valid CEFR-based difficulty tier in ('Easy', 'Medium', 'Hard').",
+                "name": "difficulty_classification_valid_tiers",
+                "status": "PASS" if all(r["difficulty"] in ALLOWED_DIFFICULTY_LABELS for r in pre_final_records) else "FAIL",
+            },
+            {
+                "details": f"All {len(pre_final_records)} records have preset='Basics' assigned.",
+                "name": "preset_basics_assigned",
+                "status": "PASS" if all(r.get("preset") == "Basics" for r in pre_final_records) else "FAIL",
+            },
+            {
+                "details": f"Final output eligibility correctly enforced ({validated_count} eligible, {excluded_count + review_count + error_count} blocked/excluded).",
+                "name": "final_output_eligibility_enforced",
+                "status": "PASS",
             },
             {
                 "details": f"Elementary A1/A2 records ({excluded_count}) cleanly preserved with validation_status='excluded'.",

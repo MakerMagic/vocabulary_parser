@@ -1,0 +1,692 @@
+1. Effect: Impact, Influence
+- Impact
+  - Part of Speech: Noun
+  - Russian Translation: воздействие, влияние
+  - English Explanation: A strong effect that something has on a situation.
+- Influence
+  - Part of Speech: Noun
+  - Russian Translation: влияние
+  - English Explanation: The power or effect of changing how something happens.
+2. Usage: Exploitation, Utilization, Deployment
+- Exploitation
+  - Part of Speech: Noun
+  - Russian Translation: использование, применение
+  - English Explanation: The act of making use of something, often for a benefit.
+- Utilization
+  - Part of Speech: Noun
+  - Russian Translation: использование, применение
+  - English Explanation: The act of using something for a particular purpose.
+- Deployment
+  - Part of Speech: Noun
+  - Russian Translation: внедрение, применение
+  - English Explanation: The act of putting something into use.
+3. Problem: Issue, Predicament, Obstacle, Challenge
+- Issue
+  - Part of Speech: Noun
+  - Russian Translation: проблема, вопрос
+  - English Explanation: A matter that needs attention or a solution.
+- Predicament
+  - Part of Speech: Noun
+  - Russian Translation: затруднительное положение
+  - English Explanation: A difficult or unpleasant situation.
+- Obstacle
+  - Part of Speech: Noun
+  - Russian Translation: препятствие
+  - English Explanation: Something that makes progress difficult.
+- Challenge
+  - Part of Speech: Noun
+  - Russian Translation: сложная задача, трудность
+  - English Explanation: Something difficult that requires effort to overcome.
+4. Idea: Notion
+- Notion
+  - Part of Speech: Noun
+  - Russian Translation: идея, представление
+  - English Explanation: An idea or belief about something.
+5. Growth: Progress, Development, Advancement
+- Progress
+  - Part of Speech: Noun
+  - Russian Translation: прогресс, продвижение
+  - English Explanation: Movement toward improvement or a goal.
+- Development
+  - Part of Speech: Noun
+  - Russian Translation: развитие
+  - English Explanation: The process of growing or becoming more advanced.
+- Advancement
+  - Part of Speech: Noun
+  - Russian Translation: продвижение, развитие
+  - English Explanation: Progress toward a better or more developed state.
+6. Place: Territory, District, Locale
+- Territory
+  - Part of Speech: Noun
+  - Russian Translation: территория
+  - English Explanation: An area of land belonging to or controlled by someone.
+- District
+  - Part of Speech: Noun
+  - Russian Translation: район, округ
+  - English Explanation: A particular area within a city or region.
+- Locale
+  - Part of Speech: Noun
+  - Russian Translation: местность, место
+  - English Explanation: A particular place or area.
+7. Change: Alter, Modify, Transform
+- Alter
+  - Part of Speech: Verb
+  - Russian Translation: изменять
+  - English Explanation: To make something different.
+- Modify
+  - Part of Speech: Verb
+  - Russian Translation: изменять, корректировать
+  - English Explanation: To make small or specific changes to something.
+- Transform
+  - Part of Speech: Verb
+  - Russian Translation: преобразовывать
+  - English Explanation: To change something greatly in form or nature.
+8. Cause: Engender, Induce, Lead to, Give rise to
+- Engender
+  - Part of Speech: Verb
+  - Russian Translation: порождать, вызывать
+  - English Explanation: To cause a feeling, situation, or result to develop.
+- Induce
+  - Part of Speech: Verb
+  - Russian Translation: вызывать, провоцировать
+  - English Explanation: To cause something to happen.
+- Lead to
+  - Part of Speech: Phrasal verb
+  - Russian Translation: приводить к
+  - English Explanation: To cause a particular result.
+- Give rise to
+  - Part of Speech: Verb phrase
+  - Russian Translation: порождать, вызывать
+  - English Explanation: To cause something to begin or exist.
+9. Serve: Function, Perform
+- Function
+  - Part of Speech: Verb
+  - Russian Translation: служить, выполнять функцию
+  - English Explanation: To work or serve in a particular role.
+- Perform
+  - Part of Speech: Verb
+  - Russian Translation: выполнять, исполнять
+  - English Explanation: To carry out a task or duty.
+10. Need: Require, Necessitates
+- Require
+  - Part of Speech: Verb
+  - Russian Translation: требовать, нуждаться в
+  - English Explanation: To need something for a purpose.
+- Necessitates
+  - Part of Speech: Verb (third-person singular)
+  - Russian Translation: делает необходимым, требует
+  - English Explanation: Makes something necessary.
+11. Help: Assist, Support
+- Assist
+  - Part of Speech: Verb
+  - Russian Translation: помогать, содействовать
+  - English Explanation: To help someone do something.
+- Support
+  - Part of Speech: Verb
+  - Russian Translation: поддерживать, помогать
+  - English Explanation: To give help or assistance.
+12. Show: Demonstrate, Illustrate
+- Demonstrate
+  - Part of Speech: Verb
+  - Russian Translation: показывать, демонстрировать
+  - English Explanation: To show something clearly using evidence or examples.
+- Illustrate
+  - Part of Speech: Verb
+  - Russian Translation: иллюстрировать, пояснять
+  - English Explanation: To make something clear through examples or images.
+13. Fix: Rectify, Correct, Mend, Repair, Troubleshoot
+- Rectify
+  - Part of Speech: Verb
+  - Russian Translation: исправлять, устранять
+  - English Explanation: To correct a mistake or problem.
+- Correct
+  - Part of Speech: Verb
+  - Russian Translation: исправлять
+  - English Explanation: To make something right by removing errors.
+- Mend
+  - Part of Speech: Verb
+  - Russian Translation: чинить, исправлять
+  - English Explanation: To repair something damaged or broken.
+- Repair
+  - Part of Speech: Verb
+  - Russian Translation: ремонтировать, восстанавливать
+  - English Explanation: To restore something that is damaged to good condition.
+- Troubleshoot
+  - Part of Speech: Verb
+  - Russian Translation: выявлять и устранять неполадки
+  - English Explanation: To find and solve the cause of a technical problem.
+14. Can: Be capable of
+- Be capable of
+  - Part of Speech: Adjective phrase
+  - Russian Translation: быть способным на, мочь
+  - English Explanation: To have the ability to do something.
+15. Replace: Substitute, Supersede
+- Substitute
+  - Part of Speech: Verb
+  - Russian Translation: заменять, использовать вместо
+  - English Explanation: To use one thing instead of another.
+- Supersede
+  - Part of Speech: Verb
+  - Russian Translation: вытеснять, заменять собой
+  - English Explanation: To take the place of something older or less useful.
+16. Use: Exploit, Utilize, Employ
+- Exploit
+  - Part of Speech: Verb
+  - Russian Translation: использовать, извлекать пользу из
+  - English Explanation: To make full use of something for a purpose.
+- Utilize
+  - Part of Speech: Verb
+  - Russian Translation: использовать, применять
+  - English Explanation: To use something for a practical purpose.
+- Employ
+  - Part of Speech: Verb
+  - Russian Translation: использовать, применять
+  - English Explanation: To use a method, tool, or resource.
+17. Some: Certain, Several, A proportion of
+- Certain
+  - Part of Speech: Determiner
+  - Russian Translation: некоторые, определённые
+  - English Explanation: Used to refer to particular people or things.
+- Several
+  - Part of Speech: Determiner
+  - Russian Translation: несколько
+  - English Explanation: More than two but not very many.
+- A proportion of
+  - Part of Speech: Quantifier phrase
+  - Russian Translation: часть, определённая доля
+  - English Explanation: A part or share of a larger whole.
+18. Often: Frequently, Commonly, In many cases
+- Frequently
+  - Part of Speech: Adverb
+  - Russian Translation: часто
+  - English Explanation: Happening many times or regularly.
+- Commonly
+  - Part of Speech: Adverb
+  - Russian Translation: обычно, часто
+  - English Explanation: Happening or being found often.
+- In many cases
+  - Part of Speech: Adverbial phrase
+  - Russian Translation: во многих случаях
+  - English Explanation: In a large number of situations.
+19. Almost: Nearly, Virtually, Practically
+- Nearly
+  - Part of Speech: Adverb
+  - Russian Translation: почти
+  - English Explanation: Very close to being or happening completely.
+- Virtually
+  - Part of Speech: Adverb
+  - Russian Translation: практически, почти
+  - English Explanation: Almost completely or almost entirely.
+- Practically
+  - Part of Speech: Adverb
+  - Russian Translation: практически, почти
+  - English Explanation: Almost or very nearly.
+20. Just: Merely, Solely, Purely
+- Merely
+  - Part of Speech: Adverb
+  - Russian Translation: всего лишь, только
+  - English Explanation: Only, and no more than that.
+- Solely
+  - Part of Speech: Adverb
+  - Russian Translation: исключительно, только
+  - English Explanation: Only; not involving anything else.
+- Purely
+  - Part of Speech: Adverb
+  - Russian Translation: исключительно, только
+  - English Explanation: Entirely and for no other reason or purpose.
+21. Correct: Accurate, Valid
+- Accurate
+  - Part of Speech: Adjective
+  - Russian Translation: точный, правильный
+  - English Explanation: Correct and free from errors.
+- Valid
+  - Part of Speech: Adjective
+  - Russian Translation: обоснованный, действительный
+  - English Explanation: Based on good reasoning or accepted as correct.
+22. Incorrect: Erroneous, Invalid, Inaccurate
+- Erroneous
+  - Part of Speech: Adjective
+  - Russian Translation: ошибочный, неверный
+  - English Explanation: Containing a mistake or based on wrong information.
+- Invalid
+  - Part of Speech: Adjective
+  - Russian Translation: недействительный, необоснованный
+  - English Explanation: Not acceptable, correct, or logically sound.
+- Inaccurate
+  - Part of Speech: Adjective
+  - Russian Translation: неточный, неправильный
+  - English Explanation: Not completely correct or exact.
+23. Real: Genuine
+- Genuine
+  - Part of Speech: Adjective
+  - Russian Translation: подлинный, настоящий
+  - English Explanation: Real and not fake.
+24. Fake: Sham, Bogus
+- Sham
+  - Part of Speech: Adjective
+  - Russian Translation: фиктивный, поддельный
+  - English Explanation: Not real or honest, although made to seem so.
+- Bogus
+  - Part of Speech: Adjective
+  - Russian Translation: поддельный, ложный
+  - English Explanation: Not genuine; intended to seem real.
+25. Clear: Evident, Obvious, Plain
+- Evident
+  - Part of Speech: Adjective
+  - Russian Translation: очевидный, явный
+  - English Explanation: Easy to see or understand from the facts.
+- Obvious
+  - Part of Speech: Adjective
+  - Russian Translation: очевидный
+  - English Explanation: Easy to notice or understand.
+- Plain
+  - Part of Speech: Adjective
+  - Russian Translation: ясный, очевидный
+  - English Explanation: Easy to see, understand, or recognize.
+26. Unclear: Ambiguous, Vague
+- Ambiguous
+  - Part of Speech: Adjective
+  - Russian Translation: двусмысленный, неоднозначный
+  - English Explanation: Having more than one possible meaning.
+- Vague
+  - Part of Speech: Adjective
+  - Russian Translation: неясный, расплывчатый
+  - English Explanation: Not clearly expressed or explained.
+27. Large: Extensive, Enormous, Massive, Gargantuan
+- Extensive
+  - Part of Speech: Adjective
+  - Russian Translation: обширный, масштабный
+  - English Explanation: Covering a large area or a wide range.
+- Enormous
+  - Part of Speech: Adjective
+  - Russian Translation: огромный
+  - English Explanation: Extremely large in size or amount.
+- Massive
+  - Part of Speech: Adjective
+  - Russian Translation: огромный, массивный
+  - English Explanation: Very large or severe in scale or amount.
+- Gargantuan
+  - Part of Speech: Adjective
+  - Russian Translation: гигантский, колоссальный
+  - English Explanation: Extremely large.
+28. Small: Negligible, Minimal, Slight
+- Negligible
+  - Part of Speech: Adjective
+  - Russian Translation: незначительный, ничтожный
+  - English Explanation: Too small to have an important effect.
+- Minimal
+  - Part of Speech: Adjective
+  - Russian Translation: минимальный, очень небольшой
+  - English Explanation: Extremely small in amount or degree.
+- Slight
+  - Part of Speech: Adjective
+  - Russian Translation: небольшой, незначительный
+  - English Explanation: Small in amount, degree, or importance.
+29. Many: Numerous, Myriad of
+- Numerous
+  - Part of Speech: Adjective
+  - Russian Translation: многочисленный
+  - English Explanation: Existing or occurring in large numbers.
+- Myriad of
+  - Part of Speech: Quantifier phrase
+  - Russian Translation: множество, огромное количество
+  - English Explanation: A very large number of things.
+30. Less: Limited, A smaller amount of
+- Limited
+  - Part of Speech: Adjective
+  - Russian Translation: ограниченный, небольшой по объёму
+  - English Explanation: Small or restricted in amount or extent.
+- A smaller amount of
+  - Part of Speech: Quantifier phrase
+  - Russian Translation: меньшее количество
+  - English Explanation: A quantity that is less than another quantity.
+31. Always: Invariably, Perpetually
+- Invariably
+  - Part of Speech: Adverb
+  - Russian Translation: неизменно, всегда
+  - English Explanation: Always or in every case.
+- Perpetually
+  - Part of Speech: Adverb
+  - Russian Translation: постоянно, непрерывно
+  - English Explanation: Continuing or happening all the time.
+32. Never: In no case, Under no condition
+- In no case
+  - Part of Speech: Adverbial phrase
+  - Russian Translation: ни в коем случае
+  - English Explanation: Not under any circumstances.
+- Under no condition
+  - Part of Speech: Adverbial phrase
+  - Russian Translation: ни при каких условиях
+  - English Explanation: Not in any situation or circumstance.
+33. Beneficial: Positive, Advantageous, Favorable
+- Positive
+  - Part of Speech: Adjective
+  - Russian Translation: положительный, благоприятный
+  - English Explanation: Having a good or helpful effect.
+- Advantageous
+  - Part of Speech: Adjective
+  - Russian Translation: выгодный, полезный
+  - English Explanation: Providing an advantage or benefit.
+- Favorable
+  - Part of Speech: Adjective
+  - Russian Translation: благоприятный, выгодный
+  - English Explanation: Likely to help or produce a good result.
+34. Harmful: Detrimental, Hazardous, Injurious
+- Detrimental
+  - Part of Speech: Adjective
+  - Russian Translation: вредный, пагубный
+  - English Explanation: Causing damage or a negative effect.
+- Hazardous
+  - Part of Speech: Adjective
+  - Russian Translation: опасный, вредный
+  - English Explanation: Likely to cause harm or danger.
+- Injurious
+  - Part of Speech: Adjective
+  - Russian Translation: вредоносный, причиняющий вред
+  - English Explanation: Causing injury or damage.
+35. Important: Paramount, Crucial, Integral, Significant, Imperative
+- Paramount
+  - Part of Speech: Adjective
+  - Russian Translation: первостепенный, важнейший
+  - English Explanation: More important than anything else.
+- Crucial
+  - Part of Speech: Adjective
+  - Russian Translation: крайне важный, решающий
+  - English Explanation: Extremely important for a result.
+- Integral
+  - Part of Speech: Adjective
+  - Russian Translation: неотъемлемый, необходимый
+  - English Explanation: Necessary to make something complete or work properly.
+- Significant
+  - Part of Speech: Adjective
+  - Russian Translation: значительный, важный
+  - English Explanation: Important enough to be noticed or considered.
+- Imperative
+  - Part of Speech: Adjective
+  - Russian Translation: крайне необходимый, обязательный
+  - English Explanation: Extremely important and needing immediate attention.
+36. Unimportant: Negligible, Trivial, Inconsequential, Trifling
+- Negligible
+  - Part of Speech: Adjective
+  - Russian Translation: незначительный, ничтожный
+  - English Explanation: Too small or minor to matter.
+- Trivial
+  - Part of Speech: Adjective
+  - Russian Translation: пустяковый, несущественный
+  - English Explanation: Of very little importance.
+- Inconsequential
+  - Part of Speech: Adjective
+  - Russian Translation: несущественный, не имеющий последствий
+  - English Explanation: Not important enough to affect the result.
+- Trifling
+  - Part of Speech: Adjective
+  - Russian Translation: ничтожный, незначительный
+  - English Explanation: Very small or unimportant.
+37. Increase: Proliferate, Augment, Intensify, Amplify
+- Proliferate
+  - Part of Speech: Verb
+  - Russian Translation: быстро разрастаться, множиться
+  - English Explanation: To grow or increase rapidly in number.
+- Augment
+  - Part of Speech: Verb
+  - Russian Translation: увеличивать, наращивать
+  - English Explanation: To make something larger or greater.
+- Intensify
+  - Part of Speech: Verb
+  - Russian Translation: усиливать(ся)
+  - English Explanation: To become or make something stronger.
+- Amplify
+  - Part of Speech: Verb
+  - Russian Translation: усиливать, увеличивать
+  - English Explanation: To increase the strength or size of something.
+38. Decrease: Diminish, Curtail, Mitigate, Alleviate
+- Diminish
+  - Part of Speech: Verb
+  - Russian Translation: уменьшать(ся), сокращать(ся)
+  - English Explanation: To become or make something smaller or less.
+- Curtail
+  - Part of Speech: Verb
+  - Russian Translation: сокращать, ограничивать
+  - English Explanation: To reduce or limit something.
+- Mitigate
+  - Part of Speech: Verb
+  - Russian Translation: смягчать, уменьшать вред
+  - English Explanation: To make something harmful or serious less severe.
+- Alleviate
+  - Part of Speech: Verb
+  - Russian Translation: облегчать, смягчать
+  - English Explanation: To make a problem or suffering less severe.
+39. Easy: Straightforward, Undemanding
+- Straightforward
+  - Part of Speech: Adjective
+  - Russian Translation: простой, понятный
+  - English Explanation: Easy to understand or do.
+- Undemanding
+  - Part of Speech: Adjective
+  - Russian Translation: нетрудный, не требующий усилий
+  - English Explanation: Not requiring much effort or skill.
+40. Hard: Demanding, Arduous, Strenuous
+- Demanding
+  - Part of Speech: Adjective
+  - Russian Translation: трудный, требующий усилий
+  - English Explanation: Requiring a lot of effort or ability.
+- Arduous
+  - Part of Speech: Adjective
+  - Russian Translation: тяжёлый, трудоёмкий
+  - English Explanation: Very difficult and requiring great effort.
+- Strenuous
+  - Part of Speech: Adjective
+  - Russian Translation: напряжённый, изнурительный
+  - English Explanation: Requiring strong physical or mental effort.
+41. Improve: Enhance, Augment, Ameliorate
+- Enhance
+  - Part of Speech: Verb
+  - Russian Translation: улучшать, повышать качество
+  - English Explanation: To improve the quality or value of something.
+- Augment
+  - Part of Speech: Verb
+  - Russian Translation: дополнять, увеличивать
+  - English Explanation: To make something greater by adding to it.
+- Ameliorate
+  - Part of Speech: Verb
+  - Russian Translation: улучшать, смягчать негативное
+  - English Explanation: To make a bad situation better.
+42. Worsen: Aggravate, Exacerbate, Inflame
+- Aggravate
+  - Part of Speech: Verb
+  - Russian Translation: усугублять
+  - English Explanation: To make a problem or condition worse.
+- Exacerbate
+  - Part of Speech: Verb
+  - Russian Translation: обострять, усугублять
+  - English Explanation: To make a bad situation more serious.
+- Inflame
+  - Part of Speech: Verb
+  - Russian Translation: обострять, усиливать конфликт
+  - English Explanation: To make a situation or feeling more intense.
+43. Independent: Autonomous, Sovereign
+- Autonomous
+  - Part of Speech: Adjective
+  - Russian Translation: автономный, самостоятельный
+  - English Explanation: Able to make decisions without outside control.
+- Sovereign
+  - Part of Speech: Adjective
+  - Russian Translation: суверенный, независимый
+  - English Explanation: Having independent authority to govern itself.
+44. Depend on: Contingent on, Hinge on
+- Contingent on
+  - Part of Speech: Adjective phrase
+  - Russian Translation: зависящий от, обусловленный
+  - English Explanation: Depending on something else happening or being true.
+- Hinge on
+  - Part of Speech: Phrasal verb
+  - Russian Translation: зависеть от, определяться
+  - English Explanation: To depend mainly on something.
+45. Rich: Affluent, Financially secure, Wealthy
+- Affluent
+  - Part of Speech: Adjective
+  - Russian Translation: состоятельный, обеспеченный
+  - English Explanation: Having a lot of money or resources.
+- Financially secure
+  - Part of Speech: Adjective phrase
+  - Russian Translation: финансово обеспеченный
+  - English Explanation: Having enough money to meet needs without worry.
+- Wealthy
+  - Part of Speech: Adjective
+  - Russian Translation: богатый, состоятельный
+  - English Explanation: Having a large amount of money or property.
+46. Unwealthy: Impoverished, Destitute, Opulent
+- Impoverished
+  - Part of Speech: Adjective
+  - Russian Translation: обедневший, бедный
+  - English Explanation: Very poor or lacking money and resources.
+- Destitute
+  - Part of Speech: Adjective
+  - Russian Translation: нищий, крайне бедный
+  - English Explanation: Having almost no money or basic necessities.
+- Opulent
+  - Part of Speech: Adjective
+  - Russian Translation: богатый, роскошный
+  - English Explanation: Very wealthy or extremely luxurious.
+47. Allow: Enable, Facilitate
+- Enable
+  - Part of Speech: Verb
+  - Russian Translation: позволять, давать возможность
+  - English Explanation: To make it possible for someone to do something.
+- Facilitate
+  - Part of Speech: Verb
+  - Russian Translation: облегчать, содействовать
+  - English Explanation: To make an action or process easier.
+48. Prevent: Impede, Inhibit, Hamper, Hinder
+- Impede
+  - Part of Speech: Verb
+  - Russian Translation: препятствовать, затруднять
+  - English Explanation: To make progress or movement difficult.
+- Inhibit
+  - Part of Speech: Verb
+  - Russian Translation: сдерживать, препятствовать
+  - English Explanation: To prevent or slow down an action or process.
+- Hamper
+  - Part of Speech: Verb
+  - Russian Translation: мешать, затруднять
+  - English Explanation: To make something difficult to do.
+- Hinder
+  - Part of Speech: Verb
+  - Russian Translation: препятствовать, мешать
+  - English Explanation: To delay or make progress more difficult.
+49. Durable: Tough, Firm, Sturdy, Robust
+- Tough
+  - Part of Speech: Adjective
+  - Russian Translation: прочный, крепкий
+  - English Explanation: Strong enough to resist damage.
+- Firm
+  - Part of Speech: Adjective
+  - Russian Translation: твёрдый, прочный
+  - English Explanation: Solid and not easily moved or changed.
+- Sturdy
+  - Part of Speech: Adjective
+  - Russian Translation: крепкий, прочный
+  - English Explanation: Strong and unlikely to break.
+- Robust
+  - Part of Speech: Adjective
+  - Russian Translation: крепкий, надёжный
+  - English Explanation: Strong and able to withstand difficult conditions.
+50. Weak: Delicate, Fragile, Vulnerable
+- Delicate
+  - Part of Speech: Adjective
+  - Russian Translation: хрупкий, непрочный
+  - English Explanation: Easily damaged and needing careful treatment.
+- Fragile
+  - Part of Speech: Adjective
+  - Russian Translation: хрупкий, ломкий
+  - English Explanation: Easily broken or damaged.
+- Vulnerable
+  - Part of Speech: Adjective
+  - Russian Translation: уязвимый
+  - English Explanation: Easily harmed or affected by danger.
+51. Create: Construct, Establish
+- Construct
+  - Part of Speech: Verb
+  - Russian Translation: строить, создавать
+  - English Explanation: To build or put something together.
+- Establish
+  - Part of Speech: Verb
+  - Russian Translation: основывать, создавать
+  - English Explanation: To set up something intended to continue.
+52. Destroy: Annihilate, Decimate, Devastate, Exterminate, Demolish
+- Annihilate
+  - Part of Speech: Verb
+  - Russian Translation: уничтожать полностью
+  - English Explanation: To destroy something completely.
+- Decimate
+  - Part of Speech: Verb
+  - Russian Translation: опустошать, уничтожать значительную часть
+  - English Explanation: To destroy or severely damage a large part of something.
+- Devastate
+  - Part of Speech: Verb
+  - Russian Translation: разрушать, опустошать
+  - English Explanation: To cause very serious damage or destruction.
+- Exterminate
+  - Part of Speech: Verb
+  - Russian Translation: истреблять, уничтожать
+  - English Explanation: To kill or destroy an entire group of living things.
+- Demolish
+  - Part of Speech: Verb
+  - Russian Translation: сносить, разрушать
+  - English Explanation: To completely destroy a building or structure.
+53. Similar: Identical, Equivalent, Uniform, Homogeneous
+- Identical
+  - Part of Speech: Adjective
+  - Russian Translation: идентичный, совершенно одинаковый
+  - English Explanation: Exactly the same in every detail.
+- Equivalent
+  - Part of Speech: Adjective
+  - Russian Translation: равнозначный, эквивалентный
+  - English Explanation: Equal in value, meaning, or effect.
+- Uniform
+  - Part of Speech: Adjective
+  - Russian Translation: одинаковый, единообразный
+  - English Explanation: The same in form or appearance throughout.
+- Homogeneous
+  - Part of Speech: Adjective
+  - Russian Translation: однородный
+  - English Explanation: Made of parts that are similar in type.
+54. Different: Dissimilar, Diverse, Divergent, Heterogeneous
+- Dissimilar
+  - Part of Speech: Adjective
+  - Russian Translation: несходный, непохожий
+  - English Explanation: Not alike or not very similar.
+- Diverse
+  - Part of Speech: Adjective
+  - Russian Translation: разнообразный
+  - English Explanation: Including many different kinds.
+- Divergent
+  - Part of Speech: Adjective
+  - Russian Translation: расходящийся, различающийся
+  - English Explanation: Developing or moving in different directions.
+- Heterogeneous
+  - Part of Speech: Adjective
+  - Russian Translation: неоднородный, разнородный
+  - English Explanation: Made up of different kinds of parts.
+55. Instant: Immediate, Prompt, Rapid
+- Immediate
+  - Part of Speech: Adjective
+  - Russian Translation: немедленный, мгновенный
+  - English Explanation: Happening without delay.
+- Prompt
+  - Part of Speech: Adjective
+  - Russian Translation: быстрый, незамедлительный
+  - English Explanation: Done or happening without unnecessary delay.
+- Rapid
+  - Part of Speech: Adjective
+  - Russian Translation: быстрый, стремительный
+  - English Explanation: Happening at great speed.
+56. Gradual: Incremental, Progressive
+- Incremental
+  - Part of Speech: Adjective
+  - Russian Translation: постепенный, поэтапный
+  - English Explanation: Happening in small steps or stages.
+- Progressive
+  - Part of Speech: Adjective
+  - Russian Translation: постепенный, последовательный
+  - English Explanation: Developing steadily over time.

@@ -1,0 +1,48 @@
+{
+  "description": "CEFR-based difficulty classification and preset assignment for new_words.",
+  "input_artifact": "data/enriched/sources/new_words/entries.enriched.json",
+  "input_file": "data/enriched/sources/new_words/entries.enriched.json",
+  "input_sha256": "1ac35dbc00cbb1e120923501bc342bc3d793726f78d95eda96ffeeb3e249a0ee",
+  "issues": [],
+  "output_artifact": "data/difficulty/sources/new_words/entries.difficulty.json",
+  "output_file": "data/difficulty/sources/new_words/entries.difficulty.json",
+  "output_sha256": "d71bc4f913a3ea66c63eff173b01fd4940d8bce886d3db076582785a585acc8b",
+  "record_count": 159,
+  "source_id": "new_words",
+  "stage": "DIFFICULTY",
+  "stage_status": "completed",
+  "status": "PASS",
+  "summary": {
+    "affected_record_count": 0,
+    "blocked_from_final_output_count": 5,
+    "difficulty_counts": {
+      "Easy": 31,
+      "Hard": 68,
+      "Medium": 60,
+      "Unset": 0
+    },
+    "eligible_for_final_output_count": 154,
+    "entered_count": 159,
+    "error_count": 0,
+    "excluded_count": 5,
+    "preset_assigned_count": 159,
+    "review_pending_count": 0,
+    "succeeded_count": 154,
+    "total_records": 159
+  },
+  "validation_artifact": "data/difficulty/sources/new_words/validation.json",
+  "validation_checks": [
+    {
+      "check": "preset_populated",
+      "status": "PASS"
+    },
+    {
+      "check": "difficulty_valid_tiers",
+      "status": "PASS"
+    },
+    {
+      "check": "final_output_eligibility_enforced",
+      "status": "PASS"
+    }
+  ]
+}

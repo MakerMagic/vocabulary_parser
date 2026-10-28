@@ -1,0 +1,48 @@
+{
+  "description": "CEFR-based difficulty classification and preset assignment for uclouvain.",
+  "input_artifact": "data/enriched/sources/uclouvain/entries.enriched.json",
+  "input_file": "data/enriched/sources/uclouvain/entries.enriched.json",
+  "input_sha256": "e582975bc6c8488e20c33e0820c4df4dc1f4b081114c958305a00ed8041dc3e0",
+  "issues": [],
+  "output_artifact": "data/difficulty/sources/uclouvain/entries.difficulty.json",
+  "output_file": "data/difficulty/sources/uclouvain/entries.difficulty.json",
+  "output_sha256": "44d0fc02bbe6bf56080090603f6c5da844cf9362156b8b610572858155c3d46b",
+  "record_count": 413,
+  "source_id": "uclouvain",
+  "stage": "DIFFICULTY",
+  "stage_status": "completed",
+  "status": "PASS",
+  "summary": {
+    "affected_record_count": 0,
+    "blocked_from_final_output_count": 34,
+    "difficulty_counts": {
+      "Easy": 220,
+      "Hard": 18,
+      "Medium": 175,
+      "Unset": 0
+    },
+    "eligible_for_final_output_count": 379,
+    "entered_count": 413,
+    "error_count": 0,
+    "excluded_count": 34,
+    "preset_assigned_count": 413,
+    "review_pending_count": 0,
+    "succeeded_count": 379,
+    "total_records": 413
+  },
+  "validation_artifact": "data/difficulty/sources/uclouvain/validation.json",
+  "validation_checks": [
+    {
+      "check": "preset_populated",
+      "status": "PASS"
+    },
+    {
+      "check": "difficulty_valid_tiers",
+      "status": "PASS"
+    },
+    {
+      "check": "final_output_eligibility_enforced",
+      "status": "PASS"
+    }
+  ]
+}

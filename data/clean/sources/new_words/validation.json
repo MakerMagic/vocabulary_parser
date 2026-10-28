@@ -1,0 +1,176 @@
+{
+  "description": "CLEAN normalization of 159 records (156 eligible, 3 excluded A1/A2) with token-ledger verification.",
+  "input_artifact": "data/raw/sources/new_words/entries.raw.json",
+  "input_sha256": "4fb56c9b4a453adae704296482f1c2f57f477e7aa0b6d3f2e0b70f380831c9ee",
+  "invariant_checks": [
+    {
+      "details": "100% of 159 records strictly preserve non-whitespace raw tokens.",
+      "name": "token_ledger_conservation",
+      "status": "PASS"
+    },
+    {
+      "details": "3 elementary A1/A2 entries reliably identified and marked as excluded.",
+      "name": "elementary_a1_a2_exclusion_gate",
+      "status": "PASS"
+    },
+    {
+      "details": "Reserved field 'difficulty' remains explicitly null across all records.",
+      "name": "difficulty_field_unset_guard",
+      "status": "PASS"
+    },
+    {
+      "details": "Type field cleanly preserved and uncorrupted.",
+      "name": "type_field_integrity",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {
+    "cross_cluster_duplicate_preserved": {
+      "count": 4,
+      "severity": "review_notice"
+    },
+    "elementary_a1_a2_exclusion": {
+      "count": 3,
+      "severity": "review_notice"
+    }
+  },
+  "issues": [
+    {
+      "actual_output": "status='excluded' (CEFR A2)",
+      "category": "Vocabulary below A1/A2 exclusion threshold",
+      "corrective_action": "Exclude 'Repair' from eligible learning dataset per CEFR benchmark; preserve full record and provenance in RAW and CLEAN datasets.",
+      "expected_output": "Excluded record with documented CEFR A2 evidence",
+      "field": "status",
+      "issue_code": "elementary_a1_a2_exclusion",
+      "message": "Excluded elementary vocabulary entry 'Repair' (Elementary maintenance verb (Cambridge EVP A2: to restore something damaged or broken to good condition)).",
+      "number": 35,
+      "record_id": "new_words_vocab_035",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Repair\"",
+      "resolution_status": "excluded_from_curriculum",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Vocabulary entry verified as CEFR A2 elementary level.",
+      "severity": "review_notice",
+      "word": "Repair"
+    },
+    {
+      "actual_output": "status='excluded' (CEFR A2)",
+      "category": "Vocabulary below A1/A2 exclusion threshold",
+      "corrective_action": "Exclude 'Several' from eligible learning dataset per CEFR benchmark; preserve full record and provenance in RAW and CLEAN datasets.",
+      "expected_output": "Excluded record with documented CEFR A2 evidence",
+      "field": "status",
+      "issue_code": "elementary_a1_a2_exclusion",
+      "message": "Excluded elementary vocabulary entry 'Several' (Elementary quantifier/determiner (Cambridge EVP A2: more than two but not many)).",
+      "number": 44,
+      "record_id": "new_words_vocab_044",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Several\"",
+      "resolution_status": "excluded_from_curriculum",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Vocabulary entry verified as CEFR A2 elementary level.",
+      "severity": "review_notice",
+      "word": "Several"
+    },
+    {
+      "actual_output": "status='excluded' (CEFR A2)",
+      "category": "Vocabulary below A1/A2 exclusion threshold",
+      "corrective_action": "Exclude 'Nearly' from eligible learning dataset per CEFR benchmark; preserve full record and provenance in RAW and CLEAN datasets.",
+      "expected_output": "Excluded record with documented CEFR A2 evidence",
+      "field": "status",
+      "issue_code": "elementary_a1_a2_exclusion",
+      "message": "Excluded elementary vocabulary entry 'Nearly' (Elementary degree adverb (Cambridge EVP A2: almost, but not completely)).",
+      "number": 49,
+      "record_id": "new_words_vocab_049",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Nearly\"",
+      "resolution_status": "excluded_from_curriculum",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Vocabulary entry verified as CEFR A2 elementary level.",
+      "severity": "review_notice",
+      "word": "Nearly"
+    },
+    {
+      "actual_output": "Clean record #72 'Negligible' under Cluster 28 ('Small: Negligible, Minimal, Slight')",
+      "category": "Cross-cluster duplicate entries",
+      "corrective_action": "Preserve distinct addressable record with semantic cluster attribution.",
+      "expected_output": "Individually addressable record for 'Negligible'",
+      "field": "word",
+      "issue_code": "cross_cluster_duplicate_preserved",
+      "message": "Preserved distinct cluster occurrence of 'Negligible' (#72, Cluster 28).",
+      "number": 72,
+      "record_id": "new_words_vocab_072",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Negligible\"",
+      "resolution_status": "distinct_record_maintained",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Term belongs legitimately to multiple semantic clusters ('Small: Negligible, Minimal, Slight').",
+      "severity": "review_notice",
+      "word": "Negligible"
+    },
+    {
+      "actual_output": "Clean record #94 'Negligible' under Cluster 36 ('Unimportant: Negligible, Trivial, Inconsequential, Trifling')",
+      "category": "Cross-cluster duplicate entries",
+      "corrective_action": "Preserve distinct addressable record with semantic cluster attribution.",
+      "expected_output": "Individually addressable record for 'Negligible'",
+      "field": "word",
+      "issue_code": "cross_cluster_duplicate_preserved",
+      "message": "Preserved distinct cluster occurrence of 'Negligible' (#94, Cluster 36).",
+      "number": 94,
+      "record_id": "new_words_vocab_094",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Negligible\"",
+      "resolution_status": "distinct_record_maintained",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Term belongs legitimately to multiple semantic clusters ('Unimportant: Negligible, Trivial, Inconsequential, Trifling').",
+      "severity": "review_notice",
+      "word": "Negligible"
+    },
+    {
+      "actual_output": "Clean record #99 'Augment' under Cluster 37 ('Increase: Proliferate, Augment, Intensify, Amplify')",
+      "category": "Cross-cluster duplicate entries",
+      "corrective_action": "Preserve distinct addressable record with semantic cluster attribution.",
+      "expected_output": "Individually addressable record for 'Augment'",
+      "field": "word",
+      "issue_code": "cross_cluster_duplicate_preserved",
+      "message": "Preserved distinct cluster occurrence of 'Augment' (#99, Cluster 37).",
+      "number": 99,
+      "record_id": "new_words_vocab_099",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Augment\"",
+      "resolution_status": "distinct_record_maintained",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Term belongs legitimately to multiple semantic clusters ('Increase: Proliferate, Augment, Intensify, Amplify').",
+      "severity": "review_notice",
+      "word": "Augment"
+    },
+    {
+      "actual_output": "Clean record #112 'Augment' under Cluster 41 ('Improve: Enhance, Augment, Ameliorate')",
+      "category": "Cross-cluster duplicate entries",
+      "corrective_action": "Preserve distinct addressable record with semantic cluster attribution.",
+      "expected_output": "Individually addressable record for 'Augment'",
+      "field": "word",
+      "issue_code": "cross_cluster_duplicate_preserved",
+      "message": "Preserved distinct cluster occurrence of 'Augment' (#112, Cluster 41).",
+      "number": 112,
+      "record_id": "new_words_vocab_112",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Augment\"",
+      "resolution_status": "distinct_record_maintained",
+      "responsible_stage": "CLEAN",
+      "root_cause": "Term belongs legitimately to multiple semantic clusters ('Improve: Enhance, Augment, Ameliorate').",
+      "severity": "review_notice",
+      "word": "Augment"
+    }
+  ],
+  "output_artifact": "data/clean/sources/new_words/entries.clean.json",
+  "output_sha256": "f0c131505ce6d5c31f2368aeef0b7f9ed4c2c031cd088534e352443aad1c73e8",
+  "primary_reason_partition": {
+    "clean_eligible": 156,
+    "excluded_elementary_a1_a2": 3
+  },
+  "source_id": "new_words",
+  "stage": "CLEAN",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 7,
+    "entered_count": 159,
+    "error_count": 0,
+    "excluded_count": 3,
+    "review_pending_count": 0,
+    "succeeded_count": 156
+  },
+  "validation_artifact": "data/clean/sources/new_words/validation.json"
+}

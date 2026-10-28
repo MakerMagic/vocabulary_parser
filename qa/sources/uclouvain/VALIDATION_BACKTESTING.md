@@ -8,7 +8,7 @@
 
 - **What was processed:** End-to-end validation and PRE-FINAL assembly of 413 vocabulary records (379 validated, 5 review_pending, 29 excluded A1/A2, 0 errors).
 - **Input artifact:** `data/enriched/sources/uclouvain/entries.enriched.json` (SHA-256: `e582975bc6c8488e20c33e0820c4df4dc1f4b081114c958305a00ed8041dc3e0`)
-- **Output artifact:** `data/pre_final/vocabulary.json` (SHA-256: `02baee4d7f8e511f0e18817fd6b41087345459cc6be1a1aa76b3553c324a97c7`)
+- **Output artifact:** `data/pre_final/vocabulary.json` (SHA-256: `71651525c0ee0cc053faccb02f92bf8ffaa682137ff5ea7e3d1da38ec87ba658`)
 
 | Metric | Count |
 |---|---|
@@ -36,7 +36,9 @@
 | `end_to_end_provenance_and_hash_chain` | **PASS** | All 413 records traced through Enriched -> CLEAN -> RAW -> Source SHA-256 and JSON pointers. |
 | `russian_translation_max_two_alternatives_and_script` | **PASS** | All 413 records satisfy Russian translation <= 2 alternatives and Cyrillic script checks. |
 | `non_circular_english_explanations` | **PASS** | All 413 records have clear, non-circular English explanations (>= 15 chars, headword lemma excluded). |
-| `difficulty_architecture_unset_invariant` | **PASS** | All 413 records have 'difficulty: null' (Difficulty Classification stage not executed). |
+| `difficulty_classification_valid_tiers` | **PASS** | All 413 records have valid CEFR-based difficulty tier in ('Easy', 'Medium', 'Hard'). |
+| `preset_basics_assigned` | **PASS** | All 413 records have preset='Basics' assigned. |
+| `final_output_eligibility_enforced` | **PASS** | Final output eligibility correctly enforced (379 eligible, 34 blocked/excluded). |
 | `elementary_a1_a2_exclusion_partition` | **PASS** | Elementary A1/A2 records (29) cleanly preserved with validation_status='excluded'. |
 
 ## 4. Reproducible Backtesting Commands

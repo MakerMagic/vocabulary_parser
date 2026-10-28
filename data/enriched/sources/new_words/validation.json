@@ -1,0 +1,94 @@
+{
+  "description": "Vocabulary enrichment of 159 records for new_words (POS, Russian translation with <=2 alternatives [27 1-alt, 132 2-alt], multiword support, and contextual English explanations; 3 A1/A2 records tracked as excluded, 0 Essential questions).",
+  "input_artifact": "data/clean/sources/new_words/entries.clean.json",
+  "input_sha256": "f0c131505ce6d5c31f2368aeef0b7f9ed4c2c031cd088534e352443aad1c73e8",
+  "invariant_checks": [
+    {
+      "details": "All 159 records have Cyrillic Russian translations with 1-2 alternatives (27 1-alt, 132 2-alt; 0 >2-alt).",
+      "name": "russian_translation_max_two_alternatives_and_cyrillic",
+      "status": "PASS"
+    },
+    {
+      "details": "All 159 records have non-empty, contextual English explanations (>= 15 chars).",
+      "name": "english_explanation_completeness_and_clarity",
+      "status": "PASS"
+    },
+    {
+      "details": "Reserved field 'difficulty' remains explicitly null across all 159 enriched records.",
+      "name": "difficulty_field_unset_guard",
+      "status": "PASS"
+    },
+    {
+      "details": "Elementary A1/A2 excluded records (3) cleanly preserved with enrichment_status='excluded'.",
+      "name": "elementary_a1_a2_exclusion_preservation",
+      "status": "PASS"
+    },
+    {
+      "details": "Type field correctly tracked (Essential count: 0).",
+      "name": "type_field_integrity",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {
+    "enrichment_sense_or_morphology_review": {
+      "count": 2,
+      "severity": "review_pending"
+    }
+  },
+  "issues": [
+    {
+      "actual_output": "verb | делает необходимым; требует",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection and morphological form in HTML backtesting interface; confirm whether a lemma adjustment or curriculum note is appropriate.",
+      "expected_output": "Approved curriculum representation",
+      "field": "part_of_speech / english_explanation",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Grammatical morphology note: Ingested as third-person singular inflected form 'necessitates'; base lemma is 'necessitate'.",
+      "number": 27,
+      "record_id": "new_words_vocab_027",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Necessitates\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Grammatical morphology note: Ingested as third-person singular inflected form 'necessitates'; base lemma is 'necessitate'.",
+      "severity": "review_pending",
+      "word": "Necessitates"
+    },
+    {
+      "actual_output": "adjective | богатый; роскошный",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Review primary sense selection and morphological form in HTML backtesting interface; confirm whether a lemma adjustment or curriculum note is appropriate.",
+      "expected_output": "Approved curriculum representation",
+      "field": "part_of_speech / english_explanation",
+      "issue_code": "enrichment_sense_or_morphology_review",
+      "message": "Semantic contrast note: 'Opulent' (wealthy/luxurious) appears in Cluster 46 ('Unwealthy') as an antonymous/contrasting term.",
+      "number": 126,
+      "record_id": "new_words_vocab_126",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Opulent\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT",
+      "root_cause": "Semantic contrast note: 'Opulent' (wealthy/luxurious) appears in Cluster 46 ('Unwealthy') as an antonymous/contrasting term.",
+      "severity": "review_pending",
+      "word": "Opulent"
+    }
+  ],
+  "output_artifact": "data/enriched/sources/new_words/entries.enriched.json",
+  "output_sha256": "1ac35dbc00cbb1e120923501bc342bc3d793726f78d95eda96ffeeb3e249a0ee",
+  "primary_reason_partition": {
+    "eligible_clean_enriched": 154,
+    "enrichment_sense_or_morphology_review": 2,
+    "excluded_elementary_a1_a2": 3
+  },
+  "source_id": "new_words",
+  "stage": "ENRICHMENT",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 2,
+    "entered_count": 159,
+    "error_count": 0,
+    "essential_count": 0,
+    "excluded_count": 3,
+    "review_pending_count": 2,
+    "succeeded_count": 154
+  },
+  "validation_artifact": "data/enriched/sources/new_words/validation.json"
+}

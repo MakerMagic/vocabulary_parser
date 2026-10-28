@@ -19,8 +19,18 @@
       "status": "PASS"
     },
     {
-      "details": "All 413 records have 'difficulty: null' (Difficulty Classification stage not executed).",
-      "name": "difficulty_architecture_unset_invariant",
+      "details": "All 413 records have valid CEFR-based difficulty tier in ('Easy', 'Medium', 'Hard').",
+      "name": "difficulty_classification_valid_tiers",
+      "status": "PASS"
+    },
+    {
+      "details": "All 413 records have preset='Basics' assigned.",
+      "name": "preset_basics_assigned",
+      "status": "PASS"
+    },
+    {
+      "details": "Final output eligibility correctly enforced (379 eligible, 34 blocked/excluded).",
+      "name": "final_output_eligibility_enforced",
       "status": "PASS"
     },
     {
@@ -123,7 +133,7 @@
     }
   ],
   "output_artifact": "data/pre_final/vocabulary.json",
-  "output_sha256": "02baee4d7f8e511f0e18817fd6b41087345459cc6be1a1aa76b3553c324a97c7",
+  "output_sha256": "71651525c0ee0cc053faccb02f92bf8ffaa682137ff5ea7e3d1da38ec87ba658",
   "primary_reason_partition": {
     "error": 0,
     "excluded_elementary_a1_a2": 29,

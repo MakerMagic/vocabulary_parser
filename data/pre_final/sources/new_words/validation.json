@@ -1,0 +1,110 @@
+{
+  "description": "End-to-end validation and PRE-FINAL assembly of 159 vocabulary records for new_words (154 validated, 2 review_pending, 3 excluded A1/A2, 0 errors).",
+  "input_artifact": "data/enriched/sources/new_words/entries.enriched.json",
+  "input_sha256": "1ac35dbc00cbb1e120923501bc342bc3d793726f78d95eda96ffeeb3e249a0ee",
+  "invariant_checks": [
+    {
+      "details": "All 159 records traced through Enriched -> CLEAN -> RAW -> Source SHA-256 and JSON pointers.",
+      "name": "end_to_end_provenance_and_hash_chain",
+      "status": "PASS"
+    },
+    {
+      "details": "All 159 records satisfy Russian translation <= 2 alternatives and Cyrillic script checks.",
+      "name": "russian_translation_max_two_alternatives_and_script",
+      "status": "PASS"
+    },
+    {
+      "details": "All 159 records have clear, non-circular English explanations (>= 15 chars).",
+      "name": "non_circular_english_explanations",
+      "status": "PASS"
+    },
+    {
+      "details": "All 159 records have valid CEFR-based difficulty tier in ('Easy', 'Medium', 'Hard').",
+      "name": "difficulty_classification_valid_tiers",
+      "status": "PASS"
+    },
+    {
+      "details": "All 159 records have preset='Basics' assigned.",
+      "name": "preset_basics_assigned",
+      "status": "PASS"
+    },
+    {
+      "details": "Final output eligibility correctly enforced (154 eligible, 5 blocked/excluded).",
+      "name": "final_output_eligibility_enforced",
+      "status": "PASS"
+    },
+    {
+      "details": "Elementary A1/A2 records (3) cleanly preserved with validation_status='excluded'.",
+      "name": "elementary_a1_a2_exclusion_partition",
+      "status": "PASS"
+    },
+    {
+      "details": "Type field verified across dataset (Essential questions count: 0).",
+      "name": "type_field_validation",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {
+    "validation_review_pending_sense_or_morphology": {
+      "count": 2,
+      "severity": "review_pending"
+    }
+  },
+  "issues": [
+    {
+      "actual_output": "verb | делает необходимым; требует",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface; approve primary sense or confirm grammatical morphology.",
+      "expected_output": "Approved curriculum representation",
+      "field": "part_of_speech / english_explanation",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Grammatical morphology note: Ingested as third-person singular inflected form 'necessitates'; base lemma is 'necessitate'.",
+      "number": 27,
+      "record_id": "new_words_vocab_027",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Necessitates\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Grammatical morphology note: Ingested as third-person singular inflected form 'necessitates'; base lemma is 'necessitate'.",
+      "severity": "review_pending",
+      "word": "Necessitates"
+    },
+    {
+      "actual_output": "adjective | богатый; роскошный",
+      "category": "Lexical sense and morphology review notices",
+      "corrective_action": "Inspect record in local HTML backtesting interface; approve primary sense or confirm grammatical morphology.",
+      "expected_output": "Approved curriculum representation",
+      "field": "part_of_speech / english_explanation",
+      "issue_code": "validation_review_pending_sense_or_morphology",
+      "message": "Semantic contrast note: 'Opulent' (wealthy/luxurious) appears in Cluster 46 ('Unwealthy') as an antonymous/contrasting term.",
+      "number": 126,
+      "record_id": "new_words_vocab_126",
+      "reproduction_command": ".\\.venv\\Scripts\\python.exe tools/vocabulary_review.py --source new_words --word \"Opulent\"",
+      "resolution_status": "review_pending_curriculum_decision",
+      "responsible_stage": "ENRICHMENT / VALIDATION",
+      "root_cause": "Semantic contrast note: 'Opulent' (wealthy/luxurious) appears in Cluster 46 ('Unwealthy') as an antonymous/contrasting term.",
+      "severity": "review_pending",
+      "word": "Opulent"
+    }
+  ],
+  "output_artifact": "data/pre_final/sources/new_words/vocabulary.json",
+  "output_sha256": "677b55269cf8c0b66015cccbf09ff195007133b0d8b8ed77e2dd343969a9bf4b",
+  "primary_reason_partition": {
+    "error": 0,
+    "excluded_elementary_a1_a2": 3,
+    "review_pending": 2,
+    "validated": 154
+  },
+  "source_id": "new_words",
+  "stage": "VALIDATION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 2,
+    "entered_count": 159,
+    "error_count": 0,
+    "essential_count": 0,
+    "excluded_count": 3,
+    "review_pending_count": 2,
+    "succeeded_count": 154
+  },
+  "validation_artifact": "data/pre_final/sources/new_words/validation.json"
+}

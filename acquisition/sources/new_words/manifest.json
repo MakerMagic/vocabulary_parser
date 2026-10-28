@@ -1,0 +1,11 @@
+{
+  "acquisition_date": "2026-10-28",
+  "document_id": "new_words_v1",
+  "filename": "new_words.md",
+  "format": "markdown",
+  "notes": "Acquired new_words.md vocabulary dataset comprising 56 synonym clusters and 159 lexical items with contextual Russian translations and English explanations.",
+  "sha256": "6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7",
+  "size_bytes": 30161,
+  "source_id": "new_words",
+  "source_path": "acquisition/sources/new_words/new_words.md"
+}

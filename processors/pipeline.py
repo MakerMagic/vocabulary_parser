@@ -8,6 +8,7 @@ from typing import Any
 
 from parsers.justprepy_wordlist.parser import run_raw_extraction
 from processors.acquisition import run_acquisition
+from processors.difficulty.classifier import run_difficulty_classification
 from processors.enrichment.enricher import run_enrichment
 from processors.inspection import run_inspection
 from processors.normalization.cleaner import run_cleaning
@@ -23,11 +24,13 @@ def run_all(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     raw = run_raw_extraction(repo_root)
     clean = run_cleaning(repo_root)
     enr = run_enrichment(repo_root)
+    diff = run_difficulty_classification(repo_root)
     val = run_validation(repo_root)
     html_path = generate_html_review(repo_root)
     return {
         "acquisition": acq,
         "clean": clean,
+        "difficulty": diff,
         "enrichment": enr,
         "html_review_path": str(html_path),
         "inspection": insp,
@@ -42,7 +45,7 @@ def main() -> None:
         "stage",
         nargs="?",
         default="all",
-        choices=["all", "acquisition", "inspection", "raw", "clean", "enrichment", "validation", "html"],
+        choices=["all", "acquisition", "inspection", "raw", "clean", "enrichment", "difficulty", "validation", "html"],
         help="Pipeline stage to execute (default: all)",
     )
     args = parser.parse_args()
@@ -57,6 +60,8 @@ def main() -> None:
         run_cleaning()
     elif args.stage == "enrichment":
         run_enrichment()
+    elif args.stage == "difficulty":
+        run_difficulty_classification()
     elif args.stage == "validation":
         run_validation()
     elif args.stage == "html":

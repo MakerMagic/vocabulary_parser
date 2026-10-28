@@ -1,0 +1,315 @@
+{
+  "clusters": [
+    {
+      "cluster_number": 1,
+      "line_number": 1,
+      "title": "Effect: Impact, Influence"
+    },
+    {
+      "cluster_number": 2,
+      "line_number": 10,
+      "title": "Usage: Exploitation, Utilization, Deployment"
+    },
+    {
+      "cluster_number": 3,
+      "line_number": 23,
+      "title": "Problem: Issue, Predicament, Obstacle, Challenge"
+    },
+    {
+      "cluster_number": 4,
+      "line_number": 40,
+      "title": "Idea: Notion"
+    },
+    {
+      "cluster_number": 5,
+      "line_number": 45,
+      "title": "Growth: Progress, Development, Advancement"
+    },
+    {
+      "cluster_number": 6,
+      "line_number": 58,
+      "title": "Place: Territory, District, Locale"
+    },
+    {
+      "cluster_number": 7,
+      "line_number": 71,
+      "title": "Change: Alter, Modify, Transform"
+    },
+    {
+      "cluster_number": 8,
+      "line_number": 84,
+      "title": "Cause: Engender, Induce, Lead to, Give rise to"
+    },
+    {
+      "cluster_number": 9,
+      "line_number": 101,
+      "title": "Serve: Function, Perform"
+    },
+    {
+      "cluster_number": 10,
+      "line_number": 110,
+      "title": "Need: Require, Necessitates"
+    },
+    {
+      "cluster_number": 11,
+      "line_number": 119,
+      "title": "Help: Assist, Support"
+    },
+    {
+      "cluster_number": 12,
+      "line_number": 128,
+      "title": "Show: Demonstrate, Illustrate"
+    },
+    {
+      "cluster_number": 13,
+      "line_number": 137,
+      "title": "Fix: Rectify, Correct, Mend, Repair, Troubleshoot"
+    },
+    {
+      "cluster_number": 14,
+      "line_number": 158,
+      "title": "Can: Be capable of"
+    },
+    {
+      "cluster_number": 15,
+      "line_number": 163,
+      "title": "Replace: Substitute, Supersede"
+    },
+    {
+      "cluster_number": 16,
+      "line_number": 172,
+      "title": "Use: Exploit, Utilize, Employ"
+    },
+    {
+      "cluster_number": 17,
+      "line_number": 185,
+      "title": "Some: Certain, Several, A proportion of"
+    },
+    {
+      "cluster_number": 18,
+      "line_number": 198,
+      "title": "Often: Frequently, Commonly, In many cases"
+    },
+    {
+      "cluster_number": 19,
+      "line_number": 211,
+      "title": "Almost: Nearly, Virtually, Practically"
+    },
+    {
+      "cluster_number": 20,
+      "line_number": 224,
+      "title": "Just: Merely, Solely, Purely"
+    },
+    {
+      "cluster_number": 21,
+      "line_number": 237,
+      "title": "Correct: Accurate, Valid"
+    },
+    {
+      "cluster_number": 22,
+      "line_number": 246,
+      "title": "Incorrect: Erroneous, Invalid, Inaccurate"
+    },
+    {
+      "cluster_number": 23,
+      "line_number": 259,
+      "title": "Real: Genuine"
+    },
+    {
+      "cluster_number": 24,
+      "line_number": 264,
+      "title": "Fake: Sham, Bogus"
+    },
+    {
+      "cluster_number": 25,
+      "line_number": 273,
+      "title": "Clear: Evident, Obvious, Plain"
+    },
+    {
+      "cluster_number": 26,
+      "line_number": 286,
+      "title": "Unclear: Ambiguous, Vague"
+    },
+    {
+      "cluster_number": 27,
+      "line_number": 295,
+      "title": "Large: Extensive, Enormous, Massive, Gargantuan"
+    },
+    {
+      "cluster_number": 28,
+      "line_number": 312,
+      "title": "Small: Negligible, Minimal, Slight"
+    },
+    {
+      "cluster_number": 29,
+      "line_number": 325,
+      "title": "Many: Numerous, Myriad of"
+    },
+    {
+      "cluster_number": 30,
+      "line_number": 334,
+      "title": "Less: Limited, A smaller amount of"
+    },
+    {
+      "cluster_number": 31,
+      "line_number": 343,
+      "title": "Always: Invariably, Perpetually"
+    },
+    {
+      "cluster_number": 32,
+      "line_number": 352,
+      "title": "Never: In no case, Under no condition"
+    },
+    {
+      "cluster_number": 33,
+      "line_number": 361,
+      "title": "Beneficial: Positive, Advantageous, Favorable"
+    },
+    {
+      "cluster_number": 34,
+      "line_number": 374,
+      "title": "Harmful: Detrimental, Hazardous, Injurious"
+    },
+    {
+      "cluster_number": 35,
+      "line_number": 387,
+      "title": "Important: Paramount, Crucial, Integral, Significant, Imperative"
+    },
+    {
+      "cluster_number": 36,
+      "line_number": 408,
+      "title": "Unimportant: Negligible, Trivial, Inconsequential, Trifling"
+    },
+    {
+      "cluster_number": 37,
+      "line_number": 425,
+      "title": "Increase: Proliferate, Augment, Intensify, Amplify"
+    },
+    {
+      "cluster_number": 38,
+      "line_number": 442,
+      "title": "Decrease: Diminish, Curtail, Mitigate, Alleviate"
+    },
+    {
+      "cluster_number": 39,
+      "line_number": 459,
+      "title": "Easy: Straightforward, Undemanding"
+    },
+    {
+      "cluster_number": 40,
+      "line_number": 468,
+      "title": "Hard: Demanding, Arduous, Strenuous"
+    },
+    {
+      "cluster_number": 41,
+      "line_number": 481,
+      "title": "Improve: Enhance, Augment, Ameliorate"
+    },
+    {
+      "cluster_number": 42,
+      "line_number": 494,
+      "title": "Worsen: Aggravate, Exacerbate, Inflame"
+    },
+    {
+      "cluster_number": 43,
+      "line_number": 507,
+      "title": "Independent: Autonomous, Sovereign"
+    },
+    {
+      "cluster_number": 44,
+      "line_number": 516,
+      "title": "Depend on: Contingent on, Hinge on"
+    },
+    {
+      "cluster_number": 45,
+      "line_number": 525,
+      "title": "Rich: Affluent, Financially secure, Wealthy"
+    },
+    {
+      "cluster_number": 46,
+      "line_number": 538,
+      "title": "Unwealthy: Impoverished, Destitute, Opulent"
+    },
+    {
+      "cluster_number": 47,
+      "line_number": 551,
+      "title": "Allow: Enable, Facilitate"
+    },
+    {
+      "cluster_number": 48,
+      "line_number": 560,
+      "title": "Prevent: Impede, Inhibit, Hamper, Hinder"
+    },
+    {
+      "cluster_number": 49,
+      "line_number": 577,
+      "title": "Durable: Tough, Firm, Sturdy, Robust"
+    },
+    {
+      "cluster_number": 50,
+      "line_number": 594,
+      "title": "Weak: Delicate, Fragile, Vulnerable"
+    },
+    {
+      "cluster_number": 51,
+      "line_number": 607,
+      "title": "Create: Construct, Establish"
+    },
+    {
+      "cluster_number": 52,
+      "line_number": 616,
+      "title": "Destroy: Annihilate, Decimate, Devastate, Exterminate, Demolish"
+    },
+    {
+      "cluster_number": 53,
+      "line_number": 637,
+      "title": "Similar: Identical, Equivalent, Uniform, Homogeneous"
+    },
+    {
+      "cluster_number": 54,
+      "line_number": 654,
+      "title": "Different: Dissimilar, Diverse, Divergent, Heterogeneous"
+    },
+    {
+      "cluster_number": 55,
+      "line_number": 671,
+      "title": "Instant: Immediate, Prompt, Rapid"
+    },
+    {
+      "cluster_number": 56,
+      "line_number": 684,
+      "title": "Gradual: Incremental, Progressive"
+    }
+  ],
+  "contains_question_group": false,
+  "duplicates": {
+    "augment": [
+      99,
+      112
+    ],
+    "negligible": [
+      72,
+      94
+    ]
+  },
+  "pos_distribution": {
+    "Adjective": 69,
+    "Adjective phrase": 3,
+    "Adverb": 10,
+    "Adverbial phrase": 3,
+    "Determiner": 2,
+    "Noun": 16,
+    "Phrasal verb": 2,
+    "Quantifier phrase": 3,
+    "Verb": 49,
+    "Verb (third-person singular)": 1,
+    "Verb phrase": 1
+  },
+  "question_group_count": 0,
+  "source_file": "acquisition\\sources\\new_words\\new_words.md",
+  "source_id": "new_words",
+  "source_sha256": "6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7",
+  "total_clusters": 56,
+  "total_entries": 159,
+  "total_lines": 692
+}

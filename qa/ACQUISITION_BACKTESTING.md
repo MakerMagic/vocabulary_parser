@@ -1,48 +1,47 @@
 # ACQUISITION Stage Backtesting Report (`ACQUISITION_BACKTESTING.md`)
 
-> **Generated deterministically from:** `data/acquisition/validation.json`
+> **Source:** `new_words`  
+> **Generated deterministically from:** `data/acquisition/sources/new_words/validation.json`  
 > **Stage Status:** `completed`
 
 ## 1. Stage Execution Summary
 
-- **What was processed:** Acquisition and SHA-256 provenance registration of supplied justprepy vocabulary list.
-- **Input artifact:** `acquisition/local/justprepy_vocabulary_list.txt` (SHA-256: `e1b15633f274f58f093a3e1950dd1f368aad83fd54fb67ca9f682344d5628d7e`)
-- **Output artifact:** `acquisition/manifest.json` (SHA-256: `0cfb02fa0dacd998611ee47dcfa7f6ee76daf20b619db3c3d246325c71ee612a`)
+- **What was processed:** Cryptographic lock and byte-level acquisition audit of new_words.md.
+- **Input artifact:** `acquisition/local/new_words.md` (SHA-256: `6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7`)
+- **Output artifact:** `acquisition/sources/new_words/new_words.md` (SHA-256: `6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7`)
 
 | Metric | Count |
 |---|---|
 | **Records Entered Stage** | `1` |
 | **Successfully Processed (Clean/Validated)** | `1` |
+| **Excluded from Eligible Dataset (e.g. A1/A2)** | `0` |
 | **Flagged for Review (`review_pending`)** | `0` |
 | **Unresolved Blocking Errors (`error`)** | `0` |
-| **Total Affected Records with Findings** | `0` |
-| **Total Structured Findings Logged** | `0` |
+| **Total Distinct Issue Occurrences** | `0` |
+| **Unique Affected Records** | `0` |
 
 ## 2. Primary-Reason Partition (Disjoint Record Counts)
 
 | Primary State / Reason | Unique Record Count |
 |---|---|
-| `registered_clean` | `1` |
+| `clean_acquisition` | `1` |
 
 ## 3. Automated Invariant Checks
 
 | Check Name | Status | Details |
 |---|---|---|
-| `source_file_exists_and_nonempty` | **PASS** | Source file present at acquisition/local/justprepy_vocabulary_list.txt (3823 bytes). |
-| `utf8_encoding_integrity` | **PASS** | UTF-8 decoding verified without replacement characters (4 non-empty lines). |
-| `sha256_provenance_recorded` | **PASS** | SHA-256 lock recorded in acquisition/manifest.json: e1b15633f274f58f... |
+| `sha256_immutable_lock` | **PASS** | SHA-256 matches cryptographic lock 6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7 exactly. |
+| `utf8_decodability` | **PASS** | File size 30161 bytes decoded successfully under UTF-8 encoding. |
 
 ## 4. Reproducible Backtesting Commands
 
-Run the following commands from the repository root (`c:\Users\user\Desktop\vocabulary_parser`):
+Run the following commands from the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe -m processors.acquisition
-.\.venv\Scripts\python.exe -m pytest -q tests/test_vocabulary_pipeline.py -k acquisition
+Get-FileHash acquisition/sources/new_words/new_words.md -Algorithm SHA256
 ```
 
 ## 5. Verification Procedure
 
-1. Confirm `acquisition/local/justprepy_vocabulary_list.txt` exists and matches the SHA-256 recorded in `acquisition/manifest.json`.
-2. Inspect `data/acquisition/validation.json` and verify `error_count == 0`.
-3. Run the acquisition pytest check to confirm byte-for-byte source preservation.
+1. Verify SHA-256 matches manifest.json (6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7).
+2. Verify UTF-8 decoding without errors.

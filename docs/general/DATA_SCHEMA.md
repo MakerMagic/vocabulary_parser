@@ -38,7 +38,11 @@ Every structured record emitted by the pipeline maintains strict identity and ev
 | State | JSON Representation | Meaning & Invariant |
 |---|---|---|
 | **Present Value** | `"field": <value>` | Field was extracted from source or deterministically enriched and verified. |
-| **Unavailable / Reserved Future Stage** | `"difficulty": null`, `"parenthetical_modifier": null` | Field is legitimately absent in source (`parenthetical_modifier`) or reserved for an unimplemented future stage (`difficulty`). |
+| **Classification Type** | `"type": "Essential"` or `"type": null` | `"Essential"` for essential general question groups (strictly exempt from A1/A2 elementary exclusion); `null` for standard vocabulary items. |
+| **Platform Preset** | `"preset": "Basics"` or `"preset": null` | Independent preset grouping. Explicitly `"Basics"` across all current records; schema default is `null` for future records. |
+| **Difficulty Tier** | `"difficulty": "Easy" \| "Medium" \| "Hard"` | CEFR-based difficulty tier (A1/A2/B1 -> Easy, B2 -> Medium, C1/C2 -> Hard). |
+| **Website Eligibility** | `"final_output_eligible": true \| false` | `true` only if `validation_status == "validated"` and no blocking issues exist; `false` if `review_pending`, `excluded`, or `error`. |
+| **Unavailable / Legitimately Absent** | `"parenthetical_modifier": null` | Field is legitimately absent in source (`parenthetical_modifier`). |
 | **Validated** | `"validation_status": "validated"` | Record passed all provenance, translation alternative limit, non-circular English, and POS checks with zero ambiguity. |
 | **Review Pending** | `"validation_status": "review_pending"` | Record satisfies all formal schema constraints, but carries a documented linguistic notice (e.g., parenthetical phrasal syntax, defective modal morphology, or secondary polysemous sense) for human curriculum review. |
 | **Active Error** | `"validation_status": "error"` | Record failed a mandatory schema or quality check (`0` tolerated in PRE-FINAL). |
@@ -87,13 +91,18 @@ Every structured record emitted by the pipeline maintains strict identity and ev
 - `normalization_audit`: `{"raw_non_whitespace_tokens", "clean_non_whitespace_tokens", "token_ledger_match", "transformations_applied"}`.
 - `difficulty`: `null` (strictly enforced; reserved for future Difficulty Classification stage).
 
-### 6.3 ENRICHED & PRE-FINAL Contract (`data/pre_final/vocabulary.json`)
+### 6.3 ENRICHED, DIFFICULTY & PRE-FINAL Contract (`data/pre_final/vocabulary.json`)
 Every final vocabulary record contains:
 - `number` (`int`): Sequential record number.
 - `word` (`str`): Original English word preserved verbatim.
 - `part_of_speech` (`str`): Grammatically accurate part of speech (`verb`, `verb (phrasal)`, `verb (modal)`, `adjective`, etc.).
 - `russian_translation` (`str`): Maximum of **TWO translation alternatives**, each of which may contain multiple Russian words.
 - `english_explanation` (`str`): Non-circular English explanation (`>= 15` chars, excluding headword lemma).
-- `difficulty`: `null` (reserved for future `Easy`/`Medium`/`Hard` stage).
-- `validation_status`: `"validated"`, `"review_pending"`, or `"error"`.
+- `preset` (`str | null`): Independent preset identifier (`null` by default; explicitly `"Basics"` across all existing datasets).
+- `difficulty` (`str`): Platform difficulty tier (`"Easy"`, `"Medium"`, `"Hard"`) mapped strictly from CEFR (`A1/A2/B1 -> Easy`, `B2 -> Medium`, `C1/C2 -> Hard`).
+- `cefr_level` (`str`): Supporting CEFR benchmark level (`"A1"`, `"A2"`, `"B1"`, `"B2"`, `"C1"`, `"C2"`).
+- `final_output_eligible` (`bool`): Strict gatekeeper flag (`true` only for validated non-problematic records; `false` for excluded A1/A2, review_pending, or errors).
+- `type` (`str | null`): Independent classification (`"Essential"` for essential general questions exempt from elementary exclusion; `null` for standard vocabulary).
+- `validation_status` (`str`): `"validated"`, `"review_pending"`, `"excluded"`, or `"error"`.
+- `exclusion_reason` (`str | null`): Explanation when `validation_status == "excluded"` (e.g., `"elementary_a1_a2"`).
 - `provenance`: Complete upstream hash and pointer chain back to RAW and source file.

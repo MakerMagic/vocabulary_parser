@@ -86,6 +86,14 @@
     .badge-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #fde047; }
     .badge-excluded { background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }
     .badge-err { background: var(--err-bg); color: var(--err); border: 1px solid #fca5a5; }
+    .badge-essential { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; font-weight: 700; }
+    .badge-type { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-weight: 500; font-size: 11px; }
+    .badge-preset { background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; font-weight: 700; }
+    .badge-diff-easy { background: #dcfce7; color: #166534; border: 1px solid #86efac; font-weight: 700; }
+    .badge-diff-medium { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; font-weight: 700; }
+    .badge-diff-hard { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; font-weight: 700; }
+    .badge-eligible { background: #dcfce7; color: #15803d; border: 1px solid #4ade80; font-weight: 700; }
+    .badge-blocked { background: #fee2e2; color: #b91c1c; border: 1px solid #f87171; font-weight: 700; }
     .box {
       padding: 10px 14px;
       border-radius: 6px;
@@ -146,6 +154,10 @@
               <span class="record-num">#2</span>
               <span class="record-word">account (for)</span>
               <code class="record-id">uclouvain_vocab_002</code>
+              <span class="badge badge-preset">Preset: Basics</span>
+              <span class="badge badge-diff-medium">Difficulty: Medium (B2)</span>
+              <span class="badge badge-type">Type: null (Standard Vocabulary)</span>
+              <span class="badge badge-blocked">Final Output: BLOCKED (REVIEW_PENDING)</span>
             </div>
             <div>
               <span class="badge badge-warn">REVIEW_PENDING</span>
@@ -207,20 +219,28 @@
               </dl>
             </div>
 
-            <!-- Stage 6: Validation & QA -->
+            <!-- Stage 6: Validation & Platform Settings -->
             <div class="stage-pane">
-              <h3>4. Validation &amp; Stage QA</h3>
+              <h3>4. Validation &amp; Difficulty Tier</h3>
               <dl>
                 <dt>Validation Status</dt>
                 <dd><strong>REVIEW_PENDING</strong></dd>
-                <dt>Difficulty Placeholder</dt>
-                <dd><code>difficulty: null</code> (enforced unset)</dd>
-                <dt>Cross-Section Homograph</dt>
+                <dt>Preset</dt>
+                <dd><code>Basics</code></dd>
+                <dt>Difficulty Tier</dt>
+                <dd><strong>Medium</strong></dd>
+                <dt>CEFR Level</dt>
+                <dd><code>B2</code></dd>
+                <dt>Final Output Eligibility</dt>
+                <dd><strong>BLOCKED / NOT ELIGIBLE</strong></dd>
+                <dt>Classification Type</dt>
+                <dd><strong>null (Standard Vocabulary)</strong></dd>
+                <dt>Cross-Section Peer</dt>
                 <dd>False</dd>
                 <dt>Stage QA Issues</dt>
                 <dd>
                   <ul class="qa-links">
-                    <li><a href="../../qa\RAW_ISSUES.md">RAW Stage Issues</a></li><li><a href="../../qa\CLEAN_ISSUES.md">CLEAN Stage Issues</a></li><li><a href="../../qa\ENRICHMENT_ISSUES.md">ENRICHMENT Stage Issues</a></li><li><a href="../../qa\VALIDATION_ISSUES.md">VALIDATION Stage Issues</a></li>
+                    <li><a href="../../qa\sources\uclouvain\RAW_ISSUES.md">RAW Stage Issues</a></li><li><a href="../../qa\sources\uclouvain\CLEAN_ISSUES.md">CLEAN Stage Issues</a></li><li><a href="../../qa\sources\uclouvain\ENRICHMENT_ISSUES.md">ENRICHMENT Stage Issues</a></li><li><a href="../../qa\sources\uclouvain\VALIDATION_ISSUES.md">VALIDATION Stage Issues</a></li>
                   </ul>
                 </dd>
               </dl>

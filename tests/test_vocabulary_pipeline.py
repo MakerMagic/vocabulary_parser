@@ -21,8 +21,10 @@ import pytest
 
 from processors.difficulty.contract import (
     ALLOWED_DIFFICULTY_LABELS,
+    CEFR_TO_DIFFICULTY,
+    CURRENT_DATASET_PRESET,
+    PRESET_SCHEMA_DEFAULT,
     assert_difficulty_unset,
-    run_difficulty_classification,
 )
 from processors.normalization.cleaner import verify_token_ledger
 from processors.provenance import sha256_file
@@ -132,7 +134,13 @@ def test_stage5_and_6_enrichment_and_prefinal_contract() -> None:
         alts = parse_russian_translation_alternatives(rec["russian_translation"])
         assert 1 <= len(alts) <= 2
         assert len(rec["english_explanation"].strip()) >= 15
-        assert rec["difficulty"] is None
+        assert rec["difficulty"] in ALLOWED_DIFFICULTY_LABELS
+        assert rec["preset"] == "Basics"
+        assert rec["cefr_level"] in ("A1", "A2", "B1", "B2", "C1", "C2")
+        if rec["validation_status"] == "validated":
+            assert rec["final_output_eligible"] is True
+        else:
+            assert rec["final_output_eligible"] is False
 
         errs = validate_record_quality(rec)
         assert errs == [], f"Unexpected quality errors on #{rec['number']} {rec['word']}: {errs}"
@@ -170,21 +178,49 @@ def test_negative_controls_detect_synthetic_defects() -> None:
     errs = validate_record_quality(bad_circular)
     assert any(e["code"] == "circular_english_explanation" for e in errs)
 
-    # 4. Prematurely populated difficulty must fail
+    # 4. Invalid difficulty label must fail
     bad_diff = copy.deepcopy(prefinal_rec)
-    bad_diff["difficulty"] = "Easy"
+    bad_diff["difficulty"] = "InvalidTier"
     errs = validate_record_quality(bad_diff)
-    assert any(e["code"] == "difficulty_prematurely_populated_or_missing" for e in errs)
+    assert any(e["code"] == "invalid_difficulty_classification" for e in errs)
+
+    # 5. Early stages assert_difficulty_unset negative control
+    with pytest.raises(ValueError, match="must maintain difficulty as null"):
+        assert_difficulty_unset({"id": "test_rec", "difficulty": "Easy"})
 
 
-def test_future_difficulty_stage_contract_raises_not_implemented() -> None:
+def test_difficulty_stage_execution_and_contract() -> None:
     assert ALLOWED_DIFFICULTY_LABELS == ("Easy", "Medium", "Hard")
-    with pytest.raises(NotImplementedError, match="NOT implemented yet"):
-        run_difficulty_classification([])
+    assert CEFR_TO_DIFFICULTY["A1"] == "Easy"
+    assert CEFR_TO_DIFFICULTY["A2"] == "Easy"
+    assert CEFR_TO_DIFFICULTY["B1"] == "Easy"
+    assert CEFR_TO_DIFFICULTY["B2"] == "Medium"
+    assert CEFR_TO_DIFFICULTY["C1"] == "Hard"
+    assert CEFR_TO_DIFFICULTY["C2"] == "Hard"
+
+    # Schema default contract
+    assert PRESET_SCHEMA_DEFAULT is None
+    assert CURRENT_DATASET_PRESET == "Basics"
+
+    # Verify UCL difficulty artifact
+    ucl_diff = _load_json("data/difficulty/sources/uclouvain/entries.difficulty.json")
+    assert ucl_diff["record_count"] == 413
+    assert ucl_diff["summary"]["preset_assigned_count"] == 413
+    assert ucl_diff["summary"]["eligible_for_final_output_count"] == 379
+    assert ucl_diff["summary"]["blocked_from_final_output_count"] == 34
+    assert ucl_diff["summary"]["difficulty_counts"] == {"Easy": 220, "Medium": 175, "Hard": 18, "Unset": 0}
+
+    # Verify NW difficulty artifact
+    nw_diff = _load_json("data/difficulty/sources/new_words/entries.difficulty.json")
+    assert nw_diff["record_count"] == 159
+    assert nw_diff["summary"]["preset_assigned_count"] == 159
+    assert nw_diff["summary"]["eligible_for_final_output_count"] == 154
+    assert nw_diff["summary"]["blocked_from_final_output_count"] == 5
+    assert nw_diff["summary"]["difficulty_counts"] == {"Easy": 31, "Medium": 60, "Hard": 68, "Unset": 0}
 
 
 def test_stage_qa_artifact_pairs_exist() -> None:
-    stages = ["ACQUISITION", "INSPECTION", "RAW", "CLEAN", "ENRICHMENT", "VALIDATION"]
+    stages = ["ACQUISITION", "INSPECTION", "RAW", "CLEAN", "ENRICHMENT", "DIFFICULTY", "VALIDATION"]
     for stage in stages:
         bt = REPO_ROOT / "qa" / f"{stage}_BACKTESTING.md"
         iss = REPO_ROOT / "qa" / f"{stage}_ISSUES.md"
@@ -233,5 +269,64 @@ def test_html_backtesting_interface_exists_and_contains_all_records() -> None:
     html_text = html_path.read_text(encoding="utf-8")
     assert "justprepy Vocabulary Parsing Pipeline — QA &amp; Backtesting Review Interface" in html_text
     assert 'data-status="validated"' in html_text
-    assert 'data-status="review_pending"' in html_text
-    assert html_text.count('data-status="') == 413
+
+
+def test_new_words_pipeline_execution_and_contract() -> None:
+    nw_doc = _load_json("data/pre_final/sources/new_words/vocabulary.json")
+    assert nw_doc["record_count"] == 159
+    assert nw_doc["summary"]["total_records"] == 159
+    assert nw_doc["summary"]["validated_count"] == 154
+    assert nw_doc["summary"]["review_pending_count"] == 2
+    assert nw_doc["summary"]["excluded_count"] == 3
+    assert nw_doc["summary"]["error_count"] == 0
+
+    records = nw_doc["records"]
+    assert len(records) == 159
+
+    for r in records:
+        assert isinstance(r["word"], str) and r["word"].strip()
+        assert 1 <= len(r["russian_alternatives"]) <= 2
+        assert len(r["english_explanation"].strip()) >= 15
+        assert r["difficulty"] in ALLOWED_DIFFICULTY_LABELS
+        assert r["preset"] == "Basics"
+        assert r["cefr_level"] in ("A1", "A2", "B1", "B2", "C1", "C2")
+        assert "type" in r
+        if r["validation_status"] == "validated":
+            assert r["final_output_eligible"] is True
+        else:
+            assert r["final_output_eligible"] is False
+
+    # Excluded records check
+    excluded_words = {r["word"] for r in records if r["validation_status"] == "excluded"}
+    assert excluded_words == {"Repair", "Nearly", "Several"}
+
+    # Review pending records check
+    review_words = {r["word"] for r in records if r["validation_status"] == "review_pending"}
+    assert review_words == {"Necessitates", "Opulent"}
+
+
+def test_new_words_backtesting_tool_and_type_metadata() -> None:
+    from tools.vocabulary_review import find_records_for_query
+
+    # 1. Multiword expression 'Give rise to'
+    gr_records = find_records_for_query("Give rise to", "new_words")
+    assert len(gr_records) == 1
+    assert gr_records[0]["word"] == "Give rise to"
+    assert gr_records[0]["part_of_speech"] == "verb phrase"
+
+    # 2. Excluded word 'Repair'
+    rep_records = find_records_for_query("Repair", "new_words")
+    assert len(rep_records) == 1
+    assert rep_records[0]["validation_status"] == "excluded"
+    assert rep_records[0]["cefr_level"] == "A2"
+
+    # 3. Duplicate word 'negligible' across clusters
+    neg_records = find_records_for_query("negligible", "new_words")
+    assert len(neg_records) == 2
+    clusters = {r["cluster_number"] for r in neg_records}
+    assert clusters == {28, 36}
+
+    # 4. Type field verification (schema extensibility)
+    assert all("type" in r for r in gr_records)
+    assert gr_records[0]["type"] is None or gr_records[0]["type"] == "Essential"
+

@@ -88,6 +88,17 @@ def generate_html_review(repo_root: Path = REPO_ROOT) -> Path:
             clean_meta += f", spelling={clean_rec['spelling_convention']}"
 
         extra_badges: list[str] = []
+        rec_preset = rec.get("preset", "Basics")
+        extra_badges.append(f'<span class="tag tag-preset" title="Preset">{html.escape(rec_preset)}</span>')
+        rec_diff = rec.get("difficulty") or "Unset"
+        rec_cefr = rec.get("cefr_level") or "N/A"
+        diff_cls = f"tag-diff-{str(rec_diff).lower()}"
+        extra_badges.append(f'<span class="tag {diff_cls}" title="Difficulty">{html.escape(str(rec_diff))} ({html.escape(str(rec_cefr))})</span>')
+        if rec.get("final_output_eligible"):
+            extra_badges.append('<span class="tag tag-eligible" title="Eligible for final website output">Eligible</span>')
+        else:
+            extra_badges.append(f'<span class="tag tag-blocked" title="Blocked: {html.escape(status.upper())}">Blocked</span>')
+
         if rec["is_cross_section_homograph"]:
             peer = rec["cross_section_homograph_numbers"][0]
             extra_badges.append(f'<span class="tag tag-homograph" title="Also appears at #{peer}">Homograph (#{peer})</span>')
@@ -388,6 +399,12 @@ def generate_html_review(repo_root: Path = REPO_ROOT) -> Path:
     .tag-homograph {{ background: #e0e7ff; color: #3730a3; }}
     .tag-phrasal {{ background: #fae8ff; color: #86198f; }}
     .tag-spelling {{ background: #f1f5f9; color: #334155; }}
+    .tag-preset {{ background: #e0e7ff; color: #3730a3; }}
+    .tag-diff-easy {{ background: #dcfce7; color: #166534; }}
+    .tag-diff-medium {{ background: #fef9c3; color: #854d0e; }}
+    .tag-diff-hard {{ background: #fee2e2; color: #991b1b; }}
+    .tag-eligible {{ background: #dcfce7; color: #15803d; }}
+    .tag-blocked {{ background: #fee2e2; color: #b91c1c; }}
     .review-note {{
       margin-top: 6px;
       padding: 6px 8px;

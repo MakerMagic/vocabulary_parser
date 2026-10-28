@@ -1,0 +1,36 @@
+{
+  "description": "Cryptographic lock and byte-level acquisition audit of new_words.md.",
+  "document_id": "new_words_v1",
+  "input_artifact": "acquisition/local/new_words.md",
+  "input_sha256": "6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7",
+  "invariant_checks": [
+    {
+      "details": "SHA-256 matches cryptographic lock 6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7 exactly.",
+      "name": "sha256_immutable_lock",
+      "status": "PASS"
+    },
+    {
+      "details": "File size 30161 bytes decoded successfully under UTF-8 encoding.",
+      "name": "utf8_decodability",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {},
+  "issues": [],
+  "output_artifact": "acquisition/sources/new_words/new_words.md",
+  "output_sha256": "6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7",
+  "primary_reason_partition": {
+    "clean_acquisition": 1
+  },
+  "source_id": "new_words",
+  "stage": "ACQUISITION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 1,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 1
+  },
+  "validation_artifact": "data/acquisition/sources/new_words/validation.json"
+}

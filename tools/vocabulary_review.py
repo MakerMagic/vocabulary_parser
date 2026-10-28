@@ -91,12 +91,15 @@ def find_records_for_query(query: str, source_id: str, repo_root: Path = REPO_RO
             pos_label = lex_entry[0] if lex_entry else "adjective"
             ru_trans = lex_entry[1] if lex_entry else "уверенный; точный"
             en_expl = lex_entry[2] if lex_entry else "Having no doubt about something, or completely certain and reliable."
+            from processors.difficulty.contract import cefr_to_difficulty
+
             matches.append({
                 "cefr_level": ex_info["level"],
                 "declared_section_pos": pos_label,
-                "difficulty": None,
+                "difficulty": cefr_to_difficulty(ex_info["level"]),
                 "english_explanation": en_expl,
                 "exclusion_reason": "elementary_a1_a2",
+                "final_output_eligible": False,
                 "headword_lemma": q_norm,
                 "id": f"benchmark_{q_norm}",
                 "is_cross_section_homograph": False,
@@ -104,6 +107,7 @@ def find_records_for_query(query: str, source_id: str, repo_root: Path = REPO_RO
                 "number": 0,
                 "parenthetical_modifier": None,
                 "part_of_speech": pos_label,
+                "preset": "Basics",
                 "provenance": {
                     "source_file": "Cambridge EVP / Oxford 3000 CEFR Benchmark",
                     "source_sha256": "systematic_exclusion_rule",
@@ -169,10 +173,12 @@ def load_stage_data_for_record(rec_num: int, source_id: str, repo_root: Path = R
     # QA Issues across stages
     issues: list[dict[str, Any]] = []
     for stage_name in ("RAW", "CLEAN", "ENRICHMENT", "VALIDATION"):
-        iss_path = repo_root / "qa" / f"{stage_name}_ISSUES.md"
+        iss_path = repo_root / f"qa/sources/{source_id}/{stage_name}_ISSUES.md"
+        if not iss_path.exists():
+            iss_path = repo_root / "qa" / f"{stage_name}_ISSUES.md"
         if iss_path.exists():
             text = iss_path.read_text(encoding="utf-8")
-            # Look for record references like `#<num>` or `uclouvain_vocab_<num>`
+            # Look for record references like `#<num>` or `_vocab_<num>`
             if f"#{rec_num}" in text or f"vocab_{rec_num:03d}" in text:
                 issues.append({"stage": stage_name, "file": str(iss_path.relative_to(repo_root))})
     data["qa_references"] = issues
@@ -206,6 +212,27 @@ def generate_record_backtest_html(
             "error": "badge-err",
         }.get(status, "badge-neutral")
 
+        rec_type = pf_rec.get("type")
+        if rec_type == "Essential":
+            type_badge = '<span class="badge badge-essential">Type: Essential</span>'
+        elif rec_type:
+            type_badge = f'<span class="badge badge-type">Type: {html.escape(str(rec_type))}</span>'
+        else:
+            type_badge = '<span class="badge badge-type">Type: null (Standard Vocabulary)</span>'
+
+        rec_preset = pf_rec.get("preset", "Basics")
+        preset_badge = f'<span class="badge badge-preset">Preset: {html.escape(str(rec_preset))}</span>'
+
+        rec_diff = pf_rec.get("difficulty") or "Unset"
+        rec_cefr = pf_rec.get("cefr_level") or "N/A"
+        diff_badge = f'<span class="badge badge-diff-{str(rec_diff).lower()}">Difficulty: {html.escape(str(rec_diff))} ({html.escape(str(rec_cefr))})</span>'
+
+        is_eligible = pf_rec.get("final_output_eligible", status == "validated")
+        if is_eligible:
+            elig_badge = '<span class="badge badge-eligible">Final Output: ELIGIBLE</span>'
+        else:
+            elig_badge = f'<span class="badge badge-blocked">Final Output: BLOCKED ({html.escape(status.upper())})</span>'
+
         raw_spans = pf_rec.get("provenance", {}).get("source_spans", {})
         span_desc = f"Line {raw_spans.get('line_number')}, cols {raw_spans.get('line_char_start')}..{raw_spans.get('line_char_end')} (bytes {raw_spans.get('file_char_start')}..{raw_spans.get('file_char_end')})"
 
@@ -234,6 +261,10 @@ def generate_record_backtest_html(
               <span class="record-num">#{num}</span>
               <span class="record-word">{html.escape(pf_rec["word"])}</span>
               <code class="record-id">{html.escape(pf_rec["id"])}</code>
+              {preset_badge}
+              {diff_badge}
+              {type_badge}
+              {elig_badge}
             </div>
             <div>
               <span class="badge {badge_cls}">{html.escape(status.upper())}</span>
@@ -295,15 +326,23 @@ def generate_record_backtest_html(
               </dl>
             </div>
 
-            <!-- Stage 6: Validation & QA -->
+            <!-- Stage 6: Validation & Platform Settings -->
             <div class="stage-pane">
-              <h3>4. Validation &amp; Stage QA</h3>
+              <h3>4. Validation &amp; Difficulty Tier</h3>
               <dl>
                 <dt>Validation Status</dt>
                 <dd><strong>{html.escape(status.upper())}</strong></dd>
-                <dt>Difficulty Placeholder</dt>
-                <dd><code>difficulty: null</code> (enforced unset)</dd>
-                <dt>Cross-Section Homograph</dt>
+                <dt>Preset</dt>
+                <dd><code>{html.escape(str(rec_preset))}</code></dd>
+                <dt>Difficulty Tier</dt>
+                <dd><strong>{html.escape(str(rec_diff))}</strong></dd>
+                <dt>CEFR Level</dt>
+                <dd><code>{html.escape(str(rec_cefr))}</code></dd>
+                <dt>Final Output Eligibility</dt>
+                <dd><strong>{"ELIGIBLE" if is_eligible else "BLOCKED / NOT ELIGIBLE"}</strong></dd>
+                <dt>Classification Type</dt>
+                <dd><strong>{html.escape(str(rec_type or "null (Standard Vocabulary)"))}</strong></dd>
+                <dt>Cross-Section Peer</dt>
                 <dd>{html.escape(str(pf_rec.get("is_cross_section_homograph", False)))}</dd>
                 <dt>Stage QA Issues</dt>
                 <dd>
@@ -406,6 +445,14 @@ def generate_record_backtest_html(
     .badge-warn {{ background: var(--warn-bg); color: var(--warn); border: 1px solid #fde047; }}
     .badge-excluded {{ background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }}
     .badge-err {{ background: var(--err-bg); color: var(--err); border: 1px solid #fca5a5; }}
+    .badge-essential {{ background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; font-weight: 700; }}
+    .badge-type {{ background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-weight: 500; font-size: 11px; }}
+    .badge-preset {{ background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; font-weight: 700; }}
+    .badge-diff-easy {{ background: #dcfce7; color: #166534; border: 1px solid #86efac; font-weight: 700; }}
+    .badge-diff-medium {{ background: #fef9c3; color: #854d0e; border: 1px solid #fde047; font-weight: 700; }}
+    .badge-diff-hard {{ background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; font-weight: 700; }}
+    .badge-eligible {{ background: #dcfce7; color: #15803d; border: 1px solid #4ade80; font-weight: 700; }}
+    .badge-blocked {{ background: #fee2e2; color: #b91c1c; border: 1px solid #f87171; font-weight: 700; }}
     .box {{
       padding: 10px 14px;
       border-radius: 6px;
@@ -493,8 +540,18 @@ def print_cli_summary(query: str, matches: list[dict[str, Any]], source_id: str,
         spans = rec.get("provenance", {}).get("source_spans", {})
         note = rec.get("quality_and_review_notes")
         evidence = rec.get("linguistic_evidence")
+        rec_type = rec.get("type") or "null (Standard Vocabulary)"
+        rec_preset = rec.get("preset", "Basics")
+        rec_diff = rec.get("difficulty") or "Unset"
+        rec_cefr = rec.get("cefr_level") or "N/A"
+        is_elig = rec.get("final_output_eligible", status == "VALIDATED")
+        elig_str = "ELIGIBLE" if is_elig else f"BLOCKED ({status})"
 
         print(f"\n[#{num}] {w} ({rid}) — STATUS: {status}")
+        print(f"  • Preset:       {rec_preset}")
+        print(f"  • Difficulty:   {rec_diff} (CEFR: {rec_cefr})")
+        print(f"  • Final Output: {elig_str}")
+        print(f"  • Type:         {rec_type}")
         print(f"  • Raw Span:     Line {spans.get('line_number')}, cols {spans.get('line_char_start')}..{spans.get('line_char_end')}")
         print(f"  • Part of Sp.:  {pos}")
         print(f"  • Russian Alt.: {ru} ({len(alts)} alternative{'s' if len(alts) != 1 else ''})")
