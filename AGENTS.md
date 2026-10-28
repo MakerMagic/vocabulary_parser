@@ -10,17 +10,18 @@ Historical architectural lessons from the prior TSA/BMAT and Mathematics parsing
 
 ## 2. Current Implementation Status
 
-> **IMPORTANT:** This repository is currently at the **Initial Architecture & Foundation** stage. **No extraction, parsing, cleaning, matching, categorization, or rendering code has been implemented yet.** Do not claim a pipeline stage is operational simply because its foundational directory exists.
+> **IMPORTANT:** This repository is at the **Configured Foundation & Tooling** stage. Core PDF-extraction and verification tools (`pdfplumber`, `pdfminer.six`, `pypdfium2`, `pillow`, `pytest`, `ruff`, `rg`) and all 7 project skills in `.agents/skills/` are **installed and verified**. **No extraction, parsing, cleaning, matching, categorization, or rendering code has been executed yet** because source documents have not been ingested.
 
 | Stage / Area | Status | Location | Notes |
 |---|---|---|---|
 | **Documentation Architecture** | **Initialized** | [`docs/general/`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general) | 7 core docs: Context, Architecture, Schema, Processing, Development, Skills, Current Work. |
-| **Agent Skills Root** | **Structure Ready** | [`.agents/skills/`](file:///c:/Users/user/Desktop/vocabulary_parser/.agents/skills) | Dedicated skill root ready to receive individual skills (`<skill-name>/SKILL.md`). |
+| **Agent Skills Root** | **Installed (7 Skills)** | [`.agents/skills/`](file:///c:/Users/user/Desktop/vocabulary_parser/.agents/skills) | `project-architecture-guardrails`, `processing-raw-preservation`, `testing-validation-expectations`, `data-schema-consistency`, `safe-development-workflow`, `token-efficient-context-routing`, `token-saver-codex`. |
+| **Python & PDF Tooling** | **Installed & Verified** | [`.venv/`](file:///c:/Users/user/Desktop/vocabulary_parser/.venv), [`requirements.txt`](file:///c:/Users/user/Desktop/vocabulary_parser/requirements.txt) | `pdfplumber==0.11.10`, `pdfminer.six==20260107`, `pypdfium2==5.14.0`, `pillow==12.3.0`, `pytest==9.1.1`, `ruff==0.16.10`. |
 | **Acquisition (Source Intake)** | **Structure Ready** | [`acquisition/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition) | Ready to receive source files in `acquisition/local/` and log provenance. No documents ingested yet. |
 | **Source Inspection** | **Structure Ready** | [`inspections/`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections) | Ready for pre-parser document profiling (`SOURCE_PROFILES.md`). |
 | **RAW Extraction Storage** | **Placeholder Only** | [`data/raw/`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw) | Directory established with data contract rules; **no RAW parser exists yet**. |
 | **QA & Issue Tracking** | **Structure Ready** | [`qa/`](file:///c:/Users/user/Desktop/vocabulary_parser/qa) | Ready for stage `<STAGE>_BACKTESTING.md` / `<STAGE>_ISSUES.md` pairs and defect tracking. |
-| **Verification Suite** | **Placeholder Only** | [`tests/`](file:///c:/Users/user/Desktop/vocabulary_parser/tests) | Testing standards defined; **no executable tests exist yet**. |
+| **Verification Suite** | **Placeholder Only** | [`tests/`](file:///c:/Users/user/Desktop/vocabulary_parser/tests) | Testing standards defined (`pytest` installed); **no executable tests exist yet**. |
 | **Source-Profile Parsers** | **Not Implemented** | *(Deferred: `parsers/`)* | Create per-profile parser modules only after source inspection is documented. |
 | **Cleaning & Normalization** | **Not Implemented** | *(Deferred: `processors/normalization/`, `data/clean/`)* | Wait until RAW extraction and schema are verified. |
 | **Matching / Key Association** | **Not Implemented** | *(Deferred: `processors/matching/`, `data/merged/`)* | Only needed if Vocabulary sources separate prompts/entries from keys/explanations. |
@@ -40,7 +41,7 @@ The documentation architecture follows [`DOCUMENTATION_ARCHITECTURE_HANDOVER.md`
 | **DATA_SCHEMA.md** | Shared contracts, identity rules, and null/issue semantics. | [`docs/general/DATA_SCHEMA.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DATA_SCHEMA.md) |
 | **PROCESSING_RULES.md** | Permitted transformations, preservation rules, and prohibited shortcuts. | [`docs/general/PROCESSING_RULES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/PROCESSING_RULES.md) |
 | **DEVELOPMENT_RULES.md** | Rules for code modifications, validation, and stage artifact generation. | [`docs/general/DEVELOPMENT_RULES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DEVELOPMENT_RULES.md) |
-| **CODEX_SKILLS_USAGE.md** | Task-to-skill routing, discovery, and context-loading discipline. | [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md) |
+| **CODEX_SKILLS_USAGE.md** | Installed skills, PDF tools/libraries, and task-to-skill routing. | [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md) |
 | **CURRENT_WORK.md** | Operational handoff state (milestone, completed, in progress, next task). | [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md) |
 
 ---
@@ -48,12 +49,12 @@ The documentation architecture follows [`DOCUMENTATION_ARCHITECTURE_HANDOVER.md`
 ## 4. Operational Routing for Future Agents
 
 1. **Before Starting Any Task:**
-   - Check [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md) for the active continuation state and next task.
-   - Consult [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md) to see if a dedicated skill covers your task.
+   - Check [`docs/general/CURRENT_WORK.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CURRENT_WORK.md) when task continuation matters.
+   - Consult [`docs/general/CODEX_SKILLS_USAGE.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/CODEX_SKILLS_USAGE.md) and load **one** matching skill from [`.agents/skills/`](file:///c:/Users/user/Desktop/vocabulary_parser/.agents/skills).
 2. **Where to place incoming source documents:**
    Place unmodified original files inside [`acquisition/local/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/local) and record SHA-256 hashes following [`acquisition/README.md`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/README.md).
 3. **Before writing any parser:**
-   Inspect actual source files and document their layout, typography, encoding, and entry boundaries in [`inspections/SOURCE_PROFILES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/SOURCE_PROFILES.md).
+   Inspect actual source files using `.venv\Scripts\python.exe` (`pdfplumber` / `pdfminer.six` / `pypdfium2`) and document their layout, typography, encoding, and entry boundaries in [`inspections/SOURCE_PROFILES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/SOURCE_PROFILES.md).
 4. **How to preserve source provenance:**
    Follow [`docs/general/DATA_SCHEMA.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DATA_SCHEMA.md) and [`docs/PROVENANCE_AND_CONTRACTS.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/PROVENANCE_AND_CONTRACTS.md). Every extracted record must retain source file SHA-256, page/line/byte coordinates, and exact original source spans.
 5. **Where to document findings and issues:**

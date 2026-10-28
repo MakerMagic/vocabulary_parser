@@ -57,9 +57,12 @@ vocabulary_parser/
 ├── AGENTS.md                                # Instruction router and active stage navigator
 ├── PARSING_KNOWLEDGE_TRANSFER.md          # Immutable handover from TSA/BMAT/Math project
 ├── DOCUMENTATION_ARCHITECTURE_HANDOVER.md # Immutable handover for Markdown documentation system
+├── requirements.txt                       # Pinned PDF extraction & QA dependencies
+├── skills-lock.json                       # Lockfile for installed external agent skills
 ├── .gitignore                             # Ignores venvs, caches, and disposable artifacts
+├── .venv/                                 # Configured Python 3.13 virtual environment
 ├── .agents/
-│   └── skills/                            # Dedicated project-local AI agent skills root
+│   └── skills/                            # Installed project-local AI agent skills (7 skills)
 ├── acquisition/                           # Unmodified source documents and provenance manifest
 │   ├── README.md
 │   └── local/                             # Drop zone for original source files
@@ -81,7 +84,7 @@ vocabulary_parser/
 │       ├── DATA_SCHEMA.md                 # Shared contracts and representation rules
 │       ├── PROCESSING_RULES.md            # Permitted transformations and stage invariants
 │       ├── DEVELOPMENT_RULES.md           # Engineering rules for validation and artifact governance
-│       ├── CODEX_SKILLS_USAGE.md          # Task-to-skill routing and discovery
+│       ├── CODEX_SKILLS_USAGE.md          # Task-to-skill routing and installed tooling guide
 │       └── CURRENT_WORK.md                # Operational handoff state
 └── tests/                                 # Automated regression and source-fidelity test suite
     └── README.md
