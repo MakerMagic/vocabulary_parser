@@ -1,0 +1,1 @@
+"""Nature vocabulary parser package."""

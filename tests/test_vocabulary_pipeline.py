@@ -330,3 +330,257 @@ def test_new_words_backtesting_tool_and_type_metadata() -> None:
     assert all("type" in r for r in gr_records)
     assert gr_records[0]["type"] is None or gr_records[0]["type"] == "Essential"
 
+
+def test_nature_pipeline_execution_and_invariants() -> None:
+    """Verify end-to-end invariants for the Nature dataset."""
+    pf_doc = _load_json("data/pre_final/sources/nature/vocabulary.json")
+    assert pf_doc["record_count"] == 169
+    assert pf_doc["source_id"] == "nature"
+    assert pf_doc["preset"] == "nature"
+
+    records = pf_doc["records"]
+    assert len(records) == 169
+
+    # 1. 100% preset: 'nature'
+    for r in records:
+        assert r["preset"] == "nature", f"Record {r['word']} has invalid preset {r['preset']}"
+        assert r["difficulty"] in ("Easy", "Medium", "Hard")
+        assert len(r["russian_alternatives"]) in (1, 2)
+        assert len(r["english_explanation"]) >= 15
+
+    # 2. Eligibility partitioning: 142 eligible, 27 excluded
+    eligible = [r for r in records if r["final_output_eligible"]]
+    excluded = [r for r in records if not r["final_output_eligible"]]
+    assert len(eligible) == 142
+    assert len(excluded) == 27
+
+    # 3. 12 explicitly restored A2 words verified eligible, Easy, and present
+    restored_set = {
+        "Wind", "Oil", "Lake", "Salt", "Whales", "Stomach",
+        "Seed", "Bone", "Farming", "Roots", "Flies", "Bugs",
+    }
+    eligible_words = {r["word"] for r in eligible}
+    assert restored_set.issubset(eligible_words), f"Missing restored words: {restored_set - eligible_words}"
+
+    for r in eligible:
+        if r["word"] in restored_set:
+            assert r["difficulty"] == "Easy"
+            assert r["cefr_level"] == "A2"
+            assert r["preset"] == "nature"
+
+    # 4. Whales translation rule: exactly one Russian translation ('киты')
+    whales_rec = next(r for r in records if r["word"] == "Whales")
+    assert whales_rec["russian_translation"] == "киты"
+    assert whales_rec["russian_alternatives"] == ["киты"]
+
+    # 5. Difficulty distribution (Easy: 82, Medium: 75, Hard: 12)
+    from collections import Counter
+    diff_counts = Counter(r["difficulty"] for r in records)
+    assert diff_counts["Easy"] == 82
+    assert diff_counts["Medium"] == 75
+    assert diff_counts["Hard"] == 12
+
+    # 6. Excluded words check (remaining elementary A1/A2 words)
+    excluded_words = {r["word"] for r in excluded}
+    assert "Food" in excluded_words
+    assert "Sun" in excluded_words
+    assert "Earth" in excluded_words
+    assert "Natural" in excluded_words
+    assert not any(w in excluded_words for w in restored_set)
+
+
+def test_nature_backtesting_tool() -> None:
+    from tools.vocabulary_review import find_records_for_query
+
+    # 1. Eligible restored term 'Whales' with single translation
+    whales_records = find_records_for_query("Whales", "nature")
+    assert len(whales_records) == 1
+    assert whales_records[0]["word"] == "Whales"
+    assert whales_records[0]["preset"] == "nature"
+    assert whales_records[0]["difficulty"] == "Easy"
+    assert whales_records[0]["cefr_level"] == "A2"
+    assert whales_records[0]["final_output_eligible"] is True
+    assert whales_records[0]["russian_translation"] == "киты"
+
+    # 2. Eligible term 'Ecosystem'
+    eco_records = find_records_for_query("Ecosystem", "nature")
+    assert len(eco_records) == 1
+    assert eco_records[0]["word"] == "Ecosystem"
+    assert eco_records[0]["preset"] == "nature"
+    assert eco_records[0]["difficulty"] == "Medium"
+    assert eco_records[0]["final_output_eligible"] is True
+
+    # 3. Excluded term 'Food'
+    food_records = find_records_for_query("Food", "nature")
+    assert len(food_records) == 1
+    assert food_records[0]["preset"] == "nature"
+    assert food_records[0]["difficulty"] == "Easy"
+    assert food_records[0]["cefr_level"] == "A1"
+    assert food_records[0]["final_output_eligible"] is False
+
+    # 4. Hard term 'Photosynthesis'
+    photo_records = find_records_for_query("Photosynthesis", "nature")
+    assert len(photo_records) == 1
+    assert photo_records[0]["difficulty"] == "Hard"
+    assert photo_records[0]["cefr_level"] == "C1"
+    assert photo_records[0]["final_output_eligible"] is True
+
+
+def test_rendering_eligibility_and_negative_controls() -> None:
+    """Verify ZERO UNRESOLVED ISSUES admission gate and negative controls for Vocabulary Rendering."""
+    from processors.rendering.contract import evaluate_rendering_eligibility
+
+    valid_record = {
+        "word": "abundant",
+        "part_of_speech": "adjective",
+        "russian_translation": "обильный",
+        "russian_alternatives": ["обильный"],
+        "english_explanation": "Existing or available in large quantities; more than enough.",
+        "difficulty": "Medium",
+        "preset": "Basics",
+        "validation_status": "validated",
+        "final_output_eligible": True,
+        "validation_errors": [],
+        "quality_and_review_notes": None,
+    }
+
+    # 1. Positive admission
+    ok, reason = evaluate_rendering_eligibility(valid_record)
+    assert ok is True
+    assert reason is None
+
+    # 2. Negative Control: review_pending
+    rec_pending = copy.deepcopy(valid_record)
+    rec_pending["validation_status"] = "review_pending"
+    rec_pending["quality_and_review_notes"] = "Needs curriculum review"
+    ok, reason = evaluate_rendering_eligibility(rec_pending)
+    assert ok is False
+    assert "Pending Review" in reason
+
+    # 3. Negative Control: excluded
+    rec_excluded = copy.deepcopy(valid_record)
+    rec_excluded["validation_status"] = "excluded"
+    rec_excluded["exclusion_reason"] = "elementary_a1_a2"
+    ok, reason = evaluate_rendering_eligibility(rec_excluded)
+    assert ok is False
+    assert "policy-excluded" in reason
+
+    # 4. Negative Control: validation error present
+    rec_err = copy.deepcopy(valid_record)
+    rec_err["validation_errors"] = [{"field": "word", "message": "Corrupted token"}]
+    ok, reason = evaluate_rendering_eligibility(rec_err)
+    assert ok is False
+    assert "active validation errors" in reason
+
+    # 5. Negative Control: final_output_eligible is False
+    rec_not_final = copy.deepcopy(valid_record)
+    rec_not_final["final_output_eligible"] = False
+    ok, reason = evaluate_rendering_eligibility(rec_not_final)
+    assert ok is False
+    assert "final_output_eligible=False" in reason
+
+    # 6. Negative Control: invalid difficulty
+    rec_bad_diff = copy.deepcopy(valid_record)
+    rec_bad_diff["difficulty"] = "SuperHard"
+    ok, reason = evaluate_rendering_eligibility(rec_bad_diff)
+    assert ok is False
+    assert "Invalid or unset difficulty" in reason
+
+
+def test_rendering_audit_across_all_datasets() -> None:
+    """Verify read-only systematic rendering audit across all 741 records in repository."""
+    from processors.rendering import audit_and_render_all
+
+    res = audit_and_render_all(REPO_ROOT)
+    assert res["total_repository_records"] == 741
+    assert res["total_rendering_eligible"] == 675
+    assert res["total_rendering_blocked"] == 66
+    assert res["zero_unresolved_issues_gate_passed"] is True
+
+    sources = res["source_breakdown"]
+    assert set(sources.keys()) == {"nature", "new_words", "uclouvain"}
+
+    # UCLouvain (413 total: 379 eligible, 34 blocked)
+    ucl = sources["uclouvain"]
+    assert ucl["total_records"] == 413
+    assert ucl["admitted_eligible_count"] == 379
+    assert ucl["blocked_ineligible_count"] == 34
+    assert ucl["blocked_categories"]["policy_exclusion_a1_a2"] == 29
+    assert ucl["blocked_categories"]["review_pending"] == 5
+    assert ucl["blocked_categories"]["validation_errors"] == 0
+
+    # New Words (159 total: 154 eligible, 5 blocked)
+    nw = sources["new_words"]
+    assert nw["total_records"] == 159
+    assert nw["admitted_eligible_count"] == 154
+    assert nw["blocked_ineligible_count"] == 5
+    assert nw["blocked_categories"]["policy_exclusion_a1_a2"] == 3
+    assert nw["blocked_categories"]["review_pending"] == 2
+    assert nw["blocked_categories"]["validation_errors"] == 0
+
+    # Nature (169 total: 142 eligible, 27 blocked)
+    nat = sources["nature"]
+    assert nat["total_records"] == 169
+    assert nat["admitted_eligible_count"] == 142
+    assert nat["blocked_ineligible_count"] == 27
+    assert nat["blocked_categories"]["policy_exclusion_a1_a2"] == 27
+    assert nat["blocked_categories"]["review_pending"] == 0
+    assert nat["blocked_categories"]["validation_errors"] == 0
+
+
+def test_rendering_card_and_diagnostic_html_templates() -> None:
+    """Verify HTML template faithfully produces Area A (Website Card / Diagnostic) and Area B (Metadata)."""
+    from processors.rendering import render_record
+
+    # 1. Eligible record -> Area A website flashcard
+    eligible_record = {
+        "id": "test_001",
+        "number": 1,
+        "word": "lush",
+        "part_of_speech": "adjective",
+        "russian_translation": "пышный; буйный",
+        "russian_alternatives": ["пышный", "буйный"],
+        "english_explanation": "Growing thickly and strongly in a healthy way.",
+        "difficulty": "Medium",
+        "preset": "Basics",
+        "validation_status": "validated",
+        "final_output_eligible": True,
+    }
+    html_ok, is_elig, reason = render_record(eligible_record)
+    assert is_elig is True
+    assert reason is None
+    assert "Area A &mdash; Website Display Preview (Flashcard)" in html_ok
+    assert '<div class="website-card">' in html_ok
+    assert '<span class="website-card__word">lush</span>' in html_ok
+    assert '<span class="website-card__pos">adjective</span>' in html_ok
+    assert "пышный, буйный" in html_ok
+    assert "Growing thickly and strongly in a healthy way." in html_ok
+    assert "Area B &mdash; Technical Quality Assurance &amp; Upstream Audit" in html_ok
+    assert "ELIGIBLE FOR WEBSITE" in html_ok
+
+    # 2. Ineligible record -> Area A diagnostic block
+    blocked_record = {
+        "id": "test_002",
+        "number": 2,
+        "word": "sun",
+        "part_of_speech": "noun",
+        "russian_translation": "солнце",
+        "russian_alternatives": ["солнце"],
+        "english_explanation": "The star around which the earth orbits.",
+        "difficulty": "Easy",
+        "preset": "nature",
+        "validation_status": "excluded",
+        "exclusion_reason": "elementary_a1_a2",
+        "final_output_eligible": False,
+    }
+    html_blocked, is_elig_bl, reason_bl = render_record(blocked_record)
+    assert is_elig_bl is False
+    assert "policy-excluded" in reason_bl
+    assert "NOT ELIGIBLE FOR WEBSITE DISPLAY" in html_blocked
+    assert '<div class="ineligible-card">' in html_blocked
+    assert '<div class="ineligible-reason-box">' in html_blocked
+    assert "Area B &mdash; Technical Quality Assurance &amp; Upstream Audit" in html_blocked
+    assert "BLOCKED (EXCLUDED)" in html_blocked
+
+
+

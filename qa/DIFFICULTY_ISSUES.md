@@ -1,12 +1,12 @@
 # DIFFICULTY Stage Issues Report (`DIFFICULTY_ISSUES.md`)
 
-> **Source:** `new_words`  
-> **Generated deterministically from:** `data/difficulty/sources/new_words/validation.json`  
+> **Source:** `nature`  
+> **Generated deterministically from:** `data/difficulty/sources/nature/validation.json`  
 > **Total Issue Occurrences:** `0`  
 > **Unique Affected Records:** `0`
 
 ```text
-ISSUE SUMMARY — NEW_WORDS / DIFFICULTY
+ISSUE SUMMARY — NATURE / DIFFICULTY
 TOTAL DISTINCT ISSUES: 0
 UNIQUE AFFECTED RECORDS: 0
 ```

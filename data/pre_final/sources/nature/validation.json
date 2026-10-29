@@ -1,0 +1,44 @@
+{
+  "description": "Validation and PRE-FINAL assembly audit for nature.",
+  "document_id": "nature_simplified_v1",
+  "input_artifact": "data/enriched/sources/nature/entries.enriched.json",
+  "input_sha256": "b069cef7a6064135e29a63be9eac2753c70764220967e4fec588ca6152c5701e",
+  "invariant_checks": [
+    {
+      "details": "All 169 records reconstructed byte-for-byte from raw source slices.",
+      "name": "byte_level_source_slice_reconstruction",
+      "status": "PASS"
+    },
+    {
+      "details": "Full dataset validated: 142 eligible, 27 excluded, 0 errors.",
+      "name": "zero_blocking_validation_errors",
+      "status": "PASS"
+    },
+    {
+      "details": "Contract invariant: 100% records carry preset: 'nature' and defensible difficulty (Easy/Medium/Hard).",
+      "name": "preset_and_difficulty_contract",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {},
+  "issues": [],
+  "output_artifact": "data/pre_final/sources/nature/vocabulary.json",
+  "output_sha256": "5249b1fe7a43d195874be48491e293769f0f689592df969a0e1cd31415aa5b88",
+  "primary_reason_partition": {
+    "eligible_for_final_output": 142,
+    "excluded_elementary_a1_a2": 27
+  },
+  "source_id": "nature",
+  "stage": "VALIDATION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "eligible_for_final_output_count": 142,
+    "entered_count": 169,
+    "error_count": 0,
+    "excluded_count": 27,
+    "review_pending_count": 0,
+    "succeeded_count": 142
+  },
+  "validation_artifact": "data/pre_final/sources/nature/validation.json"
+}

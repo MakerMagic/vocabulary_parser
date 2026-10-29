@@ -1,0 +1,11 @@
+{
+  "acquisition_date": "2026-10-28",
+  "document_id": "nature_simplified_v1",
+  "filename": "Nature_Vocabulary_Simplified.csv",
+  "format": "csv",
+  "notes": "Acquired Nature_Vocabulary_Simplified.csv vocabulary dataset comprising 169 curated scientific nature terms across 7 topics with Russian translations, English explanations, and parts of speech.",
+  "sha256": "215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc",
+  "size_bytes": 23138,
+  "source_id": "nature",
+  "source_path": "acquisition/sources/nature/Nature_Vocabulary_Simplified.csv"
+}

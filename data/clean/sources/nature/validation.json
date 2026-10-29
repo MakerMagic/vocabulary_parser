@@ -1,0 +1,42 @@
+{
+  "description": "Cleaning, token-ledger conservation, and elementary A1/A2 exclusion audit for nature.",
+  "document_id": "nature_simplified_v1",
+  "input_artifact": "data/raw/sources/nature/entries.raw.json",
+  "input_sha256": "d4604e0804e3987e8e008b186aa5d0318e166a5391c64f7aefec4a10205fb0dd",
+  "invariant_checks": [
+    {
+      "details": "100% token-ledger conservation verified for all 169 records.",
+      "name": "token_ledger_conservation",
+      "status": "PASS"
+    },
+    {
+      "details": "Systematic CEFR benchmark excluded 27 elementary A1/A2 records, preserving 142 curriculum records.",
+      "name": "a1_a2_elementary_exclusion",
+      "status": "PASS"
+    },
+    {
+      "details": "Contract invariant: preset == 'nature' and difficulty == null across all clean records.",
+      "name": "preset_and_difficulty_contract",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {},
+  "issues": [],
+  "output_artifact": "data/clean/sources/nature/entries.clean.json",
+  "output_sha256": "e1a5498d9d8221cb2a7c224b22236d4405e77d2186c3fd8e9e5fdadf1ea6efb3",
+  "primary_reason_partition": {
+    "eligible_curriculum_records": 142,
+    "excluded_elementary_a1_a2": 27
+  },
+  "source_id": "nature",
+  "stage": "CLEAN",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 169,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 169
+  },
+  "validation_artifact": "data/clean/sources/nature/validation.json"
+}

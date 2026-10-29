@@ -1,7 +1,7 @@
 # Current Operational State (`CURRENT_WORK.md`)
 
-> **Last Updated:** 2026-10-28  
-> **Active Milestone:** CEFR-Based Difficulty Classification & Vocabulary Presets Implementation
+> **Last Updated:** 2026-10-29  
+> **Active Milestone:** Vocabulary Rendering Stage Implementation & Multi-Source Audit
 
 ---
 
@@ -16,31 +16,28 @@
 
 ---
 
-## 2. Completed in Current Session (Presets & CEFR Difficulty Implementation)
+## 2. Completed in Current Session (Vocabulary Rendering Stage Implementation)
 
-1. **Preset Architecture & Assignment:**
-   - Added `preset` field to canonical data schema ([`docs/general/DATA_SCHEMA.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/DATA_SCHEMA.md)) with default `null` for future records.
-   - Explicitly assigned `preset: "Basics"` across all 572 existing records (413 `uclouvain`, 159 `new_words`).
-2. **Authoritative CEFR Level Mapping & Difficulty Tiers:**
-   - Implemented [`processors/difficulty/cefr_registry.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/difficulty/cefr_registry.py) mapping all 572 records against CEFR EVP / Oxford benchmarks (0 missing terms).
-   - Implemented [`processors/difficulty/classifier.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/difficulty/classifier.py) adhering to strict contract `A1/A2/B1 -> Easy`, `B2 -> Medium`, `C1/C2 -> Hard`.
-   - Classification distribution:
-     - `uclouvain` (413 records): Easy = 220, Medium = 175, Hard = 18, Unset = 0.
-     - `new_words` (159 records): Easy = 31, Medium = 60, Hard = 68, Unset = 0.
-     - Combined (572 records): Easy = 251, Medium = 235, Hard = 86, Unset = 0.
-3. **Preserved A1/A2 Exclusions & Blocked Records Guard:**
-   - Preserved all 32 elementary A1/A2 exclusions (29 in `uclouvain`, 3 in `new_words`) without reincluding them.
-   - Enforced website eligibility rule: records with `review_pending`, `excluded`, or `error` have `final_output_eligible = false`.
-   - Results: **533 records eligible for final output**; **39 records blocked / excluded** (32 A1/A2 exclusions + 7 review_pending: 5 UCL + 2 NW).
-4. **Validation & PRE-FINAL Assembly:**
-   - Updated validators ([`processors/validation/validator.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/validation/validator.py), [`processors/validation/validator_new_words.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/validation/validator_new_words.py)) to assert difficulty contract, preset presence, and provenance integrity.
-   - Reassembled `data/pre_final/` datasets.
-5. **Backtesting & HTML Review UI:**
-   - Updated [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tools/vocabulary_review.py) CLI summary and HTML generator to visibly display Preset, CEFR Level, Difficulty Tier, and Final Output Eligibility badge.
-   - Updated [`inspections/review/vocabulary_review.html`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/review/vocabulary_review.html) review UI.
-6. **Automated Verification:**
-   - 12 automated test cases passing in [`tests/test_vocabulary_pipeline.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tests/test_vocabulary_pipeline.py).
-   - Clean linter check with `ruff`.
+1. **Read-Only Multi-Source Audit:**
+   - Performed systematic read-only audit across all 741 records in the repository (`uclouvain`: 413, `new_words`: 159, `nature`: 169) without re-running earlier stages.
+   - Verified that all earlier stages (Acquisition, Inspection, RAW, Cleaning, Enrichment, Difficulty, Validation) were verifiably complete with `error_count: 0`.
+2. **Dedicated Rendering Package (`processors/rendering/`):**
+   - Implemented [`processors/rendering/contract.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering/contract.py) defining strict ZERO UNRESOLVED ISSUES admission gate.
+   - Implemented [`processors/rendering/template.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering/template.py) providing ONE reusable HTML template with Area A (website card reproduction: 640px card, 24px border radius, bold headword, italic POS, bookmark SVG, large bold Cyrillic headline, English explanation) and Area B (technical QA metadata and upstream audit panes).
+   - Implemented [`processors/rendering/renderer.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering/renderer.py) providing single-record and batch audit functions.
+3. **Strict Zero-Unresolved-Issues Gate Results:**
+   - Total repo records: **741**
+   - Admitted (eligible for website rendering): **675 records**
+   - Blocked (ineligible): **66 records total**
+     - 59 policy exclusions (elementary A1/A2: UCL 29, NW 3, Nature 27).
+     - 7 pending review (UCL 5: `#2 account (for)`, `#206 should`, `#252 certain`, `#347 present`, `#402 unlike`; NW 2: `#27 Necessitates`, `#126 Opulent`).
+     - 0 active errors.
+4. **PowerShell Backtesting CLI Integration:**
+   - Updated [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tools/vocabulary_review.py) to render Area A website preview (or diagnostic blocked card) and Area B metadata for any inspected word.
+5. **Documentation & Test Verification:**
+   - Created [`docs/general/VOCABULARY_RENDERING.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/VOCABULARY_RENDERING.md).
+   - Added automated tests in [`tests/test_vocabulary_pipeline.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tests/test_vocabulary_pipeline.py); all 17 tests passing.
+   - Clean lint status (`ruff check .` 0 errors).
 
 ---
 
@@ -62,7 +59,15 @@
 | **Enrichment (`new_words`)** | **Executed & Validated** | [`data/enriched/sources/new_words/entries.enriched.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/enriched/sources/new_words/entries.enriched.json) | <=2 translation alternatives rule enforced; multiword alternatives supported. |
 | **Difficulty (`new_words`)** | **Executed & Validated** | [`data/difficulty/sources/new_words/entries.difficulty.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/difficulty/sources/new_words/entries.difficulty.json) | Easy: 31, Medium: 60, Hard: 68, Unset: 0; preset: Basics (159/159); eligible: 154, blocked/excluded: 5. |
 | **Validation & PRE-FINAL (`new_words`)** | **Executed & Validated** | [`data/pre_final/sources/new_words/vocabulary.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/pre_final/sources/new_words/vocabulary.json) | 154 validated & website-eligible, 2 review_pending (blocked), 3 excluded, 0 errors. |
-| **Backtesting & Review UI** | **Implemented & Verified** | [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tools/vocabulary_review.py), [`inspections/review/vocabulary_review.html`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/review/vocabulary_review.html) | Multi-source backtesting CLI and visual review UI displaying Preset, CEFR, Difficulty, and Final Output Eligibility. |
+| **Acquisition (`nature`)** | **Executed & Validated** | [`acquisition/sources/nature/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/sources/nature) | SHA-256 locked (`215bdb89...`, 170 lines, 169 words across 7 topics). |
+| **Inspection (`nature`)** | **Executed & Validated** | [`inspections/sources/nature/profile.json`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/sources/nature/profile.json) | Profiled 169 items, 7 topics, paired singular/plural variants logged. |
+| **RAW Extraction (`nature`)** | **Executed & Validated** | [`data/raw/sources/nature/entries.raw.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw/sources/nature/entries.raw.json) | 169 records with exact character and line spans; preset: nature assigned. |
+| **Cleaning (`nature`)** | **Executed & Validated** | [`data/clean/sources/nature/entries.clean.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/clean/sources/nature/entries.clean.json) | 142 eligible, 27 elementary A1/A2 excluded (12 approved A2 words restored); 100% token-ledger match. |
+| **Enrichment (`nature`)** | **Executed & Validated** | [`data/enriched/sources/nature/entries.enriched.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/enriched/sources/nature/entries.enriched.json) | <=2 translation alternatives rule enforced; 131 redundant second translations pruned (e.g. `whales → киты`). |
+| **Difficulty (`nature`)** | **Executed & Validated** | [`data/difficulty/sources/nature/entries.difficulty.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/difficulty/sources/nature/entries.difficulty.json) | Easy: 82, Medium: 75, Hard: 12, Unset: 0; preset: nature (169/169); eligible: 142, excluded: 27. |
+| **Validation & PRE-FINAL (`nature`)** | **Executed & Validated** | [`data/pre_final/sources/nature/vocabulary.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/pre_final/sources/nature/vocabulary.json) | 142 validated & website-eligible, 27 excluded, 0 errors; preset: nature locked. |
+| **Vocabulary Rendering (All Sources)** | **Executed & Validated** | [`processors/rendering/`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering), [`docs/general/VOCABULARY_RENDERING.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/VOCABULARY_RENDERING.md) | Zero unresolved issues gate: 675 admitted, 66 blocked (59 excluded, 7 review pending, 0 errors). One reusable template with Area A (card) and Area B (QA metadata). |
+| **Backtesting & Review UI** | **Implemented & Verified** | [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tools/vocabulary_review.py) | CLI review rendering website flashcard (Area A) for eligible records and diagnostic blocked notices for ineligible records. |
 
 ---
 

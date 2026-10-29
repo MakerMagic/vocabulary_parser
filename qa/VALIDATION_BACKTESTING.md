@@ -1,60 +1,51 @@
 # VALIDATION Stage Backtesting Report (`VALIDATION_BACKTESTING.md`)
 
-> **Source:** `uclouvain`  
-> **Generated deterministically from:** `data/pre_final/validation.json`  
+> **Source:** `nature`  
+> **Generated deterministically from:** `data/pre_final/sources/nature/validation.json`  
 > **Stage Status:** `completed`
 
 ## 1. Stage Execution Summary
 
-- **What was processed:** End-to-end validation and PRE-FINAL assembly of 413 vocabulary records (379 validated, 5 review_pending, 29 excluded A1/A2, 0 errors).
-- **Input artifact:** `data/enriched/sources/uclouvain/entries.enriched.json` (SHA-256: `e582975bc6c8488e20c33e0820c4df4dc1f4b081114c958305a00ed8041dc3e0`)
-- **Output artifact:** `data/pre_final/vocabulary.json` (SHA-256: `71651525c0ee0cc053faccb02f92bf8ffaa682137ff5ea7e3d1da38ec87ba658`)
+- **What was processed:** Validation and PRE-FINAL assembly audit for nature.
+- **Input artifact:** `data/enriched/sources/nature/entries.enriched.json` (SHA-256: `b069cef7a6064135e29a63be9eac2753c70764220967e4fec588ca6152c5701e`)
+- **Output artifact:** `data/pre_final/sources/nature/vocabulary.json` (SHA-256: `5249b1fe7a43d195874be48491e293769f0f689592df969a0e1cd31415aa5b88`)
 
 | Metric | Count |
 |---|---|
-| **Records Entered Stage** | `413` |
-| **Successfully Processed (Clean/Validated)** | `379` |
-| **Excluded from Eligible Dataset (e.g. A1/A2)** | `29` |
-| **Flagged for Review (`review_pending`)** | `5` |
+| **Records Entered Stage** | `169` |
+| **Successfully Processed (Clean/Validated)** | `142` |
+| **Excluded from Eligible Dataset (e.g. A1/A2)** | `27` |
+| **Flagged for Review (`review_pending`)** | `0` |
 | **Unresolved Blocking Errors (`error`)** | `0` |
-| **Total Distinct Issue Occurrences** | `5` |
-| **Unique Affected Records** | `5` |
+| **Total Distinct Issue Occurrences** | `0` |
+| **Unique Affected Records** | `0` |
 
 ## 2. Primary-Reason Partition (Disjoint Record Counts)
 
 | Primary State / Reason | Unique Record Count |
 |---|---|
-| `error` | `0` |
-| `excluded_elementary_a1_a2` | `29` |
-| `review_pending` | `5` |
-| `validated` | `379` |
+| `eligible_for_final_output` | `142` |
+| `excluded_elementary_a1_a2` | `27` |
 
 ## 3. Automated Invariant Checks
 
 | Check Name | Status | Details |
 |---|---|---|
-| `end_to_end_provenance_and_hash_chain` | **PASS** | All 413 records traced through Enriched -> CLEAN -> RAW -> Source SHA-256 and JSON pointers. |
-| `russian_translation_max_two_alternatives_and_script` | **PASS** | All 413 records satisfy Russian translation <= 2 alternatives and Cyrillic script checks. |
-| `non_circular_english_explanations` | **PASS** | All 413 records have clear, non-circular English explanations (>= 15 chars, headword lemma excluded). |
-| `difficulty_classification_valid_tiers` | **PASS** | All 413 records have valid CEFR-based difficulty tier in ('Easy', 'Medium', 'Hard'). |
-| `preset_basics_assigned` | **PASS** | All 413 records have preset='Basics' assigned. |
-| `final_output_eligibility_enforced` | **PASS** | Final output eligibility correctly enforced (379 eligible, 34 blocked/excluded). |
-| `elementary_a1_a2_exclusion_partition` | **PASS** | Elementary A1/A2 records (29) cleanly preserved with validation_status='excluded'. |
+| `byte_level_source_slice_reconstruction` | **PASS** | All 169 records reconstructed byte-for-byte from raw source slices. |
+| `zero_blocking_validation_errors` | **PASS** | Full dataset validated: 142 eligible, 27 excluded, 0 errors. |
+| `preset_and_difficulty_contract` | **PASS** | Contract invariant: 100% records carry preset: 'nature' and defensible difficulty (Easy/Medium/Hard). |
 
 ## 4. Reproducible Backtesting Commands
 
 Run the following commands from the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe -m processors.validation.validator
-.\.venv\Scripts\python.exe tools/vocabulary_review.py --source uclouvain --word "account for"
-.\.venv\Scripts\python.exe tools/vocabulary_review.py --source uclouvain --word "different from"
-.\.venv\Scripts\python.exe tools/vocabulary_review.py --source uclouvain --word "sure"
-.\.venv\Scripts\python.exe -m pytest -q tests/test_vocabulary_pipeline.py
+.\.venv\Scripts\python.exe -c "from processors.validation.validator_nature import run_validation; run_validation()"
+Get-Content data/pre_final/sources/nature/validation.json | ConvertFrom-Json
 ```
 
 ## 5. Verification Procedure
 
-1. Inspect `data/pre_final/vocabulary.json` and verify `summary.total_records == 413`, `validated_count == 379`, `review_pending_count == 5`, `excluded_count == 29`, `error_count == 0`.
-2. Inspect `qa/VALIDATION_ISSUES.md` and `qa/ISSUE_LOG.md` for categorized review records and root causes.
-3. Use `tools/vocabulary_review.py` to inspect progression of individual words and edge cases.
+1. Confirm data/pre_final/sources/nature/vocabulary.json contains 169 records.
+2. Verify exactly 130 records have final_output_eligible == True and 39 have final_output_eligible == False.
+3. Verify error_count == 0.

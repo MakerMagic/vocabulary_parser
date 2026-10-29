@@ -1,0 +1,41 @@
+{
+  "description": "Cryptographic lock and byte-level acquisition audit of Nature_Vocabulary_Simplified.csv.",
+  "document_id": "nature_simplified_v1",
+  "input_artifact": "acquisition/local/Nature_Vocabulary_Simplified.csv",
+  "input_sha256": "215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc",
+  "invariant_checks": [
+    {
+      "details": "SHA-256 matches cryptographic lock 215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc exactly.",
+      "name": "sha256_immutable_lock",
+      "status": "PASS"
+    },
+    {
+      "details": "File size 23138 bytes decoded successfully under UTF-8 (with BOM) encoding.",
+      "name": "utf8_decodability",
+      "status": "PASS"
+    },
+    {
+      "details": "170 lines / 169 data rows verified without truncation or replacement characters.",
+      "name": "line_count_integrity",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {},
+  "issues": [],
+  "output_artifact": "acquisition/sources/nature/Nature_Vocabulary_Simplified.csv",
+  "output_sha256": "215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc",
+  "primary_reason_partition": {
+    "clean_acquisition": 1
+  },
+  "source_id": "nature",
+  "stage": "ACQUISITION",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 1,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 1
+  },
+  "validation_artifact": "data/acquisition/sources/nature/validation.json"
+}

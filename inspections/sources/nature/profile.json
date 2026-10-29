@@ -1,0 +1,46 @@
+{
+  "source_id": "nature",
+  "document_id": "nature_simplified_v1",
+  "filename": "Nature_Vocabulary_Simplified.csv",
+  "total_entries": 169,
+  "unique_words": 169,
+  "duplicate_words_count": 0,
+  "part_of_speech_distribution": {
+    "Noun": 127,
+    "Plural Noun": 23,
+    "Adjective": 17,
+    "Noun (Abbreviation)": 1,
+    "Proper Noun": 1
+  },
+  "topic_distribution": {
+    "Physics & Chemistry": 20,
+    "Earth & Geography": 43,
+    "Living Organisms": 34,
+    "Ecology & Environment": 23,
+    "Space & Astronomy": 10,
+    "Climate & Weather": 19,
+    "Plants & Ecosystems": 20
+  },
+  "paired_singular_plural_lemmas": [
+    "nutrient",
+    "resource",
+    "plastic"
+  ],
+  "fields": [
+    "Word",
+    "Part of Speech",
+    "Russian Translation 1",
+    "Russian Translation 2",
+    "English Explanation",
+    "Topic"
+  ],
+  "encoding": "utf-8-sig (UTF-8 with BOM)",
+  "columns": {
+    "Word": "English vocabulary term or expression",
+    "Part of Speech": "Declared grammatical role (Noun, Adjective, Plural Noun, Proper Noun, Noun (Abbreviation))",
+    "Russian Translation 1": "Primary contextual Russian translation alternative",
+    "Russian Translation 2": "Secondary contextual Russian translation alternative",
+    "English Explanation": "Concise, educational explanation suited for flashcards",
+    "Topic": "Domain category (Space & Astronomy, Climate & Weather, Earth & Geography, Ecology & Environment, Physics & Chemistry, Living Organisms, Plants & Ecosystems)"
+  }
+}

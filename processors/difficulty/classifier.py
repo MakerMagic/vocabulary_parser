@@ -39,7 +39,13 @@ def classify_record_difficulty(
     """
     word = record["word"]
     pos = record.get("declared_section_pos") or record.get("part_of_speech") or ""
-    val_status = record.get("validation_status") or record.get("status") or "clean"
+    val_status = (
+        record.get("validation_status")
+        or record.get("status")
+        or record.get("cleaning_status")
+        or record.get("enrichment_status")
+        or "clean"
+    )
 
     # 1. Preset assignment (Schema default: null; current datasets: "Basics")
     assigned_preset = preset if preset is not None else PRESET_SCHEMA_DEFAULT
@@ -74,7 +80,7 @@ def classify_record_difficulty(
     # 3. Final output eligibility check:
     # Records with unresolved blocking issues or prior exclusion must NOT enter final outputs
     review_note = record.get("quality_and_review_notes") or record.get("enrichment_provenance", {}).get("review_note")
-    is_excluded = val_status == "excluded"
+    is_excluded = val_status == "excluded" or record.get("exclusion_reason") is not None
     is_review_pending = val_status == "review_pending" or review_note is not None
     is_error = val_status == "error"
 

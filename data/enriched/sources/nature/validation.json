@@ -1,0 +1,46 @@
+{
+  "description": "Vocabulary enrichment, Russian translation rule, and POS normalization audit for nature.",
+  "document_id": "nature_simplified_v1",
+  "input_artifact": "data/clean/sources/nature/entries.clean.json",
+  "input_sha256": "e1a5498d9d8221cb2a7c224b22236d4405e77d2186c3fd8e9e5fdadf1ea6efb3",
+  "invariant_checks": [
+    {
+      "details": "All 169 records processed with valid Russian translation alternatives (<=2 alternatives).",
+      "name": "russian_translation_two_alternatives_cap",
+      "status": "PASS"
+    },
+    {
+      "details": "All parts of speech normalized to valid platform categories.",
+      "name": "pos_normalization_integrity",
+      "status": "PASS"
+    },
+    {
+      "details": "All English explanations verified >=15 chars and non-circular.",
+      "name": "english_explanation_integrity",
+      "status": "PASS"
+    },
+    {
+      "details": "Contract invariant: preset == 'nature' and difficulty == null across all enriched records.",
+      "name": "preset_and_difficulty_contract",
+      "status": "PASS"
+    }
+  ],
+  "issue_counts_by_code": {},
+  "issues": [],
+  "output_artifact": "data/enriched/sources/nature/entries.enriched.json",
+  "output_sha256": "b069cef7a6064135e29a63be9eac2753c70764220967e4fec588ca6152c5701e",
+  "primary_reason_partition": {
+    "enriched_successfully": 169
+  },
+  "source_id": "nature",
+  "stage": "ENRICHMENT",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 169,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 169
+  },
+  "validation_artifact": "data/enriched/sources/nature/validation.json"
+}

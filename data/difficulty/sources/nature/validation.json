@@ -1,0 +1,48 @@
+{
+  "description": "CEFR-based difficulty classification and preset assignment for nature.",
+  "input_artifact": "data/enriched/sources/nature/entries.enriched.json",
+  "input_file": "data/enriched/sources/nature/entries.enriched.json",
+  "input_sha256": "b069cef7a6064135e29a63be9eac2753c70764220967e4fec588ca6152c5701e",
+  "issues": [],
+  "output_artifact": "data/difficulty/sources/nature/entries.difficulty.json",
+  "output_file": "data/difficulty/sources/nature/entries.difficulty.json",
+  "output_sha256": "3778b32c76738fbd1e7f71ca443197aa67dffe6c4713c0c48e5b8fa47914f7c8",
+  "record_count": 169,
+  "source_id": "nature",
+  "stage": "DIFFICULTY",
+  "stage_status": "completed",
+  "status": "PASS",
+  "summary": {
+    "affected_record_count": 0,
+    "blocked_from_final_output_count": 27,
+    "difficulty_counts": {
+      "Easy": 82,
+      "Hard": 12,
+      "Medium": 75,
+      "Unset": 0
+    },
+    "eligible_for_final_output_count": 142,
+    "entered_count": 169,
+    "error_count": 0,
+    "excluded_count": 27,
+    "preset_assigned_count": 169,
+    "review_pending_count": 0,
+    "succeeded_count": 142,
+    "total_records": 169
+  },
+  "validation_artifact": "data/difficulty/sources/nature/validation.json",
+  "validation_checks": [
+    {
+      "check": "preset_populated",
+      "status": "PASS"
+    },
+    {
+      "check": "difficulty_valid_tiers",
+      "status": "PASS"
+    },
+    {
+      "check": "final_output_eligibility_enforced",
+      "status": "PASS"
+    }
+  ]
+}

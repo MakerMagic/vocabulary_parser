@@ -1,20 +1,20 @@
 # DIFFICULTY Stage Backtesting Report (`DIFFICULTY_BACKTESTING.md`)
 
-> **Source:** `new_words`  
-> **Generated deterministically from:** `data/difficulty/sources/new_words/validation.json`  
+> **Source:** `nature`  
+> **Generated deterministically from:** `data/difficulty/sources/nature/validation.json`  
 > **Stage Status:** `completed`
 
 ## 1. Stage Execution Summary
 
-- **What was processed:** CEFR-based difficulty classification and preset assignment for new_words.
-- **Input artifact:** `data/enriched/sources/new_words/entries.enriched.json` (SHA-256: `1ac35dbc00cbb1e120923501bc342bc3d793726f78d95eda96ffeeb3e249a0ee`)
-- **Output artifact:** `data/difficulty/sources/new_words/entries.difficulty.json` (SHA-256: `d71bc4f913a3ea66c63eff173b01fd4940d8bce886d3db076582785a585acc8b`)
+- **What was processed:** CEFR-based difficulty classification and preset assignment for nature.
+- **Input artifact:** `data/enriched/sources/nature/entries.enriched.json` (SHA-256: `b069cef7a6064135e29a63be9eac2753c70764220967e4fec588ca6152c5701e`)
+- **Output artifact:** `data/difficulty/sources/nature/entries.difficulty.json` (SHA-256: `3778b32c76738fbd1e7f71ca443197aa67dffe6c4713c0c48e5b8fa47914f7c8`)
 
 | Metric | Count |
 |---|---|
-| **Records Entered Stage** | `159` |
-| **Successfully Processed (Clean/Validated)** | `154` |
-| **Excluded from Eligible Dataset (e.g. A1/A2)** | `5` |
+| **Records Entered Stage** | `169` |
+| **Successfully Processed (Clean/Validated)** | `142` |
+| **Excluded from Eligible Dataset (e.g. A1/A2)** | `27` |
 | **Flagged for Review (`review_pending`)** | `0` |
 | **Unresolved Blocking Errors (`error`)** | `0` |
 | **Total Distinct Issue Occurrences** | `0` |
@@ -25,12 +25,12 @@
 Run the following commands from the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe tools/vocabulary_review.py --source new_words --word "Impact"
+.\.venv\Scripts\python.exe tools/vocabulary_review.py --source nature --word "Energy"
 .\.venv\Scripts\pytest.exe tests/test_vocabulary_pipeline.py
 ```
 
 ## 5. Verification Procedure
 
-1. Verify all 159 records have preset='Basics'.
-2. Verify difficulty tier counts: {'Easy': 31, 'Medium': 60, 'Hard': 68, 'Unset': 0}.
-3. Verify final_output_eligible: 154 eligible, 5 blocked/excluded.
+1. Verify all 169 records have preset='nature'.
+2. Verify difficulty tier counts: {'Easy': 82, 'Medium': 75, 'Hard': 12, 'Unset': 0}.
+3. Verify final_output_eligible: 142 eligible, 27 blocked/excluded.

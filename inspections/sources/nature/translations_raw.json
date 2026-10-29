@@ -1,0 +1,1354 @@
+[
+  {
+    "num": 1,
+    "word": "Energy",
+    "t1": "Энергия",
+    "t2": "Запас энергии",
+    "pos": "Noun",
+    "en": "The ability to make things move, heat up, or change."
+  },
+  {
+    "num": 2,
+    "word": "Earth",
+    "t1": "Земля",
+    "t2": "Земная поверхность",
+    "pos": "Noun",
+    "en": "The planet we live on, including its land and surface."
+  },
+  {
+    "num": 3,
+    "word": "Light",
+    "t1": "Свет",
+    "t2": "Световое излучение",
+    "pos": "Noun",
+    "en": "The energy that allows us to see things."
+  },
+  {
+    "num": 4,
+    "word": "Food",
+    "t1": "Пища",
+    "t2": "Еда",
+    "pos": "Noun",
+    "en": "Something that living things eat to get energy."
+  },
+  {
+    "num": 5,
+    "word": "Species",
+    "t1": "Вид",
+    "t2": "Биологический вид",
+    "pos": "Noun",
+    "en": "A group of similar living things that can reproduce together."
+  },
+  {
+    "num": 6,
+    "word": "Sun",
+    "t1": "Солнце",
+    "t2": "Солнечное светило",
+    "pos": "Noun",
+    "en": "The star that provides Earth with light and heat."
+  },
+  {
+    "num": 7,
+    "word": "Cells",
+    "t1": "Клетки",
+    "t2": "Клеточные единицы",
+    "pos": "Plural Noun",
+    "en": "The small living units that make up organisms."
+  },
+  {
+    "num": 8,
+    "word": "Carbon",
+    "t1": "Углерод",
+    "t2": "Элемент углерод",
+    "pos": "Noun",
+    "en": "A natural element found in living things and fuels."
+  },
+  {
+    "num": 9,
+    "word": "Space",
+    "t1": "Космос",
+    "t2": "Космическое пространство",
+    "pos": "Noun",
+    "en": "The huge area beyond Earth's atmosphere."
+  },
+  {
+    "num": 10,
+    "word": "Body",
+    "t1": "Тело",
+    "t2": "Организм (как тело)",
+    "pos": "Noun",
+    "en": "The physical form of a person, animal, or other organism."
+  },
+  {
+    "num": 11,
+    "word": "Ocean",
+    "t1": "Океан",
+    "t2": "Океанские воды",
+    "pos": "Noun",
+    "en": "A very large area of salt water on Earth."
+  },
+  {
+    "num": 12,
+    "word": "Organisms",
+    "t1": "Организмы",
+    "t2": "Живые существа",
+    "pos": "Plural Noun",
+    "en": "Living things, including plants, animals, and bacteria."
+  },
+  {
+    "num": 13,
+    "word": "Moon",
+    "t1": "Луна",
+    "t2": "Спутник Земли",
+    "pos": "Noun",
+    "en": "The natural object that moves around Earth."
+  },
+  {
+    "num": 14,
+    "word": "Gas",
+    "t1": "Газ",
+    "t2": "Газообразное вещество",
+    "pos": "Noun",
+    "en": "A substance that spreads out to fill the space around it."
+  },
+  {
+    "num": 15,
+    "word": "Atmosphere",
+    "t1": "Атмосфера",
+    "t2": "Воздушная оболочка планеты",
+    "pos": "Noun",
+    "en": "The layer of air and other gases around a planet."
+  },
+  {
+    "num": 16,
+    "word": "Plant",
+    "t1": "Растение",
+    "t2": "Растительный организм",
+    "pos": "Noun",
+    "en": "A living thing that usually grows using sunlight."
+  },
+  {
+    "num": 17,
+    "word": "Climate",
+    "t1": "Климат",
+    "t2": "Климатические условия",
+    "pos": "Noun",
+    "en": "The usual weather in a place over a long period."
+  },
+  {
+    "num": 18,
+    "word": "Force",
+    "t1": "Сила",
+    "t2": "Физическое воздействие",
+    "pos": "Noun",
+    "en": "A push or pull that can move something."
+  },
+  {
+    "num": 19,
+    "word": "Planet",
+    "t1": "Планета",
+    "t2": "Небесное тело",
+    "pos": "Noun",
+    "en": "A large round object that moves around a star."
+  },
+  {
+    "num": 20,
+    "word": "Solar",
+    "t1": "Солнечный",
+    "t2": "Связанный с Солнцем",
+    "pos": "Adjective",
+    "en": "Related to the Sun or energy from the Sun."
+  },
+  {
+    "num": 21,
+    "word": "Ice",
+    "t1": "Лёд",
+    "t2": "Замёрзшая вода",
+    "pos": "Noun",
+    "en": "Water that has frozen into a solid."
+  },
+  {
+    "num": 22,
+    "word": "Heat",
+    "t1": "Тепло",
+    "t2": "Тепловая энергия",
+    "pos": "Noun",
+    "en": "Energy that moves from warmer things to cooler things."
+  },
+  {
+    "num": 23,
+    "word": "Matter",
+    "t1": "Материя",
+    "t2": "Вещество",
+    "pos": "Noun",
+    "en": "Anything that has mass and takes up space."
+  },
+  {
+    "num": 24,
+    "word": "Oxygen",
+    "t1": "Кислород",
+    "t2": "Газ кислород",
+    "pos": "Noun",
+    "en": "A gas that many living things need to breathe."
+  },
+  {
+    "num": 25,
+    "word": "Natural",
+    "t1": "Природный",
+    "t2": "Естественный",
+    "pos": "Adjective",
+    "en": "Found in nature rather than made by people."
+  },
+  {
+    "num": 26,
+    "word": "Population",
+    "t1": "Популяция",
+    "t2": "Группа особей одного вида",
+    "pos": "Noun",
+    "en": "All the members of one species living in an area."
+  },
+  {
+    "num": 27,
+    "word": "Animal",
+    "t1": "Животное",
+    "t2": "Представитель фауны",
+    "pos": "Noun",
+    "en": "A living thing that eats food and can usually move."
+  },
+  {
+    "num": 28,
+    "word": "Environment",
+    "t1": "Окружающая среда",
+    "t2": "Природная среда",
+    "pos": "Noun",
+    "en": "The natural surroundings in which living things exist."
+  },
+  {
+    "num": 29,
+    "word": "Wind",
+    "t1": "Ветер",
+    "t2": "Поток воздуха",
+    "pos": "Noun",
+    "en": "Air moving from one place to another."
+  },
+  {
+    "num": 30,
+    "word": "Ecosystem",
+    "t1": "Экосистема",
+    "t2": "Экологическая система",
+    "pos": "Noun",
+    "en": "Living things and their surroundings interacting together."
+  },
+  {
+    "num": 31,
+    "word": "Wave",
+    "t1": "Волна",
+    "t2": "Морская волна",
+    "pos": "Noun",
+    "en": "A moving rise of water on a sea or lake."
+  },
+  {
+    "num": 32,
+    "word": "Fish",
+    "t1": "Рыба",
+    "t2": "Представитель рыб",
+    "pos": "Noun",
+    "en": "An animal that lives in water and breathes through gills."
+  },
+  {
+    "num": 33,
+    "word": "Liquid",
+    "t1": "Жидкость",
+    "t2": "Жидкое вещество",
+    "pos": "Noun",
+    "en": "A substance that flows and takes the shape of its container."
+  },
+  {
+    "num": 34,
+    "word": "Soil",
+    "t1": "Почва",
+    "t2": "Грунт",
+    "pos": "Noun",
+    "en": "The upper layer of earth in which plants grow."
+  },
+  {
+    "num": 35,
+    "word": "Rocks",
+    "t1": "Горные породы",
+    "t2": "Камни",
+    "pos": "Plural Noun",
+    "en": "Hard natural materials that form part of the ground."
+  },
+  {
+    "num": 36,
+    "word": "Fossil",
+    "t1": "Окаменелость",
+    "t2": "Ископаемый остаток",
+    "pos": "Noun",
+    "en": "The preserved remains or marks of ancient life."
+  },
+  {
+    "num": 37,
+    "word": "Ground",
+    "t1": "Земля",
+    "t2": "Поверхность земли",
+    "pos": "Noun",
+    "en": "The solid surface of the earth beneath us."
+  },
+  {
+    "num": 38,
+    "word": "DNA",
+    "t1": "ДНК",
+    "t2": "Наследственный материал",
+    "pos": "Noun (Abbreviation)",
+    "en": "The material in living things that carries genetic information."
+  },
+  {
+    "num": 39,
+    "word": "Solid",
+    "t1": "Твёрдое тело",
+    "t2": "Твёрдое вещество",
+    "pos": "Noun",
+    "en": "A substance that keeps its shape instead of flowing."
+  },
+  {
+    "num": 40,
+    "word": "Gravity",
+    "t1": "Гравитация",
+    "t2": "Сила притяжения",
+    "pos": "Noun",
+    "en": "The natural force that pulls things toward Earth."
+  },
+  {
+    "num": 41,
+    "word": "Region",
+    "t1": "Регион",
+    "t2": "Природная область",
+    "pos": "Noun",
+    "en": "An area of land with particular features."
+  },
+  {
+    "num": 42,
+    "word": "Global",
+    "t1": "Глобальный",
+    "t2": "Всемирный",
+    "pos": "Adjective",
+    "en": "Related to the whole world or Earth."
+  },
+  {
+    "num": 43,
+    "word": "Field",
+    "t1": "Поле",
+    "t2": "Луг",
+    "pos": "Noun",
+    "en": "An open area of land, often with grass or crops."
+  },
+  {
+    "num": 44,
+    "word": "Brain",
+    "t1": "Мозг",
+    "t2": "Головной мозг",
+    "pos": "Noun",
+    "en": "The organ that controls the body and processes information."
+  },
+  {
+    "num": 45,
+    "word": "Bacteria",
+    "t1": "Бактерии",
+    "t2": "Бактериальные микроорганизмы",
+    "pos": "Plural Noun",
+    "en": "Very small living organisms found almost everywhere."
+  },
+  {
+    "num": 46,
+    "word": "Layer",
+    "t1": "Слой",
+    "t2": "Пласт",
+    "pos": "Noun",
+    "en": "A sheet or level of material above or below another."
+  },
+  {
+    "num": 47,
+    "word": "Oil",
+    "t1": "Нефть",
+    "t2": "Сырая нефть",
+    "pos": "Noun",
+    "en": "A natural liquid found underground that can be used as fuel."
+  },
+  {
+    "num": 48,
+    "word": "Source",
+    "t1": "Источник",
+    "t2": "Родник",
+    "pos": "Noun",
+    "en": "A place where water naturally comes out of the ground."
+  },
+  {
+    "num": 49,
+    "word": "Motion",
+    "t1": "Движение",
+    "t2": "Перемещение",
+    "pos": "Noun",
+    "en": "The act of moving from one position to another."
+  },
+  {
+    "num": 50,
+    "word": "Cycle",
+    "t1": "Цикл",
+    "t2": "Круговорот",
+    "pos": "Noun",
+    "en": "A series of changes that happens again and again."
+  },
+  {
+    "num": 51,
+    "word": "Radiation",
+    "t1": "Излучение",
+    "t2": "Радиация",
+    "pos": "Noun",
+    "en": "Energy that travels through space as waves or particles."
+  },
+  {
+    "num": 52,
+    "word": "Nutrients",
+    "t1": "Питательные вещества",
+    "t2": "Элементы питания",
+    "pos": "Plural Noun",
+    "en": "Substances that living things need to grow and stay healthy."
+  },
+  {
+    "num": 53,
+    "word": "Current",
+    "t1": "Течение",
+    "t2": "Водный поток",
+    "pos": "Noun",
+    "en": "A steady flow of water in a particular direction."
+  },
+  {
+    "num": 54,
+    "word": "Mars",
+    "t1": "Марс",
+    "t2": "Планета Марс",
+    "pos": "Proper Noun",
+    "en": "A planet in our solar system known for its red appearance."
+  },
+  {
+    "num": 55,
+    "word": "Pollution",
+    "t1": "Загрязнение",
+    "t2": "Загрязнение окружающей среды",
+    "pos": "Noun",
+    "en": "Harmful substances added to air, water, or land."
+  },
+  {
+    "num": 56,
+    "word": "Growth",
+    "t1": "Рост",
+    "t2": "Развитие",
+    "pos": "Noun",
+    "en": "An increase in the size of a living thing."
+  },
+  {
+    "num": 57,
+    "word": "Photosynthesis",
+    "t1": "Фотосинтез",
+    "t2": "Процесс фотосинтеза",
+    "pos": "Noun",
+    "en": "The way plants use sunlight to make their food."
+  },
+  {
+    "num": 58,
+    "word": "Greenhouse",
+    "t1": "Парниковый",
+    "t2": "Связанный с парниковым эффектом",
+    "pos": "Adjective",
+    "en": "Related to heat being trapped in Earth's atmosphere."
+  },
+  {
+    "num": 59,
+    "word": "Precipitation",
+    "t1": "Осадки",
+    "t2": "Атмосферные осадки",
+    "pos": "Noun",
+    "en": "Rain, snow, or hail that falls from clouds."
+  },
+  {
+    "num": 60,
+    "word": "Forest",
+    "t1": "Лес",
+    "t2": "Лесной массив",
+    "pos": "Noun",
+    "en": "A large area of land covered with trees."
+  },
+  {
+    "num": 61,
+    "word": "Star",
+    "t1": "Звезда",
+    "t2": "Небесная звезда",
+    "pos": "Noun",
+    "en": "A huge bright object in space that produces its own light."
+  },
+  {
+    "num": 62,
+    "word": "Environmental",
+    "t1": "Экологический",
+    "t2": "Природоохранный",
+    "pos": "Adjective",
+    "en": "Related to nature and the world around us."
+  },
+  {
+    "num": 63,
+    "word": "Skin",
+    "t1": "Кожа",
+    "t2": "Кожный покров",
+    "pos": "Noun",
+    "en": "The outer layer that covers and protects the body."
+  },
+  {
+    "num": 64,
+    "word": "Disease",
+    "t1": "Болезнь",
+    "t2": "Заболевание",
+    "pos": "Noun",
+    "en": "An illness that affects a living thing."
+  },
+  {
+    "num": 65,
+    "word": "Core",
+    "t1": "Ядро Земли",
+    "t2": "Центральная часть планеты",
+    "pos": "Noun",
+    "en": "The central part of Earth or another planet."
+  },
+  {
+    "num": 66,
+    "word": "Resources",
+    "t1": "Природные ресурсы",
+    "t2": "Природные богатства",
+    "pos": "Plural Noun",
+    "en": "Useful materials or supplies found in nature."
+  },
+  {
+    "num": 67,
+    "word": "Coral",
+    "t1": "Коралл",
+    "t2": "Коралловый полип",
+    "pos": "Noun",
+    "en": "A small sea animal that often lives in large groups."
+  },
+  {
+    "num": 68,
+    "word": "Universe",
+    "t1": "Вселенная",
+    "t2": "Мироздание",
+    "pos": "Noun",
+    "en": "All the stars, planets, space, and other matter."
+  },
+  {
+    "num": 69,
+    "word": "Warming",
+    "t1": "Потепление",
+    "t2": "Повышение температуры",
+    "pos": "Noun",
+    "en": "A gradual rise in temperature."
+  },
+  {
+    "num": 70,
+    "word": "Plastic",
+    "t1": "Пластик",
+    "t2": "Пластмасса",
+    "pos": "Noun",
+    "en": "A human-made material that can cause environmental waste."
+  },
+  {
+    "num": 71,
+    "word": "Fuel",
+    "t1": "Топливо",
+    "t2": "Горючее",
+    "pos": "Noun",
+    "en": "A material used to provide heat or energy."
+  },
+  {
+    "num": 72,
+    "word": "Reef",
+    "t1": "Риф",
+    "t2": "Коралловая гряда",
+    "pos": "Noun",
+    "en": "A long raised area of rock or coral in the sea."
+  },
+  {
+    "num": 73,
+    "word": "Zone",
+    "t1": "Природная зона",
+    "t2": "Географическая зона",
+    "pos": "Noun",
+    "en": "An area with particular natural conditions."
+  },
+  {
+    "num": 74,
+    "word": "Lake",
+    "t1": "Озеро",
+    "t2": "Озёрный водоём",
+    "pos": "Noun",
+    "en": "A large area of water surrounded by land."
+  },
+  {
+    "num": 75,
+    "word": "Minerals",
+    "t1": "Минералы",
+    "t2": "Минеральные вещества",
+    "pos": "Plural Noun",
+    "en": "Natural substances found in rocks and soil."
+  },
+  {
+    "num": 76,
+    "word": "Evolution",
+    "t1": "Эволюция",
+    "t2": "Постепенное развитие видов",
+    "pos": "Noun",
+    "en": "The gradual change of living things over many generations."
+  },
+  {
+    "num": 77,
+    "word": "Visible",
+    "t1": "Видимый",
+    "t2": "Различимый глазом",
+    "pos": "Adjective",
+    "en": "Able to be seen with the eyes."
+  },
+  {
+    "num": 78,
+    "word": "Sugar",
+    "t1": "Сахар",
+    "t2": "Сахаристое вещество",
+    "pos": "Noun",
+    "en": "A sweet substance that plants can produce and organisms use for energy."
+  },
+  {
+    "num": 79,
+    "word": "Magma",
+    "t1": "Магма",
+    "t2": "Расплавленная горная порода",
+    "pos": "Noun",
+    "en": "Hot melted rock beneath Earth's surface."
+  },
+  {
+    "num": 80,
+    "word": "Community",
+    "t1": "Биологическое сообщество",
+    "t2": "Сообщество организмов",
+    "pos": "Noun",
+    "en": "Different living populations sharing the same area."
+  },
+  {
+    "num": 81,
+    "word": "Habitat",
+    "t1": "Среда обитания",
+    "t2": "Местообитание",
+    "pos": "Noun",
+    "en": "The natural place where a plant or animal lives."
+  },
+  {
+    "num": 82,
+    "word": "Hemisphere",
+    "t1": "Полушарие",
+    "t2": "Половина земного шара",
+    "pos": "Noun",
+    "en": "One half of Earth."
+  },
+  {
+    "num": 83,
+    "word": "Salt",
+    "t1": "Соль",
+    "t2": "Минеральная соль",
+    "pos": "Noun",
+    "en": "A natural substance found in seawater and some rocks."
+  },
+  {
+    "num": 84,
+    "word": "Eclipse",
+    "t1": "Затмение",
+    "t2": "Астрономическое затмение",
+    "pos": "Noun",
+    "en": "An event when one object in space blocks the light from another."
+  },
+  {
+    "num": 85,
+    "word": "Clouds",
+    "t1": "Облака",
+    "t2": "Облачные образования",
+    "pos": "Plural Noun",
+    "en": "Groups of tiny water drops or ice crystals in the sky."
+  },
+  {
+    "num": 86,
+    "word": "Algae",
+    "t1": "Водоросли",
+    "t2": "Морские и пресноводные водоросли",
+    "pos": "Plural Noun",
+    "en": "Simple organisms that usually live in water and use sunlight."
+  },
+  {
+    "num": 87,
+    "word": "Conservation",
+    "t1": "Охрана природы",
+    "t2": "Сохранение природных ресурсов",
+    "pos": "Noun",
+    "en": "The protection of nature and natural resources."
+  },
+  {
+    "num": 88,
+    "word": "Melting",
+    "t1": "Таяние",
+    "t2": "Плавление",
+    "pos": "Noun",
+    "en": "The process of changing from a solid into a liquid."
+  },
+  {
+    "num": 89,
+    "word": "Female",
+    "t1": "Женский",
+    "t2": "Самочий",
+    "pos": "Adjective",
+    "en": "Related to the sex that normally produces eggs."
+  },
+  {
+    "num": 90,
+    "word": "Volcanoes",
+    "t1": "Вулканы",
+    "t2": "Вулканические горы",
+    "pos": "Plural Noun",
+    "en": "Mountains or openings that can release hot lava and ash."
+  },
+  {
+    "num": 91,
+    "word": "Pole",
+    "t1": "Полюс",
+    "t2": "Географический полюс",
+    "pos": "Noun",
+    "en": "One of the two ends of Earth's rotation axis."
+  },
+  {
+    "num": 92,
+    "word": "Renewable",
+    "t1": "Возобновляемый",
+    "t2": "Восполняемый естественным образом",
+    "pos": "Adjective",
+    "en": "Able to be replaced naturally within a relatively short time."
+  },
+  {
+    "num": 93,
+    "word": "Behavior",
+    "t1": "Поведение",
+    "t2": "Повадки",
+    "pos": "Noun",
+    "en": "The way an animal or other living thing acts."
+  },
+  {
+    "num": 94,
+    "word": "Equator",
+    "t1": "Экватор",
+    "t2": "Экваториальная линия",
+    "pos": "Noun",
+    "en": "The imaginary line around the middle of Earth."
+  },
+  {
+    "num": 95,
+    "word": "Respiration",
+    "t1": "Дыхание",
+    "t2": "Клеточное дыхание",
+    "pos": "Noun",
+    "en": "The process by which living things release energy from food."
+  },
+  {
+    "num": 96,
+    "word": "Desert",
+    "t1": "Пустыня",
+    "t2": "Пустынная местность",
+    "pos": "Noun",
+    "en": "A very dry area with little rainfall."
+  },
+  {
+    "num": 97,
+    "word": "Volcano",
+    "t1": "Вулкан",
+    "t2": "Вулканическая гора",
+    "pos": "Noun",
+    "en": "A place where hot melted rock can reach Earth's surface."
+  },
+  {
+    "num": 98,
+    "word": "Atmospheric",
+    "t1": "Атмосферный",
+    "t2": "Относящийся к атмосфере",
+    "pos": "Adjective",
+    "en": "Related to the air around Earth."
+  },
+  {
+    "num": 99,
+    "word": "Fruit",
+    "t1": "Плод",
+    "t2": "Фрукт",
+    "pos": "Noun",
+    "en": "The part of a plant that usually contains its seeds."
+  },
+  {
+    "num": 100,
+    "word": "Polar",
+    "t1": "Полярный",
+    "t2": "Приполярный",
+    "pos": "Adjective",
+    "en": "Related to the areas near the North or South Pole."
+  },
+  {
+    "num": 101,
+    "word": "Latitude",
+    "t1": "Широта",
+    "t2": "Географическая широта",
+    "pos": "Noun",
+    "en": "How far north or south a place is from the equator."
+  },
+  {
+    "num": 102,
+    "word": "Depth",
+    "t1": "Глубина",
+    "t2": "Глубина водоёма",
+    "pos": "Noun",
+    "en": "The distance from the surface down to the bottom."
+  },
+  {
+    "num": 103,
+    "word": "Crystal",
+    "t1": "Кристалл",
+    "t2": "Кристаллическое образование",
+    "pos": "Noun",
+    "en": "A natural solid with a regular repeating shape or pattern."
+  },
+  {
+    "num": 104,
+    "word": "Egg",
+    "t1": "Яйцо",
+    "t2": "Яйцо животного",
+    "pos": "Noun",
+    "en": "A structure from which a young animal may develop."
+  },
+  {
+    "num": 105,
+    "word": "Tide",
+    "t1": "Прилив",
+    "t2": "Повышение уровня моря",
+    "pos": "Noun",
+    "en": "The regular rise and fall of sea level."
+  },
+  {
+    "num": 106,
+    "word": "Valley",
+    "t1": "Долина",
+    "t2": "Речная долина",
+    "pos": "Noun",
+    "en": "A low area of land between hills or mountains."
+  },
+  {
+    "num": 107,
+    "word": "Extinction",
+    "t1": "Вымирание",
+    "t2": "Исчезновение вида",
+    "pos": "Noun",
+    "en": "The disappearance of a species from Earth."
+  },
+  {
+    "num": 108,
+    "word": "Whales",
+    "t1": "Киты",
+    "t2": "Морские млекопитающие — киты",
+    "pos": "Plural Noun",
+    "en": "Very large sea mammals that breathe air."
+  },
+  {
+    "num": 109,
+    "word": "Stomach",
+    "t1": "Желудок",
+    "t2": "Пищеварительный орган",
+    "pos": "Noun",
+    "en": "The body organ where food begins to be digested."
+  },
+  {
+    "num": 110,
+    "word": "Seed",
+    "t1": "Семя",
+    "t2": "Семечко",
+    "pos": "Noun",
+    "en": "The part of a plant that can grow into a new plant."
+  },
+  {
+    "num": 111,
+    "word": "Celsius",
+    "t1": "Шкала Цельсия",
+    "t2": "Градусы Цельсия",
+    "pos": "Noun",
+    "en": "A temperature scale where water freezes at zero degrees."
+  },
+  {
+    "num": 112,
+    "word": "Evaporation",
+    "t1": "Испарение",
+    "t2": "Переход жидкости в пар",
+    "pos": "Noun",
+    "en": "The process of liquid water changing into water vapor."
+  },
+  {
+    "num": 113,
+    "word": "Geological",
+    "t1": "Геологический",
+    "t2": "Относящийся к геологии",
+    "pos": "Adjective",
+    "en": "Related to Earth's rocks, land, and history."
+  },
+  {
+    "num": 114,
+    "word": "Steam",
+    "t1": "Пар",
+    "t2": "Водяной пар",
+    "pos": "Noun",
+    "en": "Water in the form of hot vapor."
+  },
+  {
+    "num": 115,
+    "word": "Resource",
+    "t1": "Природный ресурс",
+    "t2": "Природное богатство",
+    "pos": "Noun",
+    "en": "A useful material or supply that nature provides."
+  },
+  {
+    "num": 116,
+    "word": "Shell",
+    "t1": "Раковина",
+    "t2": "Панцирь",
+    "pos": "Noun",
+    "en": "A hard outer covering that protects some animals."
+  },
+  {
+    "num": 117,
+    "word": "Cooling",
+    "t1": "Охлаждение",
+    "t2": "Понижение температуры",
+    "pos": "Noun",
+    "en": "The process of becoming less hot."
+  },
+  {
+    "num": 118,
+    "word": "Biological",
+    "t1": "Биологический",
+    "t2": "Относящийся к живым организмам",
+    "pos": "Adjective",
+    "en": "Related to living things or their life processes."
+  },
+  {
+    "num": 119,
+    "word": "Producers",
+    "t1": "Продуценты",
+    "t2": "Организмы-производители",
+    "pos": "Plural Noun",
+    "en": "Living things, such as plants, that make their own food."
+  },
+  {
+    "num": 120,
+    "word": "Landscape",
+    "t1": "Ландшафт",
+    "t2": "Природный пейзаж",
+    "pos": "Noun",
+    "en": "The natural features of an area of land."
+  },
+  {
+    "num": 121,
+    "word": "Nutrient",
+    "t1": "Питательное вещество",
+    "t2": "Нутриент",
+    "pos": "Noun",
+    "en": "A substance needed by living things for growth."
+  },
+  {
+    "num": 122,
+    "word": "Comet",
+    "t1": "Комета",
+    "t2": "Хвостатое небесное тело",
+    "pos": "Noun",
+    "en": "A small icy object that travels around the Sun."
+  },
+  {
+    "num": 123,
+    "word": "Altitude",
+    "t1": "Высота над уровнем моря",
+    "t2": "Абсолютная высота",
+    "pos": "Noun",
+    "en": "The height of a place above sea level."
+  },
+  {
+    "num": 124,
+    "word": "Bone",
+    "t1": "Кость",
+    "t2": "Костная ткань",
+    "pos": "Noun",
+    "en": "A hard part of the skeleton of a person or animal."
+  },
+  {
+    "num": 125,
+    "word": "Basin",
+    "t1": "Водосборный бассейн",
+    "t2": "Бассейн реки",
+    "pos": "Noun",
+    "en": "An area of land where water flows into the same river or lake."
+  },
+  {
+    "num": 126,
+    "word": "Agricultural",
+    "t1": "Сельскохозяйственный",
+    "t2": "Земледельческий",
+    "pos": "Adjective",
+    "en": "Related to growing crops or raising farm animals."
+  },
+  {
+    "num": 127,
+    "word": "Farming",
+    "t1": "Сельское хозяйство",
+    "t2": "Земледелие",
+    "pos": "Noun",
+    "en": "The activity of growing crops or raising animals."
+  },
+  {
+    "num": 128,
+    "word": "Pollutants",
+    "t1": "Загрязняющие вещества",
+    "t2": "Загрязнители",
+    "pos": "Plural Noun",
+    "en": "Substances that make air, water, or soil dirty or harmful."
+  },
+  {
+    "num": 129,
+    "word": "Roots",
+    "t1": "Корни",
+    "t2": "Корневая система",
+    "pos": "Plural Noun",
+    "en": "The parts of a plant that grow into the ground and take in water."
+  },
+  {
+    "num": 130,
+    "word": "Endangered",
+    "t1": "Под угрозой исчезновения",
+    "t2": "Вымирающий",
+    "pos": "Adjective",
+    "en": "At risk of disappearing forever as a species."
+  },
+  {
+    "num": 131,
+    "word": "Humidity",
+    "t1": "Влажность",
+    "t2": "Влажность воздуха",
+    "pos": "Noun",
+    "en": "The amount of water vapor in the air."
+  },
+  {
+    "num": 132,
+    "word": "Generations",
+    "t1": "Поколения",
+    "t2": "Последовательные поколения",
+    "pos": "Plural Noun",
+    "en": "Groups of living things born at different times."
+  },
+  {
+    "num": 133,
+    "word": "Recycling",
+    "t1": "Переработка отходов",
+    "t2": "Вторичное использование материалов",
+    "pos": "Noun",
+    "en": "Turning used materials into materials that can be used again."
+  },
+  {
+    "num": 134,
+    "word": "Biology",
+    "t1": "Биология",
+    "t2": "Наука о живой природе",
+    "pos": "Noun",
+    "en": "The scientific study of living things."
+  },
+  {
+    "num": 135,
+    "word": "Feeding",
+    "t1": "Питание",
+    "t2": "Кормление",
+    "pos": "Noun",
+    "en": "The act of eating or giving food to a living thing."
+  },
+  {
+    "num": 136,
+    "word": "Exposure",
+    "t1": "Воздействие",
+    "t2": "Подверженность воздействию",
+    "pos": "Noun",
+    "en": "Contact with sunlight, pollution, or another outside condition."
+  },
+  {
+    "num": 137,
+    "word": "Condensation",
+    "t1": "Конденсация",
+    "t2": "Образование капель из пара",
+    "pos": "Noun",
+    "en": "The change of water vapor into liquid drops."
+  },
+  {
+    "num": 138,
+    "word": "Moisture",
+    "t1": "Влага",
+    "t2": "Содержание влаги",
+    "pos": "Noun",
+    "en": "A small amount of water in air, soil, or a material."
+  },
+  {
+    "num": 139,
+    "word": "Ridge",
+    "t1": "Горный хребет",
+    "t2": "Гребень возвышенности",
+    "pos": "Noun",
+    "en": "A long, narrow line of high land."
+  },
+  {
+    "num": 140,
+    "word": "Phenomenon",
+    "t1": "Явление",
+    "t2": "Природное явление",
+    "pos": "Noun",
+    "en": "An event or process that can be observed in nature."
+  },
+  {
+    "num": 141,
+    "word": "Terrestrial",
+    "t1": "Наземный",
+    "t2": "Земной",
+    "pos": "Adjective",
+    "en": "Related to the land rather than the sea."
+  },
+  {
+    "num": 142,
+    "word": "Freezing",
+    "t1": "Замерзание",
+    "t2": "Превращение в лёд",
+    "pos": "Noun",
+    "en": "The process of a liquid changing into a solid because of cold."
+  },
+  {
+    "num": 143,
+    "word": "Elevation",
+    "t1": "Высота местности",
+    "t2": "Отметка высоты",
+    "pos": "Noun",
+    "en": "The height of land above sea level."
+  },
+  {
+    "num": 144,
+    "word": "Limestone",
+    "t1": "Известняк",
+    "t2": "Известняковая порода",
+    "pos": "Noun",
+    "en": "A common type of rock often formed from sea life remains."
+  },
+  {
+    "num": 145,
+    "word": "Colony",
+    "t1": "Колония",
+    "t2": "Группа организмов одного вида",
+    "pos": "Noun",
+    "en": "A group of the same kind of organisms living together."
+  },
+  {
+    "num": 146,
+    "word": "Microbes",
+    "t1": "Микробы",
+    "t2": "Микроорганизмы",
+    "pos": "Plural Noun",
+    "en": "Very small living things, such as bacteria."
+  },
+  {
+    "num": 147,
+    "word": "Fertilizer",
+    "t1": "Удобрение",
+    "t2": "Питательная добавка для почвы",
+    "pos": "Noun",
+    "en": "A substance added to soil to help plants grow."
+  },
+  {
+    "num": 148,
+    "word": "Seaweed",
+    "t1": "Морские водоросли",
+    "t2": "Водоросли морей и океанов",
+    "pos": "Noun",
+    "en": "Large algae that grow in the sea."
+  },
+  {
+    "num": 149,
+    "word": "Crop",
+    "t1": "Сельскохозяйственная культура",
+    "t2": "Выращиваемое растение",
+    "pos": "Noun",
+    "en": "A plant grown by people for food or other uses."
+  },
+  {
+    "num": 150,
+    "word": "Irrigation",
+    "t1": "Орошение",
+    "t2": "Полив полей",
+    "pos": "Noun",
+    "en": "Giving water to crops or dry soil to help plants grow."
+  },
+  {
+    "num": 151,
+    "word": "Nonrenewable",
+    "t1": "Невозобновляемый",
+    "t2": "Исчерпаемый",
+    "pos": "Adjective",
+    "en": "Not replaced naturally as quickly as it is used."
+  },
+  {
+    "num": 152,
+    "word": "Flies",
+    "t1": "Мухи",
+    "t2": "Летающие насекомые — мухи",
+    "pos": "Plural Noun",
+    "en": "Small insects with wings that are often found outdoors."
+  },
+  {
+    "num": 153,
+    "word": "Plastics",
+    "t1": "Пластмассы",
+    "t2": "Пластиковые материалы",
+    "pos": "Plural Noun",
+    "en": "Human-made materials that can remain in nature as waste."
+  },
+  {
+    "num": 154,
+    "word": "Deposits",
+    "t1": "Отложения",
+    "t2": "Природные залежи",
+    "pos": "Plural Noun",
+    "en": "Natural layers or amounts of material left in one place."
+  },
+  {
+    "num": 155,
+    "word": "Migration",
+    "t1": "Миграция",
+    "t2": "Сезонное переселение животных",
+    "pos": "Noun",
+    "en": "The regular movement of animals from one area to another."
+  },
+  {
+    "num": 156,
+    "word": "Thermometer",
+    "t1": "Термометр",
+    "t2": "Прибор для измерения температуры",
+    "pos": "Noun",
+    "en": "A tool used to measure temperature."
+  },
+  {
+    "num": 157,
+    "word": "Circulation",
+    "t1": "Циркуляция",
+    "t2": "Круговорот",
+    "pos": "Noun",
+    "en": "The continuous movement of air or water in an area."
+  },
+  {
+    "num": 158,
+    "word": "Geology",
+    "t1": "Геология",
+    "t2": "Наука о Земле",
+    "pos": "Noun",
+    "en": "The scientific study of Earth's rocks and structure."
+  },
+  {
+    "num": 159,
+    "word": "Scales",
+    "t1": "Чешуя",
+    "t2": "Чешуйки",
+    "pos": "Plural Noun",
+    "en": "Small plates that cover the skin of many fish and reptiles."
+  },
+  {
+    "num": 160,
+    "word": "Era",
+    "t1": "Эра",
+    "t2": "Геологическая эра",
+    "pos": "Noun",
+    "en": "A long period in Earth's natural history."
+  },
+  {
+    "num": 161,
+    "word": "Ecological",
+    "t1": "Экологический",
+    "t2": "Относящийся к экосистемам",
+    "pos": "Adjective",
+    "en": "Related to living things and their environment."
+  },
+  {
+    "num": 162,
+    "word": "Lung",
+    "t1": "Лёгкое",
+    "t2": "Дыхательный орган",
+    "pos": "Noun",
+    "en": "An organ that helps a person or animal breathe."
+  },
+  {
+    "num": 163,
+    "word": "Decomposition",
+    "t1": "Разложение",
+    "t2": "Распад органического вещества",
+    "pos": "Noun",
+    "en": "The natural breakdown of dead plants and animals."
+  },
+  {
+    "num": 164,
+    "word": "Channel",
+    "t1": "Русло",
+    "t2": "Водоток",
+    "pos": "Noun",
+    "en": "A natural path through which water flows."
+  },
+  {
+    "num": 165,
+    "word": "Cone",
+    "t1": "Конус вулкана",
+    "t2": "Вулканический конус",
+    "pos": "Noun",
+    "en": "The cone-shaped part of a volcano built from lava and ash."
+  },
+  {
+    "num": 166,
+    "word": "Geysers",
+    "t1": "Гейзеры",
+    "t2": "Горячие фонтанирующие источники",
+    "pos": "Plural Noun",
+    "en": "Natural hot springs that shoot water and steam into the air."
+  },
+  {
+    "num": 167,
+    "word": "Bugs",
+    "t1": "Насекомые",
+    "t2": "Жучки",
+    "pos": "Plural Noun",
+    "en": "Small insects or similar tiny creatures."
+  },
+  {
+    "num": 168,
+    "word": "Smog",
+    "t1": "Смог",
+    "t2": "Загрязнённая дымкой атмосфера",
+    "pos": "Noun",
+    "en": "Dirty air caused by smoke and other pollution."
+  },
+  {
+    "num": 169,
+    "word": "Bulbs",
+    "t1": "Луковицы растений",
+    "t2": "Растительные луковицы",
+    "pos": "Plural Noun",
+    "en": "Underground parts of some plants that store food and can grow."
+  }
+]

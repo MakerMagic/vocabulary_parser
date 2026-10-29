@@ -143,11 +143,58 @@ NW_CEFR: Final[dict[str, str]] = {
     "a paucity of": "C2",
 }
 
+NATURE_CEFR: Final[dict[str, str]] = {
+    # Excluded A1 (11)
+    "light": "A1", "food": "A1", "sun": "A1", "body": "A1", "plant": "A1",
+    "animal": "A1", "fish": "A1", "star": "A1", "sugar": "A1", "fruit": "A1", "egg": "A1",
+    # Excluded A2 (28)
+    "earth": "A2", "space": "A2", "moon": "A2", "planet": "A2", "ice": "A2",
+    "natural": "A2", "wind": "A2", "rocks": "A2", "ground": "A2", "field": "A2",
+    "brain": "A2", "oil": "A2", "forest": "A2", "skin": "A2", "plastic": "A2",
+    "lake": "A2", "salt": "A2", "clouds": "A2", "desert": "A2", "whales": "A2",
+    "stomach": "A2", "seed": "A2", "bone": "A2", "farming": "A2", "roots": "A2",
+    "flies": "A2", "plastics": "A2", "bugs": "A2",
+    # B1 (43)
+    "energy": "B1", "ocean": "B1", "gas": "B1", "atmosphere": "B1", "climate": "B1",
+    "force": "B1", "heat": "B1", "population": "B1", "environment": "B1", "wave": "B1",
+    "liquid": "B1", "soil": "B1", "solid": "B1", "region": "B1", "global": "B1",
+    "layer": "B1", "source": "B1", "mars": "B1", "pollution": "B1", "growth": "B1",
+    "environmental": "B1", "disease": "B1", "resources": "B1", "fuel": "B1", "community": "B1",
+    "female": "B1", "volcanoes": "B1", "pole": "B1", "behavior": "B1", "volcano": "B1",
+    "valley": "B1", "celsius": "B1", "resource": "B1", "shell": "B1", "producers": "B1",
+    "landscape": "B1", "generations": "B1", "recycling": "B1", "biology": "B1", "freezing": "B1",
+    "crop": "B1", "thermometer": "B1", "lung": "B1",
+    # B2 (75)
+    "species": "B2", "cells": "B2", "carbon": "B2", "organisms": "B2", "solar": "B2",
+    "matter": "B2", "oxygen": "B2", "ecosystem": "B2", "fossil": "B2", "dna": "B2",
+    "gravity": "B2", "bacteria": "B2", "motion": "B2", "cycle": "B2", "radiation": "B2",
+    "nutrients": "B2", "current": "B2", "greenhouse": "B2", "core": "B2", "coral": "B2",
+    "universe": "B2", "warming": "B2", "reef": "B2", "zone": "B2", "minerals": "B2",
+    "evolution": "B2", "visible": "B2", "habitat": "B2", "hemisphere": "B2", "conservation": "B2",
+    "melting": "B2", "renewable": "B2", "equator": "B2", "atmospheric": "B2", "polar": "B2",
+    "latitude": "B2", "depth": "B2", "crystal": "B2", "tide": "B2", "extinction": "B2",
+    "geological": "B2", "steam": "B2", "cooling": "B2", "biological": "B2", "nutrient": "B2",
+    "comet": "B2", "altitude": "B2", "basin": "B2", "agricultural": "B2", "pollutants": "B2",
+    "endangered": "B2", "humidity": "B2", "feeding": "B2", "exposure": "B2", "moisture": "B2",
+    "ridge": "B2", "phenomenon": "B2", "elevation": "B2", "limestone": "B2", "colony": "B2",
+    "fertilizer": "B2", "seaweed": "B2", "irrigation": "B2", "nonrenewable": "B2", "deposits": "B2",
+    "migration": "B2", "circulation": "B2", "geology": "B2", "scales": "B2", "era": "B2",
+    "ecological": "B2", "channel": "B2", "cone": "B2", "smog": "B2", "bulbs": "B2",
+    # C1 (12)
+    "photosynthesis": "C1", "precipitation": "C1", "magma": "C1", "eclipse": "C1", "algae": "C1",
+    "respiration": "C1", "evaporation": "C1", "condensation": "C1", "terrestrial": "C1",
+    "microbes": "C1", "decomposition": "C1", "geysers": "C1",
+}
+
 
 def lookup_cefr_level(word: str, pos: str | None = None, source_id: str | None = None) -> str | None:
     """Look up the defensible CEFR level for a word, considering POS and source context."""
     w = word.strip().lower()
     p = (pos or "").strip().lower()
+
+    if source_id == "nature":
+        if w in NATURE_CEFR:
+            return NATURE_CEFR[w]
 
     if source_id == "new_words":
         if w in NW_CEFR:
@@ -166,6 +213,8 @@ def lookup_cefr_level(word: str, pos: str | None = None, source_id: str | None =
             return UCL_ADJ_CEFR[w]
 
     # Shared fallback
+    if w in NATURE_CEFR:
+        return NATURE_CEFR[w]
     if w in NW_CEFR:
         return NW_CEFR[w]
     if w in UCL_VERB_CEFR:

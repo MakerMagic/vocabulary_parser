@@ -1,12 +1,12 @@
 # ACQUISITION Stage Issues Report (`ACQUISITION_ISSUES.md`)
 
-> **Source:** `new_words`  
-> **Generated deterministically from:** `data/acquisition/sources/new_words/validation.json`  
+> **Source:** `nature`  
+> **Generated deterministically from:** `data/acquisition/sources/nature/validation.json`  
 > **Total Issue Occurrences:** `0`  
 > **Unique Affected Records:** `0`
 
 ```text
-ISSUE SUMMARY — NEW_WORDS / ACQUISITION
+ISSUE SUMMARY — NATURE / ACQUISITION
 TOTAL DISTINCT ISSUES: 0
 UNIQUE AFFECTED RECORDS: 0
 ```

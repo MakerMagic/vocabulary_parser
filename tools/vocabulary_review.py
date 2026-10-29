@@ -18,7 +18,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import html
 import json
 import re
 import sys
@@ -191,338 +190,32 @@ def generate_record_backtest_html(
     source_id: str,
     repo_root: Path = REPO_ROOT,
 ) -> Path:
-    """Generate a dedicated self-contained HTML backtesting report for the inspected query."""
+    """Generate a dedicated self-contained HTML backtesting report with Area A website preview and Area B metadata."""
     out_dir = repo_root / "inspections" / "review"
     out_dir.mkdir(parents=True, exist_ok=True)
     slug = slugify(query)
     out_file = out_dir / f"backtest_{source_id}_{slug}.html"
 
-    cards_html: list[str] = []
+    from processors.rendering import evaluate_rendering_eligibility, render_backtest_page_html
+
+    records_data: list[tuple[dict[str, Any], bool, str | None, dict[str, Any] | None]] = []
     for pf_rec in matches:
-        num = pf_rec["number"]
+        num = pf_rec.get("number", 0)
         stages = load_stage_data_for_record(num, source_id, repo_root)
-        raw_rec = stages.get("raw", {})
-        clean_rec = stages.get("clean", {})
+        is_eligible, reason = evaluate_rendering_eligibility(pf_rec)
+        records_data.append((pf_rec, is_eligible, reason, stages))
 
-        status = pf_rec.get("validation_status", "validated")
-        badge_cls = {
-            "validated": "badge-ok",
-            "review_pending": "badge-warn",
-            "excluded": "badge-excluded",
-            "error": "badge-err",
-        }.get(status, "badge-neutral")
-
-        rec_type = pf_rec.get("type")
-        if rec_type == "Essential":
-            type_badge = '<span class="badge badge-essential">Type: Essential</span>'
-        elif rec_type:
-            type_badge = f'<span class="badge badge-type">Type: {html.escape(str(rec_type))}</span>'
-        else:
-            type_badge = '<span class="badge badge-type">Type: null (Standard Vocabulary)</span>'
-
-        rec_preset = pf_rec.get("preset", "Basics")
-        preset_badge = f'<span class="badge badge-preset">Preset: {html.escape(str(rec_preset))}</span>'
-
-        rec_diff = pf_rec.get("difficulty") or "Unset"
-        rec_cefr = pf_rec.get("cefr_level") or "N/A"
-        diff_badge = f'<span class="badge badge-diff-{str(rec_diff).lower()}">Difficulty: {html.escape(str(rec_diff))} ({html.escape(str(rec_cefr))})</span>'
-
-        is_eligible = pf_rec.get("final_output_eligible", status == "validated")
-        if is_eligible:
-            elig_badge = '<span class="badge badge-eligible">Final Output: ELIGIBLE</span>'
-        else:
-            elig_badge = f'<span class="badge badge-blocked">Final Output: BLOCKED ({html.escape(status.upper())})</span>'
-
-        raw_spans = pf_rec.get("provenance", {}).get("source_spans", {})
-        span_desc = f"Line {raw_spans.get('line_number')}, cols {raw_spans.get('line_char_start')}..{raw_spans.get('line_char_end')} (bytes {raw_spans.get('file_char_start')}..{raw_spans.get('file_char_end')})"
-
-        ru_alts = pf_rec.get("russian_alternatives", [])
-        ru_alts_html = "".join(f"<li><code>{html.escape(alt)}</code></li>" for alt in ru_alts)
-
-        review_note = pf_rec.get("quality_and_review_notes")
-        note_box = ""
-        if review_note:
-            note_box = f'<div class="box box-warn"><strong>Linguistic Review Note:</strong> {html.escape(review_note)}</div>'
-
-        evidence_box = ""
-        if pf_rec.get("linguistic_evidence"):
-            evidence_box = f'<div class="box box-info"><strong>CEFR Level &amp; Linguistic Evidence:</strong> {html.escape(pf_rec["linguistic_evidence"])} (CEFR: {html.escape(str(pf_rec.get("cefr_level")))})</div>'
-
-        audit = clean_rec.get("normalization_audit", {})
-        ledger_status = "MATCH (100% token conservation)" if audit.get("token_ledger_match") else "N/A"
-
-        qa_refs = stages.get("qa_references", [])
-        qa_html = "".join(f'<li><a href="../../{html.escape(q["file"])}">{html.escape(q["stage"])} Stage Issues</a></li>' for q in qa_refs) or "<li>No stage-specific issues reported for this entry.</li>"
-
-        card = f"""
-        <article class="record-card">
-          <header class="card-header">
-            <div>
-              <span class="record-num">#{num}</span>
-              <span class="record-word">{html.escape(pf_rec["word"])}</span>
-              <code class="record-id">{html.escape(pf_rec["id"])}</code>
-              {preset_badge}
-              {diff_badge}
-              {type_badge}
-              {elig_badge}
-            </div>
-            <div>
-              <span class="badge {badge_cls}">{html.escape(status.upper())}</span>
-            </div>
-          </header>
-
-          {note_box}
-          {evidence_box}
-
-          <div class="stage-grid">
-            <!-- Stage 1 & 3: Acquisition & RAW Extraction -->
-            <div class="stage-pane">
-              <h3>1. Acquisition &amp; RAW Extraction</h3>
-              <dl>
-                <dt>Source File</dt>
-                <dd><code>{html.escape(pf_rec.get("provenance", {}).get("source_file", "N/A"))}</code></dd>
-                <dt>Source SHA-256</dt>
-                <dd><code>{html.escape(pf_rec.get("provenance", {}).get("source_sha256", "N/A")[:16])}...</code></dd>
-                <dt>Raw Text</dt>
-                <dd><strong>"{html.escape(raw_rec.get("raw_text", pf_rec["word"]))}"</strong></dd>
-                <dt>Source Spans</dt>
-                <dd>{html.escape(span_desc)}</dd>
-                <dt>Section Header</dt>
-                <dd>{html.escape(pf_rec.get("section_header", "N/A"))}</dd>
-              </dl>
-            </div>
-
-            <!-- Stage 4: Cleaning & Normalization -->
-            <div class="stage-pane">
-              <h3>2. Cleaning &amp; Normalization</h3>
-              <dl>
-                <dt>Headword Lemma</dt>
-                <dd><code>{html.escape(pf_rec.get("headword_lemma", "N/A"))}</code></dd>
-                <dt>Parenthetical Particle</dt>
-                <dd>{html.escape(str(pf_rec.get("parenthetical_modifier") or "None"))}</dd>
-                <dt>Token-Ledger Match</dt>
-                <dd class="ok">{html.escape(ledger_status)}</dd>
-                <dt>Eligibility Status</dt>
-                <dd><strong>{html.escape(str(pf_rec.get("status", "clean")).upper())}</strong> ({html.escape(str(pf_rec.get("exclusion_reason") or "Eligible curriculum item"))})</dd>
-                <dt>Spelling Convention</dt>
-                <dd>{html.escape(pf_rec.get("spelling_convention", "standard_shared"))}</dd>
-              </dl>
-            </div>
-
-            <!-- Stage 5: Enrichment -->
-            <div class="stage-pane">
-              <h3>3. Vocabulary Enrichment</h3>
-              <dl>
-                <dt>Part of Speech</dt>
-                <dd><code>{html.escape(pf_rec.get("part_of_speech", "N/A"))}</code></dd>
-                <dt>Russian Alternatives ({len(ru_alts)} of max 2)</dt>
-                <dd>
-                  <ol class="ru-alts-list">
-                    {ru_alts_html}
-                  </ol>
-                </dd>
-                <dt>English Explanation</dt>
-                <dd class="en-expl">{html.escape(pf_rec.get("english_explanation", "N/A"))}</dd>
-              </dl>
-            </div>
-
-            <!-- Stage 6: Validation & Platform Settings -->
-            <div class="stage-pane">
-              <h3>4. Validation &amp; Difficulty Tier</h3>
-              <dl>
-                <dt>Validation Status</dt>
-                <dd><strong>{html.escape(status.upper())}</strong></dd>
-                <dt>Preset</dt>
-                <dd><code>{html.escape(str(rec_preset))}</code></dd>
-                <dt>Difficulty Tier</dt>
-                <dd><strong>{html.escape(str(rec_diff))}</strong></dd>
-                <dt>CEFR Level</dt>
-                <dd><code>{html.escape(str(rec_cefr))}</code></dd>
-                <dt>Final Output Eligibility</dt>
-                <dd><strong>{"ELIGIBLE" if is_eligible else "BLOCKED / NOT ELIGIBLE"}</strong></dd>
-                <dt>Classification Type</dt>
-                <dd><strong>{html.escape(str(rec_type or "null (Standard Vocabulary)"))}</strong></dd>
-                <dt>Cross-Section Peer</dt>
-                <dd>{html.escape(str(pf_rec.get("is_cross_section_homograph", False)))}</dd>
-                <dt>Stage QA Issues</dt>
-                <dd>
-                  <ul class="qa-links">
-                    {qa_html}
-                  </ul>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </article>
-        """
-        cards_html.append(card)
-
-    html_content = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Backtest: "{html.escape(query)}" ({source_id})</title>
-  <style>
-    :root {{
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --border: #cbd5e1;
-      --border-light: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --accent: #2563eb;
-      --ok: #166534;
-      --ok-bg: #dcfce7;
-      --warn: #854d0e;
-      --warn-bg: #fef9c3;
-      --err: #991b1b;
-      --err-bg: #fee2e2;
-    }}
-    * {{ box-sizing: border-box; }}
-    body {{
-      margin: 0;
-      padding: 24px 32px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      background: var(--bg);
-      color: var(--text);
-    }}
-    header.page-header {{
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px 24px;
-      margin-bottom: 24px;
-    }}
-    h1 {{ margin: 0 0 6px 0; font-size: 22px; }}
-    .subtitle {{ color: var(--text-muted); font-size: 13px; }}
-    .record-card {{
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }}
-    .card-header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-light);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }}
-    .record-num {{
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-right: 8px;
-    }}
-    .record-word {{
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-      margin-right: 12px;
-    }}
-    .record-id {{
-      background: #f1f5f9;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      color: #334155;
-    }}
-    .badge {{
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }}
-    .badge-ok {{ background: var(--ok-bg); color: var(--ok); border: 1px solid #86efac; }}
-    .badge-warn {{ background: var(--warn-bg); color: var(--warn); border: 1px solid #fde047; }}
-    .badge-excluded {{ background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }}
-    .badge-err {{ background: var(--err-bg); color: var(--err); border: 1px solid #fca5a5; }}
-    .badge-essential {{ background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; font-weight: 700; }}
-    .badge-type {{ background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-weight: 500; font-size: 11px; }}
-    .badge-preset {{ background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; font-weight: 700; }}
-    .badge-diff-easy {{ background: #dcfce7; color: #166534; border: 1px solid #86efac; font-weight: 700; }}
-    .badge-diff-medium {{ background: #fef9c3; color: #854d0e; border: 1px solid #fde047; font-weight: 700; }}
-    .badge-diff-hard {{ background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; font-weight: 700; }}
-    .badge-eligible {{ background: #dcfce7; color: #15803d; border: 1px solid #4ade80; font-weight: 700; }}
-    .badge-blocked {{ background: #fee2e2; color: #b91c1c; border: 1px solid #f87171; font-weight: 700; }}
-    .box {{
-      padding: 10px 14px;
-      border-radius: 6px;
-      margin-bottom: 16px;
-      font-size: 13px;
-    }}
-    .box-warn {{ background: var(--warn-bg); border: 1px solid #fde047; color: var(--warn); }}
-    .box-info {{ background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }}
-    .stage-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-    }}
-    .stage-pane {{
-      background: #f8fafc;
-      border: 1px solid var(--border-light);
-      border-radius: 6px;
-      padding: 14px 16px;
-    }}
-    .stage-pane h3 {{
-      margin: 0 0 10px 0;
-      font-size: 14px;
-      font-weight: 700;
-      color: #1e293b;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 6px;
-    }}
-    dl {{ margin: 0; display: grid; grid-template-columns: 130px 1fr; row-gap: 8px; font-size: 12.5px; }}
-    dt {{ font-weight: 600; color: var(--text-muted); }}
-    dd {{ margin: 0; color: var(--text); word-break: break-word; }}
-    .ok {{ color: var(--ok); font-weight: 600; }}
-    .ru-alts-list {{ margin: 0; padding-left: 18px; }}
-    .ru-alts-list li {{ margin-bottom: 3px; font-size: 13.5px; font-weight: 600; }}
-    .en-expl {{ font-style: italic; color: #1e293b; }}
-    .qa-links {{ margin: 0; padding-left: 18px; }}
-    .qa-links li {{ margin-bottom: 2px; }}
-    nav.back-nav {{ margin-top: 24px; }}
-    nav.back-nav a {{ color: var(--accent); text-decoration: none; font-weight: 600; }}
-    nav.back-nav a:hover {{ text-decoration: underline; }}
-  </style>
-</head>
-<body>
-  <header class="page-header">
-    <h1>Stage-Level Backtest Report</h1>
-    <div class="subtitle">
-      Query: <strong>"{html.escape(query)}"</strong> |
-      Source: <code>{html.escape(source_id)}</code> |
-      Matched Entries: <strong>{len(matches)}</strong> |
-      Full Review: <a href="vocabulary_review.html">vocabulary_review.html</a>
-    </div>
-  </header>
-
-  <main>
-    {"".join(cards_html) if cards_html else '<p>No vocabulary records matched your query.</p>'}
-  </main>
-
-  <nav class="back-nav">
-    &larr; <a href="vocabulary_review.html">Return to Complete Vocabulary Review UI</a>
-  </nav>
-</body>
-</html>
-"""
+    html_content = render_backtest_page_html(query, records_data, source_id)
     out_file.write_text(html_content, encoding="utf-8")
     return out_file
 
 
 def print_cli_summary(query: str, matches: list[dict[str, Any]], source_id: str, html_path: Path) -> None:
     """Print clean terminal summary for PowerShell / CLI users."""
+    from processors.rendering import evaluate_rendering_eligibility
+
     print("=" * 78)
-    print(f"VOCABULARY PIPELINE BACKTEST: '{query}' (Source: {source_id})")
+    print(f"VOCABULARY PIPELINE & RENDERING BACKTEST: '{query}' (Source: {source_id})")
     print("=" * 78)
     if not matches:
         print(f"No records found matching query '{query}'.")
@@ -544,13 +237,15 @@ def print_cli_summary(query: str, matches: list[dict[str, Any]], source_id: str,
         rec_preset = rec.get("preset", "Basics")
         rec_diff = rec.get("difficulty") or "Unset"
         rec_cefr = rec.get("cefr_level") or "N/A"
-        is_elig = rec.get("final_output_eligible", status == "VALIDATED")
+        is_elig, reason = evaluate_rendering_eligibility(rec)
         elig_str = "ELIGIBLE" if is_elig else f"BLOCKED ({status})"
+        render_str = "ADMITTED (Website flashcard ready)" if is_elig else f"BLOCKED ({reason})"
 
         print(f"\n[#{num}] {w} ({rid}) — STATUS: {status}")
         print(f"  • Preset:       {rec_preset}")
         print(f"  • Difficulty:   {rec_diff} (CEFR: {rec_cefr})")
         print(f"  • Final Output: {elig_str}")
+        print(f"  • Rendering:    {render_str}")
         print(f"  • Type:         {rec_type}")
         print(f"  • Raw Span:     Line {spans.get('line_number')}, cols {spans.get('line_char_start')}..{spans.get('line_char_end')}")
         print(f"  • Part of Sp.:  {pos}")

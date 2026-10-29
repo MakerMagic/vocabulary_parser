@@ -1,14 +1,14 @@
 # ACQUISITION Stage Backtesting Report (`ACQUISITION_BACKTESTING.md`)
 
-> **Source:** `new_words`  
-> **Generated deterministically from:** `data/acquisition/sources/new_words/validation.json`  
+> **Source:** `nature`  
+> **Generated deterministically from:** `data/acquisition/sources/nature/validation.json`  
 > **Stage Status:** `completed`
 
 ## 1. Stage Execution Summary
 
-- **What was processed:** Cryptographic lock and byte-level acquisition audit of new_words.md.
-- **Input artifact:** `acquisition/local/new_words.md` (SHA-256: `6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7`)
-- **Output artifact:** `acquisition/sources/new_words/new_words.md` (SHA-256: `6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7`)
+- **What was processed:** Cryptographic lock and byte-level acquisition audit of Nature_Vocabulary_Simplified.csv.
+- **Input artifact:** `acquisition/local/Nature_Vocabulary_Simplified.csv` (SHA-256: `215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc`)
+- **Output artifact:** `acquisition/sources/nature/Nature_Vocabulary_Simplified.csv` (SHA-256: `215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc`)
 
 | Metric | Count |
 |---|---|
@@ -30,18 +30,20 @@
 
 | Check Name | Status | Details |
 |---|---|---|
-| `sha256_immutable_lock` | **PASS** | SHA-256 matches cryptographic lock 6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7 exactly. |
-| `utf8_decodability` | **PASS** | File size 30161 bytes decoded successfully under UTF-8 encoding. |
+| `sha256_immutable_lock` | **PASS** | SHA-256 matches cryptographic lock 215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc exactly. |
+| `utf8_decodability` | **PASS** | File size 23138 bytes decoded successfully under UTF-8 (with BOM) encoding. |
+| `line_count_integrity` | **PASS** | 170 lines / 169 data rows verified without truncation or replacement characters. |
 
 ## 4. Reproducible Backtesting Commands
 
 Run the following commands from the repository root:
 
 ```powershell
-Get-FileHash acquisition/sources/new_words/new_words.md -Algorithm SHA256
+Get-FileHash -Algorithm SHA256 acquisition/sources/nature/Nature_Vocabulary_Simplified.csv
+Get-Content data/acquisition/sources/nature/validation.json | ConvertFrom-Json
 ```
 
 ## 5. Verification Procedure
 
-1. Verify SHA-256 matches manifest.json (6aac09b4631462c239e49c6bbbbebf0a2d30ee88acddfbb16debb780ce163ec7).
-2. Verify UTF-8 decoding without errors.
+1. Verify SHA-256 matches 215bdb89ad6910d4edeeddebf980523bd2ad55616c651cf908cbdf713d0809bc.
+2. Verify 170 lines / 169 records byte-for-byte fidelity.
