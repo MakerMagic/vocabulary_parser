@@ -1,0 +1,26 @@
+{
+  "description": "RAW extraction of mathematical vocabulary from math_basics.txt",
+  "error_count": 0,
+  "extraction_status": "passed",
+  "input_artifact": "acquisition/sources/math_basics/math_basics.txt",
+  "issues": [],
+  "output_artifact": "data/raw/sources/math_basics/entries.raw.json",
+  "provenance_lock": {
+    "payload_hash": "8292c11db6951786f21a4f5bd6ea1e0a09b2fc324d3d29515074bc04379515eb",
+    "sha256": "eb6ea47dabd2e54b17a514781edb9b577145d865d9928495cc40ab8cbf09e698"
+  },
+  "record_count": 274,
+  "source_id": "math_basics",
+  "stage": "RAW",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 274,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 274
+  },
+  "validation_artifact": "data/raw/sources/math_basics/validation.json",
+  "validation_timestamp": "2026-10-29T17:52:00Z",
+  "warning_count": 0
+}

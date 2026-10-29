@@ -24,10 +24,10 @@ def evaluate_rendering_eligibility(record: dict[str, Any]) -> tuple[bool, str | 
 
     # 1. Verification of upstream validation status
     if val_status != "validated":
-        if val_status == "review_pending" or review_note is not None:
-            return False, f"Record has Pending Review status ({review_note or 'curriculum note unresolved'})."
         if val_status == "excluded" or exclusion_reason is not None:
             return False, f"Record is policy-excluded ({exclusion_reason or 'elementary CEFR exclusion'})."
+        if val_status == "review_pending" or review_note is not None:
+            return False, f"Record has Pending Review status ({review_note or 'curriculum note unresolved'})."
         if val_status == "error":
             return False, "Record has outstanding validation errors."
         return False, f"Unverified validation status: {val_status!r}."

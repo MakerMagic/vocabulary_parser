@@ -1,0 +1,26 @@
+{
+  "description": "Enriched mathematical vocabulary records with mathematical translations and explanations",
+  "error_count": 0,
+  "input_artifact": "data/clean/sources/math_basics/entries.clean.json",
+  "input_sha256": "bcf06620b3a9817a78617f5b2fc9176e136bf648c6cce4d8783947d3fab90cd0",
+  "issues": [],
+  "output_artifact": "data/enriched/sources/math_basics/entries.enriched.json",
+  "provenance_lock": {
+    "clean_payload_hash": "805438b395a5ec692eb0ac7c3f36697350eeb3630a988c76c792f5d1ff92ff79",
+    "payload_hash": "d42e9ede5002e0d039f1d6d8a15901938e0475de24fa2c454b9628cf694f5655"
+  },
+  "record_count": 274,
+  "source_id": "math_basics",
+  "stage": "ENRICHMENT",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "entered_count": 274,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 274
+  },
+  "validation_artifact": "data/enriched/sources/math_basics/validation.json",
+  "validation_timestamp": "2026-10-29T17:54:00Z",
+  "warning_count": 0
+}

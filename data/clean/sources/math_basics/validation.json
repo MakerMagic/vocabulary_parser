@@ -1,0 +1,848 @@
+{
+  "description": "Cleaned and deduplicated mathematical vocabulary records from math_basics",
+  "error_count": 0,
+  "input_artifact": "data/raw/sources/math_basics/entries.raw.json",
+  "input_sha256": "23ac7ec94f8b8cba90d22b489799442f21d197a3baa6e7ddeb1b68ab7dc6b7c4",
+  "issues": [
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'addition' (master entry is math_vocab_001 at line 1).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_001",
+      "record_id": "math_vocab_026",
+      "severity": "info",
+      "word": "addition"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'decimal' (master entry is math_vocab_002 at line 2).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_002",
+      "record_id": "math_vocab_028",
+      "severity": "info",
+      "word": "decimal"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'division' (master entry is math_vocab_006 at line 6).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_006",
+      "record_id": "math_vocab_030",
+      "severity": "info",
+      "word": "division"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'estimate' (master entry is math_vocab_007 at line 7).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_007",
+      "record_id": "math_vocab_032",
+      "severity": "info",
+      "word": "estimate"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'factor' (master entry is math_vocab_008 at line 8).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_008",
+      "record_id": "math_vocab_035",
+      "severity": "info",
+      "word": "factor"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'fraction' (master entry is math_vocab_009 at line 9).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_009",
+      "record_id": "math_vocab_037",
+      "severity": "info",
+      "word": "fraction"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'integer' (master entry is math_vocab_010 at line 10).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_010",
+      "record_id": "math_vocab_038",
+      "severity": "info",
+      "word": "integer"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'multiple' (master entry is math_vocab_011 at line 11).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_011",
+      "record_id": "math_vocab_041",
+      "severity": "info",
+      "word": "multiple"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'multiplication' (master entry is math_vocab_012 at line 12).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_012",
+      "record_id": "math_vocab_042",
+      "severity": "info",
+      "word": "multiplication"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'negative' (master entry is math_vocab_013 at line 13).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_013",
+      "record_id": "math_vocab_043",
+      "severity": "info",
+      "word": "negative"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'operation' (master entry is math_vocab_015 at line 15).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_015",
+      "record_id": "math_vocab_044",
+      "severity": "info",
+      "word": "operation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'positive' (master entry is math_vocab_017 at line 17).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_017",
+      "record_id": "math_vocab_046",
+      "severity": "info",
+      "word": "positive"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'product' (master entry is math_vocab_019 at line 19).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_019",
+      "record_id": "math_vocab_047",
+      "severity": "info",
+      "word": "product"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'quotient' (master entry is math_vocab_020 at line 20).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_020",
+      "record_id": "math_vocab_049",
+      "severity": "info",
+      "word": "quotient"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'rational' (master entry is math_vocab_021 at line 21).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_021",
+      "record_id": "math_vocab_050",
+      "severity": "info",
+      "word": "rational"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'subtraction' (master entry is math_vocab_023 at line 23).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_023",
+      "record_id": "math_vocab_052",
+      "severity": "info",
+      "word": "subtraction"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'sum' (master entry is math_vocab_024 at line 24).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_024",
+      "record_id": "math_vocab_053",
+      "severity": "info",
+      "word": "sum"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'decimal' (master entry is math_vocab_002 at line 2).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_002",
+      "record_id": "math_vocab_061",
+      "severity": "info",
+      "word": "decimal"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'estimate' (master entry is math_vocab_007 at line 7).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_007",
+      "record_id": "math_vocab_064",
+      "severity": "info",
+      "word": "estimate"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'express' (master entry is math_vocab_033 at line 33).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_033",
+      "record_id": "math_vocab_065",
+      "severity": "info",
+      "word": "express"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'quantity' (master entry is math_vocab_048 at line 48).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_048",
+      "record_id": "math_vocab_073",
+      "severity": "info",
+      "word": "quantity"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'distance' (master entry is math_vocab_029 at line 29).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_029",
+      "record_id": "math_vocab_080",
+      "severity": "info",
+      "word": "distance"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equation' (master entry is math_vocab_031 at line 31).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_031",
+      "record_id": "math_vocab_105",
+      "severity": "info",
+      "word": "equation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equivalent' (master entry is math_vocab_063 at line 63).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_063",
+      "record_id": "math_vocab_106",
+      "severity": "info",
+      "word": "equivalent"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'express' (master entry is math_vocab_033 at line 33).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_033",
+      "record_id": "math_vocab_107",
+      "severity": "info",
+      "word": "express"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'fraction' (master entry is math_vocab_009 at line 9).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_009",
+      "record_id": "math_vocab_108",
+      "severity": "info",
+      "word": "fraction"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'graph' (master entry is math_vocab_067 at line 67).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_067",
+      "record_id": "math_vocab_109",
+      "severity": "info",
+      "word": "graph"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'percent' (master entry is math_vocab_016 at line 16).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_016",
+      "record_id": "math_vocab_112",
+      "severity": "info",
+      "word": "percent"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'quantity' (master entry is math_vocab_048 at line 48).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_048",
+      "record_id": "math_vocab_116",
+      "severity": "info",
+      "word": "quantity"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'table' (master entry is math_vocab_076 at line 76).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_076",
+      "record_id": "math_vocab_121",
+      "severity": "info",
+      "word": "table"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'unit' (master entry is math_vocab_078 at line 78).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_078",
+      "record_id": "math_vocab_122",
+      "severity": "info",
+      "word": "unit"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'value' (master entry is math_vocab_054 at line 54).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_054",
+      "record_id": "math_vocab_123",
+      "severity": "info",
+      "word": "value"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'absolute value' (master entry is math_vocab_025 at line 25).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_025",
+      "record_id": "math_vocab_124",
+      "severity": "info",
+      "word": "absolute value"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'conversion' (master entry is math_vocab_058 at line 58).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_058",
+      "record_id": "math_vocab_127",
+      "severity": "info",
+      "word": "conversion"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'decimal' (master entry is math_vocab_002 at line 2).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_002",
+      "record_id": "math_vocab_129",
+      "severity": "info",
+      "word": "decimal"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'digit' (master entry is math_vocab_005 at line 5).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_005",
+      "record_id": "math_vocab_131",
+      "severity": "info",
+      "word": "digit"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equation' (master entry is math_vocab_031 at line 31).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_031",
+      "record_id": "math_vocab_133",
+      "severity": "info",
+      "word": "equation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equivalent' (master entry is math_vocab_063 at line 63).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_063",
+      "record_id": "math_vocab_134",
+      "severity": "info",
+      "word": "equivalent"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'factor' (master entry is math_vocab_008 at line 8).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_008",
+      "record_id": "math_vocab_136",
+      "severity": "info",
+      "word": "factor"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'fraction' (master entry is math_vocab_009 at line 9).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_009",
+      "record_id": "math_vocab_137",
+      "severity": "info",
+      "word": "fraction"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'integer' (master entry is math_vocab_010 at line 10).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_010",
+      "record_id": "math_vocab_139",
+      "severity": "info",
+      "word": "integer"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'irrational' (master entry is math_vocab_039 at line 39).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_039",
+      "record_id": "math_vocab_140",
+      "severity": "info",
+      "word": "irrational"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'magnitude' (master entry is math_vocab_040 at line 40).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_040",
+      "record_id": "math_vocab_141",
+      "severity": "info",
+      "word": "magnitude"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'operation' (master entry is math_vocab_015 at line 15).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_015",
+      "record_id": "math_vocab_144",
+      "severity": "info",
+      "word": "operation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'prime' (master entry is math_vocab_018 at line 18).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_018",
+      "record_id": "math_vocab_147",
+      "severity": "info",
+      "word": "prime"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'property' (master entry is math_vocab_072 at line 72).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_072",
+      "record_id": "math_vocab_148",
+      "severity": "info",
+      "word": "property"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'quotient' (master entry is math_vocab_020 at line 20).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_020",
+      "record_id": "math_vocab_150",
+      "severity": "info",
+      "word": "quotient"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'rational' (master entry is math_vocab_021 at line 21).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_021",
+      "record_id": "math_vocab_152",
+      "severity": "info",
+      "word": "rational"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'unit' (master entry is math_vocab_078 at line 78).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_078",
+      "record_id": "math_vocab_155",
+      "severity": "info",
+      "word": "unit"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equation' (master entry is math_vocab_031 at line 31).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_031",
+      "record_id": "math_vocab_159",
+      "severity": "info",
+      "word": "equation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'graph' (master entry is math_vocab_067 at line 67).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_067",
+      "record_id": "math_vocab_161",
+      "severity": "info",
+      "word": "graph"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'property' (master entry is math_vocab_072 at line 72).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_072",
+      "record_id": "math_vocab_167",
+      "severity": "info",
+      "word": "property"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'quantity' (master entry is math_vocab_048 at line 48).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_048",
+      "record_id": "math_vocab_169",
+      "severity": "info",
+      "word": "quantity"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'table' (master entry is math_vocab_076 at line 76).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_076",
+      "record_id": "math_vocab_172",
+      "severity": "info",
+      "word": "table"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'coefficient' (master entry is math_vocab_125 at line 125).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_125",
+      "record_id": "math_vocab_173",
+      "severity": "info",
+      "word": "coefficient"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'convert' (master entry is math_vocab_101 at line 101).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_101",
+      "record_id": "math_vocab_176",
+      "severity": "info",
+      "word": "convert"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'cube' (master entry is math_vocab_128 at line 128).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_128",
+      "record_id": "math_vocab_177",
+      "severity": "info",
+      "word": "cube"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'decimal' (master entry is math_vocab_002 at line 2).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_002",
+      "record_id": "math_vocab_178",
+      "severity": "info",
+      "word": "decimal"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equation' (master entry is math_vocab_031 at line 31).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_031",
+      "record_id": "math_vocab_180",
+      "severity": "info",
+      "word": "equation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'equivalent' (master entry is math_vocab_063 at line 63).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_063",
+      "record_id": "math_vocab_181",
+      "severity": "info",
+      "word": "equivalent"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'exponent' (master entry is math_vocab_135 at line 135).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_135",
+      "record_id": "math_vocab_182",
+      "severity": "info",
+      "word": "exponent"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'expression' (master entry is math_vocab_034 at line 34).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_034",
+      "record_id": "math_vocab_183",
+      "severity": "info",
+      "word": "expression"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'factor' (master entry is math_vocab_008 at line 8).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_008",
+      "record_id": "math_vocab_184",
+      "severity": "info",
+      "word": "factor"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'formula' (master entry is math_vocab_066 at line 66).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_066",
+      "record_id": "math_vocab_185",
+      "severity": "info",
+      "word": "formula"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'inequality' (master entry is math_vocab_138 at line 138).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_138",
+      "record_id": "math_vocab_186",
+      "severity": "info",
+      "word": "inequality"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'integer' (master entry is math_vocab_010 at line 10).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_010",
+      "record_id": "math_vocab_187",
+      "severity": "info",
+      "word": "integer"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'irrational' (master entry is math_vocab_039 at line 39).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_039",
+      "record_id": "math_vocab_188",
+      "severity": "info",
+      "word": "irrational"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'linear' (master entry is math_vocab_163 at line 163).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_163",
+      "record_id": "math_vocab_189",
+      "severity": "info",
+      "word": "linear"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'negative' (master entry is math_vocab_013 at line 13).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_013",
+      "record_id": "math_vocab_190",
+      "severity": "info",
+      "word": "negative"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'operation' (master entry is math_vocab_015 at line 15).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_015",
+      "record_id": "math_vocab_191",
+      "severity": "info",
+      "word": "operation"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'positive' (master entry is math_vocab_017 at line 17).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_017",
+      "record_id": "math_vocab_192",
+      "severity": "info",
+      "word": "positive"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'product' (master entry is math_vocab_019 at line 19).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_019",
+      "record_id": "math_vocab_194",
+      "severity": "info",
+      "word": "product"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'proportional' (master entry is math_vocab_115 at line 115).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_115",
+      "record_id": "math_vocab_195",
+      "severity": "info",
+      "word": "proportional"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'quotient' (master entry is math_vocab_020 at line 20).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_020",
+      "record_id": "math_vocab_197",
+      "severity": "info",
+      "word": "quotient"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'rational' (master entry is math_vocab_021 at line 21).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_021",
+      "record_id": "math_vocab_198",
+      "severity": "info",
+      "word": "rational"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'square' (master entry is math_vocab_154 at line 154).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_154",
+      "record_id": "math_vocab_200",
+      "severity": "info",
+      "word": "square"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'value' (master entry is math_vocab_054 at line 54).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_054",
+      "record_id": "math_vocab_202",
+      "severity": "info",
+      "word": "value"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'graph' (master entry is math_vocab_067 at line 67).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_067",
+      "record_id": "math_vocab_206",
+      "severity": "info",
+      "word": "graph"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'plane' (master entry is math_vocab_145 at line 145).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_145",
+      "record_id": "math_vocab_211",
+      "severity": "info",
+      "word": "plane"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'slope' (master entry is math_vocab_171 at line 171).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_171",
+      "record_id": "math_vocab_212",
+      "severity": "info",
+      "word": "slope"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'area' (master entry is math_vocab_079 at line 79).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_079",
+      "record_id": "math_vocab_217",
+      "severity": "info",
+      "word": "area"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'perimeter' (master entry is math_vocab_091 at line 91).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_091",
+      "record_id": "math_vocab_226",
+      "severity": "info",
+      "word": "perimeter"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'ratio' (master entry is math_vocab_118 at line 118).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_118",
+      "record_id": "math_vocab_229",
+      "severity": "info",
+      "word": "ratio"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'cube' (master entry is math_vocab_128 at line 128).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_128",
+      "record_id": "math_vocab_237",
+      "severity": "info",
+      "word": "cube"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'square' (master entry is math_vocab_154 at line 154).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_154",
+      "record_id": "math_vocab_252",
+      "severity": "info",
+      "word": "square"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'coordinate' (master entry is math_vocab_205 at line 205).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_205",
+      "record_id": "math_vocab_258",
+      "severity": "info",
+      "word": "coordinate"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'formula' (master entry is math_vocab_066 at line 66).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_066",
+      "record_id": "math_vocab_261",
+      "severity": "info",
+      "word": "formula"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'plane' (master entry is math_vocab_145 at line 145).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_145",
+      "record_id": "math_vocab_263",
+      "severity": "info",
+      "word": "plane"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'slope' (master entry is math_vocab_171 at line 171).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_171",
+      "record_id": "math_vocab_268",
+      "severity": "info",
+      "word": "slope"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'vertical' (master entry is math_vocab_213 at line 213).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_213",
+      "record_id": "math_vocab_273",
+      "severity": "info",
+      "word": "vertical"
+    },
+    {
+      "category": "Duplicate Vocabulary Entry",
+      "details": "Duplicate occurrence of 'volume' (master entry is math_vocab_096 at line 96).",
+      "issue_code": "DUPLICATE_ENTRY",
+      "master_record_id": "math_vocab_096",
+      "record_id": "math_vocab_274",
+      "severity": "info",
+      "word": "volume"
+    }
+  ],
+  "output_artifact": "data/clean/sources/math_basics/entries.clean.json",
+  "provenance_lock": {
+    "payload_hash": "805438b395a5ec692eb0ac7c3f36697350eeb3630a988c76c792f5d1ff92ff79",
+    "raw_payload_hash": "8292c11db6951786f21a4f5bd6ea1e0a09b2fc324d3d29515074bc04379515eb"
+  },
+  "record_count": 274,
+  "source_id": "math_basics",
+  "stage": "CLEAN",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 91,
+    "duplicate_count": 91,
+    "entered_count": 274,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 274,
+    "unique_terms_retained": 183
+  },
+  "validation_artifact": "data/clean/sources/math_basics/validation.json",
+  "validation_timestamp": "2026-10-29T17:53:00Z",
+  "warning_count": 91
+}

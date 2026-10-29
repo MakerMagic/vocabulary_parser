@@ -64,3 +64,4 @@
 - **Actual Problem:** Source explanation was `"The cone-shaped part of a volcano built from lava and ash."` which circularly contained `cone`.
 - **Corrective Action:** Rephrased in enrichment stage to: `"A steep, sloping triangular mound around a volcano vent built from erupted lava and ash."`
 - **Status:** Resolved.
+.\.venv\Scripts\python.exe tools/vocabulary_review.py --source nature --word "Function" --open

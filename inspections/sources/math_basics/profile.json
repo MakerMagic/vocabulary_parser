@@ -1,0 +1,38 @@
+{
+  "anomalies_and_characteristics": {
+    "cross_preset_overlaps": {
+      "nature": ["altitude", "cone"],
+      "new_words": ["equivalent", "function", "identical", "positive"],
+      "uclouvain": ["acute", "base", "compare", "convert", "derive", "equal", "equivalent", "express", "function", "identical", "linear", "negative", "opposite", "parallel", "perpendicular", "positive", "proof", "relative", "right"]
+    },
+    "duplicate_terms_count": 52,
+    "multiword_expressions": ["absolute value"],
+    "redundant_occurrences_count": 91,
+    "unique_terms_count": 183
+  },
+  "duplicate_analysis": {
+    "most_frequent_duplicates": {
+      "decimal": 5,
+      "equation": 5,
+      "equivalent": 4,
+      "factor": 4,
+      "fraction": 4,
+      "graph": 4,
+      "integer": 4,
+      "operation": 4,
+      "quantity": 4,
+      "quotient": 4,
+      "rational": 4
+    },
+    "total_duplicate_instances": 91,
+    "unique_terms_affected": 52
+  },
+  "sections_and_clusters": {
+    "cluster_count": 12,
+    "notes": "Dataset comprises 12 distinct study sections of mathematical vocabulary organized into roughly alphabetical sub-clusters."
+  },
+  "source_file": "acquisition/sources/math_basics/math_basics.txt",
+  "source_id": "math_basics",
+  "source_sha256": "eb6ea47dabd2e54b17a514781edb9b577145d865d9928495cc40ab8cbf09e698",
+  "total_extracted_items": 274
+}

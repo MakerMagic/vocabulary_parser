@@ -1,0 +1,11 @@
+{
+  "acquisition_date": "2026-10-29",
+  "document_id": "math_basics_v1",
+  "filename": "math_basics.txt",
+  "format": "txt",
+  "notes": "Acquired math_basics.txt mathematical vocabulary dataset containing 274 items across 12 study sections (183 unique terms and 91 duplicate occurrences) intended for NUET mathematics preparation.",
+  "sha256": "eb6ea47dabd2e54b17a514781edb9b577145d865d9928495cc40ab8cbf09e698",
+  "size_bytes": 2588,
+  "source_id": "math_basics",
+  "source_path": "acquisition/sources/math_basics/math_basics.txt"
+}

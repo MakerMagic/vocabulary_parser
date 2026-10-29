@@ -1,0 +1,31 @@
+{
+  "description": "CEFR-based difficulty classification for math_basics vocabulary",
+  "error_count": 0,
+  "input_artifact": "data/enriched/sources/math_basics/entries.enriched.json",
+  "input_sha256": "b99b969560371dc84f2f8241f0935c97c9406f6b5fc88205957e3ca9943ece9c",
+  "issues": [],
+  "output_artifact": "data/difficulty/sources/math_basics/entries.difficulty.json",
+  "provenance_lock": {
+    "enriched_payload_hash": "d42e9ede5002e0d039f1d6d8a15901938e0475de24fa2c454b9628cf694f5655",
+    "payload_hash": "278e54d53874dfe9a52f54b5a6e6af52bd606947831ed15e03d3e432c3218a3c"
+  },
+  "record_count": 274,
+  "source_id": "math_basics",
+  "stage": "DIFFICULTY",
+  "stage_status": "completed",
+  "summary": {
+    "affected_record_count": 0,
+    "difficulty_counts": {
+      "Easy": 184,
+      "Hard": 10,
+      "Medium": 80
+    },
+    "entered_count": 274,
+    "error_count": 0,
+    "review_pending_count": 0,
+    "succeeded_count": 274
+  },
+  "validation_artifact": "data/difficulty/sources/math_basics/validation.json",
+  "validation_timestamp": "2026-10-29T17:55:00Z",
+  "warning_count": 0
+}

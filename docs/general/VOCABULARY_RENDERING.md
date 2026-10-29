@@ -81,20 +81,23 @@ Instead, the system utilizes **ONE reusable template** (`processors/rendering/te
 
 ## 5. Read-Only Systematic Repository Audit Results
 
-A complete read-only audit across all **741 records** in the repository yielded the following verified distribution:
+A complete read-only audit across all **1,015 records** in the repository yielded the following verified distribution:
 
-| Dataset / Source | Total Records | Admitted (Eligible) | Blocked (Ineligible) | Blocked: Policy Exclusions (A1/A2) | Blocked: Review Pending | Active Errors |
+| Dataset / Source | Total Records | Admitted (Eligible) | Blocked (Ineligible) | Blocked: Policy Exclusions | Blocked: Review Pending | Active Errors |
 |---|---|---|---|---|---|---|
-| **`uclouvain`** | 413 | 379 | 34 | 29 | 5 | 0 |
-| **`new_words`** | 159 | 154 | 5 | 3 | 2 | 0 |
-| **`nature`** | 169 | 142 | 27 | 27 | 0 | 0 |
-| **Total Repository** | **741** | **675** | **66** | **59** | **7** | **0** |
+| **`uclouvain`** | 413 | 379 | 34 | 29 (A1/A2) | 5 | 0 |
+| **`new_words`** | 159 | 154 | 5 | 3 (A1/A2) | 2 | 0 |
+| **`nature`** | 169 | 142 | 27 | 27 (A1/A2) | 0 | 0 |
+| **`math_basics`** | 274 | 183 | 91 | 91 (Duplicate term) | 0 | 0 |
+| **Total Repository** | **1,015** | **858** | **157** | **150** | **7** | **0** |
 
 ### Blocked Records Breakdown
 - **Policy-Excluded Elementary A1/A2 Words (59 records):**
   - `uclouvain` (29 words): systematically excluded elementary A1/A2 words (e.g. `sure`).
   - `new_words` (3 words): `Repair`, `Several`, `Nearly`.
   - `nature` (27 words): elementary terms (e.g. `Food`, `Sun`, `Earth`, `Natural`). Note: 12 explicitly approved A2 nature terms (`Whales`, `Wind`, `Oil`, etc.) remain admitted and eligible.
+- **Policy-Excluded Duplicate Terms (91 records):**
+  - `math_basics` (91 duplicate occurrences): duplicate study section terms preserved for provenance but excluded from user-facing flashcard presentation in favor of the canonical master record.
 - **Pending Review (7 records):**
   - `uclouvain` (5 words): `#2 account (for)`, `#206 should`, `#252 certain`, `#347 present`, `#402 unlike`.
   - `new_words` (2 words): `#27 Necessitates` (inflected form), `#126 Opulent` (semantic contrast note).
@@ -116,4 +119,10 @@ The CLI tool [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabu
 
 # 3. Backtest review-pending word (renders diagnostic blocked card + metadata)
 .\.venv\Scripts\python.exe tools/vocabulary_review.py --source uclouvain --word "account for"
+
+# 4. Backtest mathematical vocabulary word (renders website card + metadata)
+.\.venv\Scripts\python.exe tools/vocabulary_review.py --source math_basics --word "altitude"
+
+# 5. Backtest duplicate mathematical word (shows master admitted card + duplicate blocked cards)
+.\.venv\Scripts\python.exe tools/vocabulary_review.py --source math_basics --word "decimal"
 ```

@@ -488,17 +488,27 @@ def test_rendering_eligibility_and_negative_controls() -> None:
 
 
 def test_rendering_audit_across_all_datasets() -> None:
-    """Verify read-only systematic rendering audit across all 741 records in repository."""
+    """Verify read-only systematic rendering audit across all records in repository."""
     from processors.rendering import audit_and_render_all
 
     res = audit_and_render_all(REPO_ROOT)
-    assert res["total_repository_records"] == 741
-    assert res["total_rendering_eligible"] == 675
-    assert res["total_rendering_blocked"] == 66
+    assert res["total_repository_records"] == 1015
+    assert res["total_rendering_eligible"] == 858
+    assert res["total_rendering_blocked"] == 157
     assert res["zero_unresolved_issues_gate_passed"] is True
 
     sources = res["source_breakdown"]
-    assert set(sources.keys()) == {"nature", "new_words", "uclouvain"}
+    assert set(sources.keys()) == {"math_basics", "nature", "new_words", "uclouvain"}
+
+    # math_basics (274 total: 183 eligible, 91 blocked duplicates)
+    mb = sources["math_basics"]
+    assert mb["total_records"] == 274
+    assert mb["admitted_eligible_count"] == 183
+    assert mb["blocked_ineligible_count"] == 91
+    assert mb["blocked_categories"]["duplicate_term"] == 91
+    assert mb["blocked_categories"]["policy_exclusion_a1_a2"] == 0
+    assert mb["blocked_categories"]["review_pending"] == 0
+    assert mb["blocked_categories"]["validation_errors"] == 0
 
     # UCLouvain (413 total: 379 eligible, 34 blocked)
     ucl = sources["uclouvain"]
@@ -581,6 +591,153 @@ def test_rendering_card_and_diagnostic_html_templates() -> None:
     assert '<div class="ineligible-reason-box">' in html_blocked
     assert "Area B &mdash; Technical Quality Assurance &amp; Upstream Audit" in html_blocked
     assert "BLOCKED (EXCLUDED)" in html_blocked
+
+
+def test_math_basics_pipeline_execution_and_invariants() -> None:
+    """Verify end-to-end invariants for the math_basics dataset."""
+    from collections import Counter
+
+    pf_doc = _load_json("data/pre_final/sources/math_basics/vocabulary.json")
+    assert pf_doc["record_count"] == 274
+    assert pf_doc["source_id"] == "math_basics"
+    assert pf_doc["preset"] == "math_basics"
+
+    records = pf_doc["records"]
+    assert len(records) == 274
+
+    # 1. 100% preset: 'math_basics'
+    for r in records:
+        assert r["preset"] == "math_basics"
+        assert r["source_id"] == "math_basics"
+        assert r["difficulty"] in ("Easy", "Medium", "Hard")
+        assert len(r["russian_alternatives"]) in (1, 2)
+        assert len(r["english_explanation"].strip()) >= 15
+        assert r["part_of_speech"] in ("noun", "verb", "adjective", "noun phrase", "noun (plural)")
+
+    # 2. Deduplication partitioning: 183 eligible, 91 duplicate excluded
+    eligible = [r for r in records if r["final_output_eligible"]]
+    duplicates = [r for r in records if not r["final_output_eligible"]]
+    assert len(eligible) == 183
+    assert len(duplicates) == 91
+    assert len(set(r["word"] for r in eligible)) == 183
+
+    for r in eligible:
+        assert r["validation_status"] == "validated"
+        assert r["is_duplicate"] is False
+        assert r["duplicate_master_id"] is None
+
+    for r in duplicates:
+        assert r["validation_status"] == "excluded"
+        assert r["is_duplicate"] is True
+        assert r["exclusion_reason"] == "duplicate_term"
+        assert r["duplicate_master_id"] is not None
+        assert r["duplicate_master_id"].startswith("math_vocab_")
+
+    # 3. Mathematical meaning check: terms must be translated mathematically
+    whales_math = next((r for r in eligible if r["word"] == "altitude"), None)
+    assert whales_math is not None
+    assert whales_math["russian_translation"] == "высота"
+    assert "perpendicular" in whales_math["english_explanation"].lower()
+
+    derive_math = next((r for r in eligible if r["word"] == "derive"), None)
+    assert derive_math is not None
+    assert "дифференцировать" in derive_math["russian_alternatives"] or "выводить" in derive_math["russian_alternatives"]
+
+    # 4. Difficulty distribution
+    diff_eligible = Counter(r["difficulty"] for r in eligible)
+    assert diff_eligible["Easy"] == 110
+    assert diff_eligible["Medium"] == 63
+    assert diff_eligible["Hard"] == 10
+
+    diff_total = Counter(r["difficulty"] for r in records)
+    assert diff_total["Easy"] == 184
+    assert diff_total["Medium"] == 80
+    assert diff_total["Hard"] == 10
+
+
+def test_math_basics_backtesting_tool() -> None:
+    """Verify PowerShell backtesting tool inspection for math_basics terms."""
+    from tools.vocabulary_review import find_records_for_query
+
+    # 1. Single occurrence eligible term
+    alt_records = find_records_for_query("altitude", "math_basics")
+    assert len(alt_records) == 1
+    assert alt_records[0]["word"] == "altitude"
+    assert alt_records[0]["preset"] == "math_basics"
+    assert alt_records[0]["difficulty"] == "Medium"
+    assert alt_records[0]["final_output_eligible"] is True
+
+    # 2. Multi-occurrence term with 5 occurrences (1 master + 4 duplicates)
+    dec_records = find_records_for_query("decimal", "math_basics")
+    assert len(dec_records) == 5
+    assert dec_records[0]["final_output_eligible"] is True
+    assert dec_records[0]["validation_status"] == "validated"
+    for dup in dec_records[1:]:
+        assert dup["final_output_eligible"] is False
+        assert dup["validation_status"] == "excluded"
+        assert dup["exclusion_reason"] == "duplicate_term"
+
+    # 3. Multiword term 'absolute value'
+    av_records = find_records_for_query("absolute value", "math_basics")
+    assert len(av_records) == 2
+    assert av_records[0]["word"] == "absolute value"
+    assert av_records[0]["part_of_speech"] == "noun phrase"
+    assert av_records[0]["final_output_eligible"] is True
+    assert av_records[1]["final_output_eligible"] is False
+
+    # 4. Hard tier term 'hyperbola'
+    hyp_records = find_records_for_query("hyperbola", "math_basics")
+    assert len(hyp_records) == 1
+    assert hyp_records[0]["difficulty"] == "Hard"
+    assert hyp_records[0]["cefr_level"] == "C1"
+    assert hyp_records[0]["final_output_eligible"] is True
+
+
+def test_math_basics_rendering_artifacts_and_invariants() -> None:
+    """Verify display_ready.json, validation.json, and rendering invariants for math_basics."""
+    dr_doc = _load_json("data/rendered/sources/math_basics/display_ready.json")
+    val_doc = _load_json("data/rendered/sources/math_basics/validation.json")
+
+    assert dr_doc["source_id"] == "math_basics"
+    assert dr_doc["preset"] == "math_basics"
+    assert dr_doc["record_count"] == 274
+    assert dr_doc["summary"]["admitted_eligible_count"] == 183
+    assert dr_doc["summary"]["blocked_ineligible_count"] == 91
+    assert dr_doc["summary"]["error_count"] == 0
+
+    assert val_doc["source_id"] == "math_basics"
+    assert val_doc["record_count"] == 274
+    assert val_doc["summary"]["admitted_eligible_count"] == 183
+    assert val_doc["summary"]["blocked_ineligible_count"] == 91
+    assert val_doc["summary"]["review_pending_count"] == 0
+    assert val_doc["summary"]["error_count"] == 0
+
+    records = dr_doc["records"]
+    admitted = [r for r in records if r["rendering_status"] == "admitted"]
+    blocked = [r for r in records if r["rendering_status"] == "blocked"]
+
+    assert len(admitted) == 183
+    assert len(blocked) == 91
+
+    for r in admitted:
+        assert r["final_output_eligible"] is True
+        assert r["rejection_reason"] is None
+        assert '<div class="website-card">' in r["html_card_preview"]
+        assert '<div class="ineligible-card">' not in r["html_card_preview"]
+        assert "Area A &mdash; Website Display Preview (Flashcard)" in r["html_card_preview"]
+        assert "Area B &mdash; Technical Quality Assurance &amp; Upstream Audit" in r["html_card_preview"]
+        assert r["preset"] == "math_basics"
+
+    for r in blocked:
+        assert r["final_output_eligible"] is False
+        assert r["rejection_reason"] == "Record is policy-excluded (duplicate_term)."
+        assert '<div class="ineligible-card">' in r["html_card_preview"]
+        assert '<div class="website-card">' not in r["html_card_preview"]
+        assert "NOT ELIGIBLE FOR WEBSITE DISPLAY" in r["html_card_preview"]
+        assert "Area B &mdash; Technical Quality Assurance &amp; Upstream Audit" in r["html_card_preview"]
+        assert r["preset"] == "math_basics"
+
+
 
 
 

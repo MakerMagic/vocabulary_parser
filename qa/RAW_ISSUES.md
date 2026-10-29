@@ -1,12 +1,12 @@
 # RAW Stage Issues Report (`RAW_ISSUES.md`)
 
-> **Source:** `nature`  
-> **Generated deterministically from:** `data/raw/sources/nature/validation.json`  
+> **Source:** `math_basics`  
+> **Generated deterministically from:** `data/raw/sources/math_basics/validation.json`  
 > **Total Issue Occurrences:** `0`  
 > **Unique Affected Records:** `0`
 
 ```text
-ISSUE SUMMARY — NATURE / RAW
+ISSUE SUMMARY — MATH_BASICS / RAW
 TOTAL DISTINCT ISSUES: 0
 UNIQUE AFFECTED RECORDS: 0
 ```

@@ -1,7 +1,7 @@
 # Current Operational State (`CURRENT_WORK.md`)
 
 > **Last Updated:** 2026-10-29  
-> **Active Milestone:** Vocabulary Rendering Stage Implementation & Multi-Source Audit
+> **Active Milestone:** Vocabulary Rendering for `math_basics` Executed & Validated
 
 ---
 
@@ -13,31 +13,28 @@
 > - A request for Stage $X$ authorizes Stage $X$ **ONLY**.
 > - Do not automatically proceed to Stage $X+1$.
 > - After completing the authorized stage: 1) Save outputs, 2) Validate stage results, 3) Document issues, 4) Document backtesting, 5) Update `CURRENT_WORK.md`, 6) **STOP**.
+> - **DO NOT INTEGRATE INTO LIVE WEBSITE CODEBASE WITHOUT AUTHORIZATION.**
 
 ---
 
-## 2. Completed in Current Session (Vocabulary Rendering Stage Implementation)
+## 2. Completed in Current Session (Vocabulary Rendering for `math_basics`)
 
-1. **Read-Only Multi-Source Audit:**
-   - Performed systematic read-only audit across all 741 records in the repository (`uclouvain`: 413, `new_words`: 159, `nature`: 169) without re-running earlier stages.
-   - Verified that all earlier stages (Acquisition, Inspection, RAW, Cleaning, Enrichment, Difficulty, Validation) were verifiably complete with `error_count: 0`.
-2. **Dedicated Rendering Package (`processors/rendering/`):**
-   - Implemented [`processors/rendering/contract.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering/contract.py) defining strict ZERO UNRESOLVED ISSUES admission gate.
-   - Implemented [`processors/rendering/template.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering/template.py) providing ONE reusable HTML template with Area A (website card reproduction: 640px card, 24px border radius, bold headword, italic POS, bookmark SVG, large bold Cyrillic headline, English explanation) and Area B (technical QA metadata and upstream audit panes).
-   - Implemented [`processors/rendering/renderer.py`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering/renderer.py) providing single-record and batch audit functions.
-3. **Strict Zero-Unresolved-Issues Gate Results:**
-   - Total repo records: **741**
-   - Admitted (eligible for website rendering): **675 records**
-   - Blocked (ineligible): **66 records total**
-     - 59 policy exclusions (elementary A1/A2: UCL 29, NW 3, Nature 27).
-     - 7 pending review (UCL 5: `#2 account (for)`, `#206 should`, `#252 certain`, `#347 present`, `#402 unlike`; NW 2: `#27 Necessitates`, `#126 Opulent`).
-     - 0 active errors.
-4. **PowerShell Backtesting CLI Integration:**
-   - Updated [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tools/vocabulary_review.py) to render Area A website preview (or diagnostic blocked card) and Area B metadata for any inspected word.
-5. **Documentation & Test Verification:**
-   - Created [`docs/general/VOCABULARY_RENDERING.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/VOCABULARY_RENDERING.md).
-   - Added automated tests in [`tests/test_vocabulary_pipeline.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tests/test_vocabulary_pipeline.py); all 17 tests passing.
-   - Clean lint status (`ruff check .` 0 errors).
+1. **Upstream Audit & Verification:**
+   - Audited all 274 records of `math_basics` in [`data/pre_final/sources/math_basics/vocabulary.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/pre_final/sources/math_basics/vocabulary.json).
+   - Zero validation errors, zero unassigned fields, 100% mathematical context preserved.
+2. **Admission & Exclusion Evaluation:**
+   - Admitted to website card presentation: **183 unique mathematical terms** (`status: "validated"`, `final_output_eligible: true`, 0 errors, 0 review notes).
+   - Blocked from website card presentation: **91 duplicate records** (`status: "excluded"`, `exclusion_reason: "duplicate_term"`). These receive the diagnostic notification banner identifying them as policy-excluded duplicate occurrences.
+3. **Rendering Artifact Generation:**
+   - Emitted display-ready dataset: [`data/rendered/sources/math_basics/display_ready.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/rendered/sources/math_basics/display_ready.json) (274 records: 183 admitted, 91 blocked).
+   - Emitted rendering validation report: [`data/rendered/sources/math_basics/validation.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/rendered/sources/math_basics/validation.json) (100% verified, 0 errors).
+   - Emitted stage QA documentation: [`qa/sources/math_basics/RENDERING_ISSUES.md`](file:///c:/Users/user/Desktop/vocabulary_parser/qa/sources/math_basics/RENDERING_ISSUES.md) and [`qa/sources/math_basics/RENDERING_BACKTESTING.md`](file:///c:/Users/user/Desktop/vocabulary_parser/qa/sources/math_basics/RENDERING_BACKTESTING.md).
+4. **Automated Verification:**
+   - 20 unit and regression tests passing in [`tests/test_vocabulary_pipeline.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tests/test_vocabulary_pipeline.py).
+   - Linter clean (`ruff check .` 0 errors).
+5. **CLI Backtesting Tested:**
+   - Verified with PowerShell CLI: `.\.venv\Scripts\python.exe tools/vocabulary_review.py --source math_basics --word "altitude"`.
+   - Verified duplicate term presentation: `.\.venv\Scripts\python.exe tools/vocabulary_review.py --source math_basics --word "decimal"`.
 
 ---
 
@@ -66,8 +63,15 @@
 | **Enrichment (`nature`)** | **Executed & Validated** | [`data/enriched/sources/nature/entries.enriched.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/enriched/sources/nature/entries.enriched.json) | <=2 translation alternatives rule enforced; 131 redundant second translations pruned (e.g. `whales → киты`). |
 | **Difficulty (`nature`)** | **Executed & Validated** | [`data/difficulty/sources/nature/entries.difficulty.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/difficulty/sources/nature/entries.difficulty.json) | Easy: 82, Medium: 75, Hard: 12, Unset: 0; preset: nature (169/169); eligible: 142, excluded: 27. |
 | **Validation & PRE-FINAL (`nature`)** | **Executed & Validated** | [`data/pre_final/sources/nature/vocabulary.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/pre_final/sources/nature/vocabulary.json) | 142 validated & website-eligible, 27 excluded, 0 errors; preset: nature locked. |
-| **Vocabulary Rendering (All Sources)** | **Executed & Validated** | [`processors/rendering/`](file:///c:/Users/user/Desktop/vocabulary_parser/processors/rendering), [`docs/general/VOCABULARY_RENDERING.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/VOCABULARY_RENDERING.md) | Zero unresolved issues gate: 675 admitted, 66 blocked (59 excluded, 7 review pending, 0 errors). One reusable template with Area A (card) and Area B (QA metadata). |
-| **Backtesting & Review UI** | **Implemented & Verified** | [`tools/vocabulary_review.py`](file:///c:/Users/user/Desktop/vocabulary_parser/tools/vocabulary_review.py) | CLI review rendering website flashcard (Area A) for eligible records and diagnostic blocked notices for ineligible records. |
+| **Acquisition (`math_basics`)** | **Executed & Validated** | [`acquisition/sources/math_basics/`](file:///c:/Users/user/Desktop/vocabulary_parser/acquisition/sources/math_basics) | SHA-256 locked (`eb6ea47d...`, 274 lines, 183 unique terms). |
+| **Inspection (`math_basics`)** | **Executed & Validated** | [`inspections/sources/math_basics/profile.json`](file:///c:/Users/user/Desktop/vocabulary_parser/inspections/sources/math_basics/profile.json) | Profiled 274 lines, 183 unique terms, 52 duplicated terms (91 redundant occurrences). |
+| **RAW Extraction (`math_basics`)** | **Executed & Validated** | [`data/raw/sources/math_basics/entries.raw.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/raw/sources/math_basics/entries.raw.json) | 274 records with exact character and line spans; preset: math_basics assigned. |
+| **Cleaning (`math_basics`)** | **Executed & Validated** | [`data/clean/sources/math_basics/entries.clean.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/clean/sources/math_basics/entries.clean.json) | 183 eligible unique, 91 duplicates excluded; 100% token ledger match. |
+| **Enrichment (`math_basics`)** | **Executed & Validated** | [`data/enriched/sources/math_basics/entries.enriched.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/enriched/sources/math_basics/entries.enriched.json) | 100% mathematical context translations (<=2 alts), non-circular explanations, mathematical POS. |
+| **Difficulty (`math_basics`)** | **Executed & Validated** | [`data/difficulty/sources/math_basics/entries.difficulty.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/difficulty/sources/math_basics/entries.difficulty.json) | Eligible: Easy: 110, Medium: 63, Hard: 10; Total: Easy: 184, Medium: 80, Hard: 10. |
+| **Validation & PRE-FINAL (`math_basics`)** | **Executed & Validated** | [`data/pre_final/sources/math_basics/vocabulary.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/pre_final/sources/math_basics/vocabulary.json) | 183 validated & eligible, 91 duplicate excluded, 0 errors; preset: math_basics locked. |
+| **Vocabulary Rendering (`math_basics`)** | **Executed & Validated** | [`data/rendered/sources/math_basics/display_ready.json`](file:///c:/Users/user/Desktop/vocabulary_parser/data/rendered/sources/math_basics/display_ready.json) | 183 admitted (website card preview), 91 blocked duplicates (diagnostic notice), 0 errors. |
+| **Repository Rendering Audit** | **Executed & Validated** | [`docs/general/VOCABULARY_RENDERING.md`](file:///c:/Users/user/Desktop/vocabulary_parser/docs/general/VOCABULARY_RENDERING.md) | 1,015 total records audited: 858 admitted, 157 blocked (150 policy exclusions, 7 review pending, 0 errors). |
 
 ---
 

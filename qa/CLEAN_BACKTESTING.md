@@ -1,51 +1,38 @@
 # CLEAN Stage Backtesting Report (`CLEAN_BACKTESTING.md`)
 
-> **Source:** `nature`  
-> **Generated deterministically from:** `data/clean/sources/nature/validation.json`  
+> **Source:** `math_basics`  
+> **Generated deterministically from:** `data/clean/sources/math_basics/validation.json`  
 > **Stage Status:** `completed`
 
 ## 1. Stage Execution Summary
 
-- **What was processed:** Cleaning, token-ledger conservation, and elementary A1/A2 exclusion audit for nature.
-- **Input artifact:** `data/raw/sources/nature/entries.raw.json` (SHA-256: `d4604e0804e3987e8e008b186aa5d0318e166a5391c64f7aefec4a10205fb0dd`)
-- **Output artifact:** `data/clean/sources/nature/entries.clean.json` (SHA-256: `e1a5498d9d8221cb2a7c224b22236d4405e77d2186c3fd8e9e5fdadf1ea6efb3`)
+- **What was processed:** Cleaned and deduplicated mathematical vocabulary records from math_basics
+- **Input artifact:** `data/raw/sources/math_basics/entries.raw.json` (SHA-256: `23ac7ec94f8b8cba90d22b489799442f21d197a3baa6e7ddeb1b68ab7dc6b7c4`)
+- **Output artifact:** `data/clean/sources/math_basics/entries.clean.json` (SHA-256: `N/A`)
 
 | Metric | Count |
 |---|---|
-| **Records Entered Stage** | `169` |
-| **Successfully Processed (Clean/Validated)** | `169` |
+| **Records Entered Stage** | `274` |
+| **Successfully Processed (Clean/Validated)** | `274` |
 | **Excluded from Eligible Dataset (e.g. A1/A2)** | `0` |
 | **Flagged for Review (`review_pending`)** | `0` |
 | **Unresolved Blocking Errors (`error`)** | `0` |
-| **Total Distinct Issue Occurrences** | `0` |
-| **Unique Affected Records** | `0` |
-
-## 2. Primary-Reason Partition (Disjoint Record Counts)
-
-| Primary State / Reason | Unique Record Count |
-|---|---|
-| `eligible_curriculum_records` | `142` |
-| `excluded_elementary_a1_a2` | `27` |
-
-## 3. Automated Invariant Checks
-
-| Check Name | Status | Details |
-|---|---|---|
-| `token_ledger_conservation` | **PASS** | 100% token-ledger conservation verified for all 169 records. |
-| `a1_a2_elementary_exclusion` | **PASS** | Systematic CEFR benchmark excluded 27 elementary A1/A2 records, preserving 142 curriculum records. |
-| `preset_and_difficulty_contract` | **PASS** | Contract invariant: preset == 'nature' and difficulty == null across all clean records. |
+| **Total Distinct Issue Occurrences** | `91` |
+| **Unique Affected Records** | `91` |
 
 ## 4. Reproducible Backtesting Commands
 
 Run the following commands from the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe -c "from processors.normalization.cleaner_nature import run_cleaning; run_cleaning()"
-Get-Content data/clean/sources/nature/validation.json | ConvertFrom-Json
+.\.venv\Scripts\python.exe -c "from processors.normalization.cleaner_math import run_cleaning_and_deduplication; run_cleaning_and_deduplication()"
+Get-Content data/clean/sources/math_basics/validation.json | ConvertFrom-Json
 ```
 
 ## 5. Verification Procedure
 
-1. Confirm 100% token-ledger match for all records.
-2. Verify 39 elementary A1/A2 exclusions are recorded with defensible CEFR rationale.
-3. Confirm difficulty remains null and preset is 'nature' across all records.
+1. Verify all 274 records are present in data/clean/sources/math_basics/entries.clean.json.
+2. Verify exactly 183 records have status='clean' and final_output_eligible=True.
+3. Verify exactly 91 records have status='excluded', exclusion_reason='duplicate_term', and final_output_eligible=False.
+4. Check 100% token ledger conservation across all records.
+5. Check preset='math_basics' on 100% of records.

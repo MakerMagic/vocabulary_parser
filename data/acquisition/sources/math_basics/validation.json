@@ -1,0 +1,14 @@
+{
+  "acquisition_status": "verified",
+  "document_id": "math_basics_v1",
+  "error_count": 0,
+  "file_path": "acquisition/sources/math_basics/math_basics.txt",
+  "line_count": 274,
+  "provenance_lock": {
+    "sha256": "eb6ea47dabd2e54b17a514781edb9b577145d865d9928495cc40ab8cbf09e698",
+    "size_bytes": 2588
+  },
+  "source_id": "math_basics",
+  "validation_timestamp": "2026-10-29T17:50:00Z",
+  "warning_count": 0
+}

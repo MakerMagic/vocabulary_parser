@@ -12,6 +12,7 @@ from processors.rendering.renderer import (
     audit_and_render_all,
     audit_dataset_records,
     render_record,
+    render_source_dataset,
 )
 from processors.rendering.template import (
     BOOKMARK_SVG,
@@ -35,5 +36,6 @@ __all__ = [
     "render_backtest_page_html",
     "render_record",
     "render_record_block",
+    "render_source_dataset",
     "render_vocabulary_page",
 ]
